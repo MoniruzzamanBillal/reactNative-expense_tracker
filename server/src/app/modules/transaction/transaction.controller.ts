@@ -15,7 +15,42 @@ const addNewTransaction = catchAsync(async (req, res) => {
   });
 });
 
+// ! Update transaction
+const updateTransaction = catchAsync(async (req, res) => {
+  const result = await transactionServices.updateTransaction(
+    req.params?.transactionId,
+    req?.body
+  );
+
+  sendResponse(res, {
+    status: httpStatus.OK,
+    success: true,
+    message: "Transaction updated successfully",
+    data: result,
+  });
+});
+
+// ! Get monthly transactions (default: current month)
+const getMonthlyTransactions = catchAsync(async (req, res) => {
+  const month = req.query?.month
+    ? parseInt(req.query?.month as string)
+    : undefined;
+  const year = req.query?.year
+    ? parseInt(req.query?.year as string)
+    : undefined;
+
+  const result = await transactionServices.getMonthlyTransactions(month, year);
+  sendResponse(res, {
+    status: httpStatus.OK,
+    success: true,
+    message: `Transactions for ${result.month}/${result.year}`,
+    data: result,
+  });
+});
+
 //
 export const transactionControllers = {
   addNewTransaction,
+  updateTransaction,
+  getMonthlyTransactions,
 };
