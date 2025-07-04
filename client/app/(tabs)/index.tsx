@@ -4,29 +4,41 @@ import { Text } from "react-native-paper";
 
 export default function HomeScreen() {
   return (
-    <ScrollView showsVerticalScrollIndicator={false}>
-      <View style={homePageStyles.mainContainer}>
-        {/* total balance card  */}
-        <TotalBalanceCard />
+    <View style={homePageStyles.mainContainer}>
+      {/* Total balance card */}
+      <TotalBalanceCard />
 
-        {/*  */}
-        <Text style={{ marginTop: 38, fontSize: 22, fontWeight: "600" }}>
-          Recent Transactions{" "}
-        </Text>
+      {/* Title for transactions */}
+      <Text style={{ marginTop: 40, fontSize: 22, fontWeight: "600" }}>
+        Recent Transactions
+      </Text>
 
-        {/* transactions card  */}
-        <View style={{ marginTop: 20 }}>
+      {/* Scrollable Transactions */}
+      <View style={{ marginTop: 20, flex: 1 }}>
+        <ScrollView
+          showsVerticalScrollIndicator={false}
+          contentContainerStyle={{ paddingBottom: 20 }}
+        >
           <TransactionCard />
-        </View>
+          <TransactionCard />
+          <TransactionCard />
+          <TransactionCard />
+          <TransactionCard />
+          <TransactionCard />
+          <TransactionCard />
+          <TransactionCard />
+          <TransactionCard />
+        </ScrollView>
       </View>
-    </ScrollView>
+    </View>
   );
 }
 
 const homePageStyles = StyleSheet.create({
   mainContainer: {
-    width: "92%",
+    width: "90%",
     margin: "auto",
     paddingVertical: 20,
+    flex: 1,
   },
 });

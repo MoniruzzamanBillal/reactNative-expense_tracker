@@ -125,7 +125,6 @@ export default function TotalBalanceCard() {
 const cardStyles = StyleSheet.create({
   container: {
     margin: "auto",
-    flex: 1,
     flexDirection: "column",
     backgroundColor: COLORS.background,
     padding: 14,

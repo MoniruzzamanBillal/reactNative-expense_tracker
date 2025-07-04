@@ -82,6 +82,7 @@ export default function TransactionCard() {
 
 const cardStyles = StyleSheet.create({
   container: {
+    marginVertical: 10,
     // margin: "auto",
     // flex: 1,
     flexDirection: "column",
