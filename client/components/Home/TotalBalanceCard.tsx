@@ -30,14 +30,14 @@ export default function TotalBalanceCard() {
           flex: 1,
           flexDirection: "row",
           justifyContent: "space-between",
-          columnGap: 30,
+          columnGap: 35,
         }}
       >
         {/* income view  */}
         <View>
           <Text
             style={{
-              fontSize: 14,
+              fontSize: 16,
               color: COLORS.income,
               fontWeight: "500",
               textAlign: "center",
@@ -55,12 +55,12 @@ export default function TotalBalanceCard() {
             }}
           >
             <Text
-              style={{ fontSize: 14, fontWeight: "bold", color: COLORS.income }}
+              style={{ fontSize: 16, fontWeight: "bold", color: COLORS.income }}
             >
               +৳
             </Text>
             <Text
-              style={{ fontSize: 18, fontWeight: "500", color: COLORS.income }}
+              style={{ fontSize: 20, fontWeight: "500", color: COLORS.income }}
             >
               5555
             </Text>
@@ -80,7 +80,7 @@ export default function TotalBalanceCard() {
         <View>
           <Text
             style={{
-              fontSize: 14,
+              fontSize: 16,
               color: COLORS.expense,
               fontWeight: "500",
               textAlign: "center",
@@ -99,7 +99,7 @@ export default function TotalBalanceCard() {
           >
             <Text
               style={{
-                fontSize: 14,
+                fontSize: 16,
                 fontWeight: "bold",
                 color: COLORS.expense,
               }}
@@ -107,7 +107,7 @@ export default function TotalBalanceCard() {
               +৳
             </Text>
             <Text
-              style={{ fontSize: 18, fontWeight: "500", color: COLORS.expense }}
+              style={{ fontSize: 20, fontWeight: "500", color: COLORS.expense }}
             >
               5555
             </Text>
