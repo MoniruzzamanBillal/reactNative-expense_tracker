@@ -5,6 +5,12 @@ import { transactionValidationSchemas } from "./transaction.validation";
 
 const router = Router();
 
+// ! Get monthly transactions
+router.get(
+  "/monthly-transaction",
+  transactionControllers.getMonthlyTransactions
+);
+
 // ! for adding new transaction
 router.post(
   "/new-transaction",
@@ -19,10 +25,10 @@ router.patch(
   transactionControllers.updateTransaction
 );
 
-// ! Get monthly transactions
-router.get(
-  "/monthly-transaction",
-  transactionControllers.getMonthlyTransactions
+// ! for deletig transaction data
+router.patch(
+  "/delete/:transactionId",
+  transactionControllers.deleteTransactionData
 );
 
 //

@@ -48,9 +48,24 @@ const getMonthlyTransactions = catchAsync(async (req, res) => {
   });
 });
 
+// ! for deletig transaction data
+const deleteTransactionData = catchAsync(async (req, res) => {
+  const result = await transactionServices.deleteTransactionData(
+    req.params?.transactionId
+  );
+
+  sendResponse(res, {
+    status: httpStatus.OK,
+    success: true,
+    message: "Transaction Deleted successfully",
+    data: result,
+  });
+});
+
 //
 export const transactionControllers = {
   addNewTransaction,
   updateTransaction,
   getMonthlyTransactions,
+  deleteTransactionData,
 };
