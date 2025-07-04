@@ -6,7 +6,7 @@ export default function TotalBalanceCard() {
   return (
     <View style={cardStyles.container}>
       {/* header , total balance section  */}
-      <View style={{ marginBottom: 20 }}>
+      <View style={{ marginBottom: 25 }}>
         <Text style={{ fontSize: 20, color: COLORS.text, fontWeight: "700" }}>
           Total Banalce
         </Text>
@@ -15,6 +15,7 @@ export default function TotalBalanceCard() {
             flex: 1,
             flexDirection: "row",
             alignContent: "center",
+            columnGap: 3,
           }}
         >
           <Text style={[cardStyles.title, { fontSize: 23 }]}>৳</Text>
@@ -29,7 +30,7 @@ export default function TotalBalanceCard() {
           flex: 1,
           flexDirection: "row",
           justifyContent: "space-between",
-          columnGap: 40,
+          columnGap: 30,
         }}
       >
         {/* income view  */}
@@ -65,6 +66,15 @@ export default function TotalBalanceCard() {
             </Text>
           </View>
         </View>
+
+        {/* horizontal line  */}
+        <View
+          style={{
+            height: "100%",
+            width: 1,
+            backgroundColor: COLORS.border,
+          }}
+        />
 
         {/* expense view  */}
         <View>
