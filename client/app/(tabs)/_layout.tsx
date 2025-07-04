@@ -1,4 +1,4 @@
-import COLORS from "@/utils/colors";
+import { COLORS } from "@/utils/colors";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { Tabs } from "expo-router";
 
@@ -6,11 +6,11 @@ export default function TabsLayout() {
   return (
     <Tabs
       screenOptions={{
-        tabBarActiveTintColor: COLORS.textPrimary,
-        tabBarInactiveTintColor: COLORS.textSecondary,
+        tabBarActiveTintColor: COLORS.primary,
+        tabBarInactiveTintColor: COLORS.textLight,
         headerTitleAlign: "center",
         headerTitleStyle: {
-          color: COLORS.textPrimary,
+          color: COLORS.primary,
         },
       }}
     >
