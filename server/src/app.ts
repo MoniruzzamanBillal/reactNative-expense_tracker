@@ -15,7 +15,7 @@ app.use(morgan("dev"));
 app.use(cookieParser());
 
 // ! rouutes
-app.use("/api/v1", MainRouter);
+app.use("/api", MainRouter);
 
 app.get("/", async (req: Request, res: Response, next: NextFunction) => {
   try {

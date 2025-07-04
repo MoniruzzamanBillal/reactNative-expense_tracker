@@ -19,9 +19,11 @@ const getMonthlyTransactions = async (month?: number, year?: number) => {
   const start = new Date(year, month - 1, 1);
   const end = new Date(year, month, 0, 23, 59, 59, 999);
 
-  const transactions = await transactionModel.find({
-    createdAt: { $gte: start, $lte: end },
-  });
+  const transactions = await transactionModel
+    .find({
+      createdAt: { $gte: start, $lte: end },
+    })
+    .sort({ createdAt: -1 });
 
   const income = transactions
     .filter((t) => t.type === "income")
@@ -31,7 +33,7 @@ const getMonthlyTransactions = async (month?: number, year?: number) => {
     .filter((t) => t.type === "expense")
     .reduce((acc, curr) => acc + curr.amount, 0);
 
-  return { income, expense, transactions, month, year };
+  return { income, expense, transactions };
 };
 
 // ! for updating transaction

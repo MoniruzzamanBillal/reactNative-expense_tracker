@@ -20,14 +20,14 @@ router.post(
 
 // ! for updating transaction
 router.patch(
-  "/update/:transactionId",
+  "/update-transaction/:transactionId",
   validateRequest(transactionValidationSchemas.updateTransactionSchema),
   transactionControllers.updateTransaction
 );
 
 // ! for deletig transaction data
 router.patch(
-  "/delete/:transactionId",
+  "/delete-transaction/:transactionId",
   transactionControllers.deleteTransactionData
 );
 

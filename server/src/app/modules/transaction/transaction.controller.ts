@@ -43,7 +43,7 @@ const getMonthlyTransactions = catchAsync(async (req, res) => {
   sendResponse(res, {
     status: httpStatus.OK,
     success: true,
-    message: `Transactions for ${result.month}/${result.year}`,
+    message: `Transactions retrived !!!`,
     data: result,
   });
 });
