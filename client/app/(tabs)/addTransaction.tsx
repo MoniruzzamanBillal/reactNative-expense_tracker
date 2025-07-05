@@ -2,7 +2,7 @@ import { COLORS } from "@/utils/colors";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { useState } from "react";
 import { StyleSheet, TouchableOpacity, View } from "react-native";
-import { Text, TextInput } from "react-native-paper";
+import { Button, Text, TextInput } from "react-native-paper";
 
 const transactionConstants = {
   income: "income",
@@ -11,6 +11,21 @@ const transactionConstants = {
 
 export default function AddTransactionScreen() {
   const [type, setType] = useState<string>(transactionConstants?.income);
+  const [amount, setAmount] = useState<string | null>(null);
+
+  // * for handling the number input
+  const handleTextChange = (text: string) => {
+    const regex = /^[0-9]*\.?[0-9]*$/;
+
+    if (regex.test(text)) {
+      setAmount(text);
+    }
+  };
+
+  // ! for adding new transaction
+  const handleAddTransaction = async () => {
+    console.log("transaction added !!!");
+  };
 
   return (
     <View style={addTransactionStyles.mainContainer}>
@@ -87,21 +102,14 @@ export default function AddTransactionScreen() {
         {/* money input field  */}
         <View
           style={{
-            paddingHorizontal: 10,
-            flexDirection: "row",
-            justifyContent: "center",
-            alignItems: "center",
-
             borderBottomWidth: 1,
             borderBottomColor: COLORS.border,
           }}
         >
-          <Text style={{ fontSize: 20, fontWeight: "600", color: COLORS.text }}>
-            +৳
-          </Text>
           <TextInput
-            placeholder="00.0"
+            placeholder="+৳ 00.0"
             keyboardType="numeric"
+            onChangeText={handleTextChange}
             style={{
               borderWidth: 0,
               backgroundColor: "transparent",
@@ -117,9 +125,63 @@ export default function AddTransactionScreen() {
           />
         </View>
 
-        <Text>Main page content !!!</Text>
-        <Text>Main page content !!!</Text>
-        <Text>Main page content !!!</Text>
+        {/* title input field  */}
+        <View
+          style={{
+            width: "100%",
+            borderBottomWidth: 1,
+            borderBottomColor: COLORS.border,
+          }}
+        >
+          <TextInput
+            placeholder="Transaction Title "
+            style={{
+              borderWidth: 0,
+              backgroundColor: "transparent",
+              padding: 0,
+              fontSize: 20,
+            }}
+            theme={{
+              colors: {
+                primary: "transparent",
+                background: "transparent",
+              },
+            }}
+          />
+        </View>
+
+        {/* transaction details input field  */}
+        <View
+          style={{
+            width: "100%",
+            borderBottomWidth: 1,
+            borderBottomColor: COLORS.border,
+          }}
+        >
+          <TextInput
+            placeholder="Transaction Description "
+            style={{
+              borderWidth: 0,
+              backgroundColor: "transparent",
+              padding: 0,
+              fontSize: 20,
+            }}
+            theme={{
+              colors: {
+                primary: "transparent",
+                background: "transparent",
+              },
+            }}
+          />
+        </View>
+
+        <Button
+          mode="contained"
+          onPress={handleAddTransaction}
+          style={{ marginTop: 20, backgroundColor: COLORS.primary }}
+        >
+          Save Transaction
+        </Button>
       </View>
     </View>
   );
