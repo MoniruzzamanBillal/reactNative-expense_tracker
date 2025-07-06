@@ -1,68 +1,106 @@
+import { TTransaction } from "@/types/Transaction.tyes";
 import { COLORS } from "@/utils/colors";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { format } from "date-fns";
 import { StyleSheet, View } from "react-native";
 import { Text } from "react-native-paper";
 
-export default function TransactionCard() {
+const typeOptions = {
+  income: "income",
+  expense: "expense",
+};
+
+export default function TransactionCard({
+  transactionData,
+}: {
+  transactionData: TTransaction;
+}) {
+  // console.log(transactionData);
+
   return (
     <View style={cardStyles.container}>
       {/* body section  */}
       <View
         style={{
           flexDirection: "row",
-          columnGap: 30,
           justifyContent: "space-between",
+          alignItems: "center",
         }}
       >
         {/* left title section  */}
         <View
           style={{
+            flex: 1,
             flexDirection: "row",
-            justifyContent: "space-between",
+
             alignItems: "center",
-            columnGap: 12,
+            width: "80%",
+            columnGap: 14,
           }}
         >
           {/* icon section  */}
           <View>
-            <MaterialCommunityIcons
-              name="cash-multiple"
-              size={35}
-              color="green"
-            />
-            {/* <MaterialCommunityIcons name="cash-minus" size={38} color="red" /> */}
+            {transactionData?.type === typeOptions?.income ? (
+              <MaterialCommunityIcons
+                name="cash-multiple"
+                size={35}
+                color="green"
+              />
+            ) : (
+              <MaterialCommunityIcons name="cash-minus" size={38} color="red" />
+            )}
           </View>
 
           {/* title , description  */}
           <View>
             <Text style={{ fontSize: 18, fontWeight: "600", marginBottom: 3 }}>
-              description{" "}
+              {transactionData?.description}
             </Text>
-            <Text style={{ fontSize: 15, fontWeight: "500" }}>title </Text>
+            <Text style={{ fontSize: 15, fontWeight: "500" }}>
+              {" "}
+              {transactionData?.title}{" "}
+            </Text>
           </View>
         </View>
 
         {/*  */}
         {/* right money section  */}
-        <View>
+        <View
+          style={{
+            alignItems: "flex-end",
+            width: "20%",
+          }}
+        >
           {/* money section  */}
           <View
             style={{
-              flex: 1,
               flexDirection: "row",
               alignContent: "center",
-              columnGap: 2,
             }}
           >
             <Text
-              style={{ fontSize: 14, fontWeight: "bold", color: COLORS.income }}
+              style={{
+                fontSize: 14,
+                fontWeight: "bold",
+                color:
+                  transactionData.type === typeOptions.income
+                    ? COLORS.income
+                    : COLORS.expense,
+              }}
             >
               +৳
             </Text>
             <Text
-              style={{ fontSize: 18, fontWeight: "600", color: COLORS.income }}
+              style={{
+                fontSize: 18,
+                fontWeight: "600",
+                color:
+                  transactionData.type === typeOptions.income
+                    ? COLORS.income
+                    : COLORS.expense,
+              }}
             >
-              5555
+              {transactionData?.amount}
             </Text>
           </View>
 
@@ -70,7 +108,7 @@ export default function TransactionCard() {
           <Text
             style={{ fontSize: 13, fontWeight: "600", color: COLORS.textLight }}
           >
-            4 july , 2025
+            {format(new Date(transactionData?.createdAt), "d MMMM, yyyy")}
           </Text>
         </View>
 
@@ -83,14 +121,10 @@ export default function TransactionCard() {
 const cardStyles = StyleSheet.create({
   container: {
     marginVertical: 10,
-    // margin: "auto",
-    // flex: 1,
     flexDirection: "column",
     backgroundColor: COLORS.background,
+    width: "45%",
     padding: 14,
-    // justifyContent: "flex-start",
-    // alignItems: "flex-start",
-    alignSelf: "flex-start",
     borderRadius: 8,
     shadowColor: "#000",
     shadowOffset: { width: 0, height: 4 },

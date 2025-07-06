@@ -2,7 +2,13 @@ import { COLORS } from "@/utils/colors";
 import { StyleSheet, View } from "react-native";
 import { Text } from "react-native-paper";
 
-export default function TotalBalanceCard() {
+export default function TotalBalanceCard({
+  income,
+  expense,
+}: {
+  income: number;
+  expense: number;
+}) {
   return (
     <View style={cardStyles.container}>
       {/* header , total balance section  */}
@@ -22,11 +28,14 @@ export default function TotalBalanceCard() {
             flex: 1,
             flexDirection: "row",
             alignContent: "center",
-            columnGap: 3,
+            columnGap: 2,
           }}
         >
           <Text style={[cardStyles.title, { fontSize: 23 }]}>৳</Text>
-          <Text style={[cardStyles.title, { fontSize: 30 }]}>5555</Text>
+          <Text style={[cardStyles.title, { fontSize: 30 }]}>
+            {" "}
+            {income - expense}
+          </Text>
         </View>
       </View>
       {/*  */}
@@ -69,7 +78,7 @@ export default function TotalBalanceCard() {
             <Text
               style={{ fontSize: 20, fontWeight: "500", color: COLORS.income }}
             >
-              5555
+              {income}
             </Text>
           </View>
         </View>
@@ -116,7 +125,7 @@ export default function TotalBalanceCard() {
             <Text
               style={{ fontSize: 20, fontWeight: "500", color: COLORS.expense }}
             >
-              5555
+              {expense}
             </Text>
           </View>
         </View>
