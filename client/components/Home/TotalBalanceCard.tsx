@@ -7,7 +7,14 @@ export default function TotalBalanceCard() {
     <View style={cardStyles.container}>
       {/* header , total balance section  */}
       <View style={{ marginBottom: 25 }}>
-        <Text style={{ fontSize: 20, color: COLORS.text, fontWeight: "700" }}>
+        <Text
+          style={{
+            fontSize: 20,
+            color: COLORS.text,
+            fontWeight: "700",
+            marginBottom: 5,
+          }}
+        >
           Total Banalce
         </Text>
         <View

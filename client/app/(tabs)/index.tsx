@@ -1,8 +1,13 @@
 import { TotalBalanceCard, TransactionCard } from "@/components/Home";
+import { useGetMonthlyTransaction } from "@/hooks/transaction.hooks";
 import { ScrollView, StyleSheet, View } from "react-native";
 import { Text } from "react-native-paper";
 
 export default function HomeScreen() {
+  const { data: monthlyTransaction, isLoading } = useGetMonthlyTransaction();
+
+  console.log(monthlyTransaction);
+
   return (
     <View style={homePageStyles.mainContainer}>
       {/* Total balance card */}
