@@ -1,43 +1,97 @@
+import { useAddTransaction } from "@/hooks/transaction.hooks";
 import { COLORS } from "@/utils/colors";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { useRouter } from "expo-router";
 import { useState } from "react";
 import { StyleSheet, TouchableOpacity, View } from "react-native";
 import { Button, Text, TextInput } from "react-native-paper";
+import Toast from "react-native-toast-message";
 
 const transactionConstants = {
   income: "income",
   expense: "expense",
-};
+} as const;
 
+type TransactionType = "income" | "expense";
 export default function AddTransactionScreen() {
-  const [type, setType] = useState<string>(transactionConstants?.income);
+  const router = useRouter();
+
+  const [type, setType] = useState<TransactionType>(
+    transactionConstants?.income
+  );
   const [amount, setAmount] = useState<string | null>(null);
   const [title, setTitle] = useState<string | null>(null);
   const [description, setDescription] = useState<string | null>(null);
 
+  const { mutateAsync: addNewTransaction, isPending } = useAddTransaction();
+
   // * for handling the number input
   const handleTextChange = (text: string) => {
-    const regex = /^[0-9]*\.?[0-9]*$/;
+    const regex = /^\d+(\.\d{0,2})?$/; // Accepts integer or up to 2 decimal places
 
-    if (regex.test(text)) {
+    if (text === "" || regex.test(text)) {
       setAmount(text);
+    } else {
+      Toast.show({
+        type: "error",
+        text1: "Invalid Amount",
+        text2: "Only numeric values are allowed (e.g. 100 or 50.25)",
+        position: "bottom",
+      });
+      setAmount("");
+      return;
     }
   };
-
   // ! for adding new transaction
   const handleAddTransaction = async () => {
-    console.log("transaction added !!!");
-    console.log(type);
-    console.log(amount);
+    if (!title?.trim() || !description?.trim()) {
+      Toast.show({
+        type: "error",
+        text1: "Missing Fields",
+        text2: "Please enter both title and description",
+        position: "bottom",
+      });
 
+      return;
+    }
+    if (!amount?.trim()) {
+      Toast.show({
+        type: "error",
+        text1: "Missing Field",
+        text2: "Please enter valid amount",
+        position: "bottom",
+      });
+
+      return;
+    }
+
+    // TTransaction
     const payload = {
       type,
-      amount,
+      amount: parseFloat(amount!),
       title,
       description,
     };
 
-    console.log(payload);
+    const result = await addNewTransaction(payload);
+
+    if (result?.success) {
+      const successMessage = result?.message;
+      setTitle("");
+      setDescription("");
+      setAmount(null);
+      setType(transactionConstants?.income);
+
+      Toast.show({
+        type: "success",
+        text1: successMessage,
+        position: "bottom",
+      });
+
+      setTimeout(() => {
+        router.push("/");
+      }, 100);
+    }
   };
 
   return (
@@ -122,6 +176,7 @@ export default function AddTransactionScreen() {
           <TextInput
             placeholder="+৳ 00.0"
             keyboardType="numeric"
+            value={amount || ""}
             onChangeText={handleTextChange}
             style={{
               borderWidth: 0,
@@ -148,6 +203,7 @@ export default function AddTransactionScreen() {
         >
           <TextInput
             placeholder="Transaction Title "
+            value={title || ""}
             onChangeText={setTitle}
             style={{
               borderWidth: 0,
@@ -174,6 +230,7 @@ export default function AddTransactionScreen() {
         >
           <TextInput
             placeholder="Transaction Description "
+            value={description || ""}
             onChangeText={setDescription}
             style={{
               borderWidth: 0,
