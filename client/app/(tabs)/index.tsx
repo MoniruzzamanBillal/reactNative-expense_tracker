@@ -9,6 +9,8 @@ export default function HomeScreen() {
 
   // console.log(monthlyTransaction);
 
+  console.log(monthlyTransaction?.transactions?.length);
+
   return (
     <View style={homePageStyles.mainContainer}>
       {/* Total balance card */}
@@ -28,6 +30,12 @@ export default function HomeScreen() {
           showsVerticalScrollIndicator={false}
           contentContainerStyle={{ paddingBottom: 20 }}
         >
+          {!monthlyTransaction?.transactions?.length && (
+            <Text style={{ fontWeight: "600", fontSize: 20, color: "red" }}>
+              No transactions yet !!!
+            </Text>
+          )}
+
           {monthlyTransaction?.transactions &&
             monthlyTransaction?.transactions?.map(
               (transaction: TTransaction) => (
