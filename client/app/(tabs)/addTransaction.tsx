@@ -12,6 +12,8 @@ const transactionConstants = {
 export default function AddTransactionScreen() {
   const [type, setType] = useState<string>(transactionConstants?.income);
   const [amount, setAmount] = useState<string | null>(null);
+  const [title, setTitle] = useState<string | null>(null);
+  const [description, setDescription] = useState<string | null>(null);
 
   // * for handling the number input
   const handleTextChange = (text: string) => {
@@ -25,6 +27,17 @@ export default function AddTransactionScreen() {
   // ! for adding new transaction
   const handleAddTransaction = async () => {
     console.log("transaction added !!!");
+    console.log(type);
+    console.log(amount);
+
+    const payload = {
+      type,
+      amount,
+      title,
+      description,
+    };
+
+    console.log(payload);
   };
 
   return (
@@ -135,6 +148,7 @@ export default function AddTransactionScreen() {
         >
           <TextInput
             placeholder="Transaction Title "
+            onChangeText={setTitle}
             style={{
               borderWidth: 0,
               backgroundColor: "transparent",
@@ -160,6 +174,7 @@ export default function AddTransactionScreen() {
         >
           <TextInput
             placeholder="Transaction Description "
+            onChangeText={setDescription}
             style={{
               borderWidth: 0,
               backgroundColor: "transparent",
