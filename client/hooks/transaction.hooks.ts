@@ -2,6 +2,7 @@ import { TTransaction } from "@/types/Transaction.tyes";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import {
   addNewTransaction,
+  deleteTransactionData,
   getMonthlyTransaction,
 } from "./transaction.function";
 
@@ -21,6 +22,20 @@ export const useAddTransaction = () => {
     mutationKey: ["add-transaction"],
     mutationFn: async (payload: TTransaction) =>
       await addNewTransaction(payload),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["monthly-transaction"] });
+    },
+  });
+};
+
+// ! for deleting transaction data
+export const useDeleteTransaction = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationKey: ["delete-transaction"],
+    mutationFn: async (transactionId: string) =>
+      await deleteTransactionData(transactionId),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["monthly-transaction"] });
     },

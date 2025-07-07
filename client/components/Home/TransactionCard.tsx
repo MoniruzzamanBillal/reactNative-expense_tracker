@@ -1,3 +1,4 @@
+import { useDeleteTransaction } from "@/hooks/transaction.hooks";
 import { TTransaction } from "@/types/Transaction.tyes";
 import { COLORS } from "@/utils/colors";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
@@ -5,6 +6,7 @@ import { format } from "date-fns";
 import { Animated, StyleSheet, TouchableOpacity, View } from "react-native";
 import { Swipeable } from "react-native-gesture-handler";
 import { Text } from "react-native-paper";
+import Toast from "react-native-toast-message";
 
 const typeOptions = {
   income: "income",
@@ -18,8 +20,32 @@ export default function TransactionCard({
 }) {
   // console.log(transactionData);
 
+  const { mutateAsync: deleteTransactionData } = useDeleteTransaction();
+
+  // ! for deleting transaction data
+  const handleDeleteTransaction = async (transactionData: TTransaction) => {
+    console.log("delete transaction !!!");
+
+    const result = await deleteTransactionData(transactionData?._id!);
+
+    if (result?.success) {
+      const successMessage = result?.message;
+
+      Toast.show({
+        type: "success",
+        text1: successMessage,
+        position: "bottom",
+      });
+    }
+  };
+
+  // ! for updating transaction data
+  const handleUpdateTransaction = () => {
+    console.log("update transaction !!!");
+  };
+
   // Left action for swipe right (left-to-right)
-  const renderLeftActions = (dragX) => {
+  const renderLeftActions = (progress, dragX) => {
     const scale = dragX.interpolate({
       inputRange: [0, 100],
       outputRange: [0, 1],
@@ -29,7 +55,10 @@ export default function TransactionCard({
       <Animated.View
         style={[cardStyles.leftAction, { transform: [{ scale }] }]}
       >
-        <TouchableOpacity activeOpacity={0.6}>
+        <TouchableOpacity
+          activeOpacity={0.6}
+          onPress={() => handleDeleteTransaction(transactionData)}
+        >
           <MaterialCommunityIcons name="delete" size={30} color="white" />
         </TouchableOpacity>
       </Animated.View>
@@ -37,7 +66,7 @@ export default function TransactionCard({
   };
 
   // Right action for swipe left (right-to-left)
-  const renderRightActions = (dragX) => {
+  const renderRightActions = (progress, dragX) => {
     const scale = dragX.interpolate({
       inputRange: [-100, 0],
       outputRange: [1, 0],

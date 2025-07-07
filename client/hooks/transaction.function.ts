@@ -26,3 +26,17 @@ export const addNewTransaction = async (payload: TTransaction) => {
     throw new Error(error);
   }
 };
+
+// ! for deleting a transaction data
+export const deleteTransactionData = async (transactionId: string) => {
+  try {
+    const result = await axios.patch(
+      `${baseUrl}/delete-transaction/${transactionId}`
+    );
+
+    return result?.data;
+  } catch (error: any) {
+    console.log(error);
+    throw new Error(error);
+  }
+};
