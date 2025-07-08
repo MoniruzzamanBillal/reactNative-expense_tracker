@@ -39,13 +39,8 @@ export default function TransactionCard({
     }
   };
 
-  // ! for updating transaction data
-  const handleUpdateTransaction = () => {
-    console.log("update transaction !!!");
-  };
-
   // Left action for swipe right (left-to-right)
-  const renderLeftActions = (progress, dragX) => {
+  const renderLeftActions = (progress: any, dragX: any) => {
     const scale = dragX.interpolate({
       inputRange: [0, 100],
       outputRange: [0, 1],
@@ -65,28 +60,9 @@ export default function TransactionCard({
     );
   };
 
-  // Right action for swipe left (right-to-left)
-  const renderRightActions = (progress, dragX) => {
-    const scale = dragX.interpolate({
-      inputRange: [-100, 0],
-      outputRange: [1, 0],
-      extrapolate: "clamp",
-    });
-
-    return (
-      <Animated.View
-        style={[cardStyles.rightAction, { transform: [{ scale }] }]}
-      >
-        <TouchableOpacity activeOpacity={0.6}>
-          <MaterialCommunityIcons name="pencil" size={30} color="white" />
-        </TouchableOpacity>
-      </Animated.View>
-    );
-  };
   return (
     <Swipeable
       renderLeftActions={renderLeftActions}
-      renderRightActions={renderRightActions}
       overshootLeft={false}
       overshootRight={false}
     >
