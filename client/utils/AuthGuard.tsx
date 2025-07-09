@@ -7,31 +7,33 @@ function AuthGuard({ children }: { children: ReactNode }) {
   const pathname = usePathname();
   const router = useRouter();
   const navigationState = useRootNavigationState();
-  const hasMounted = useRef(false);
-  const [redirectChecked, setRedirectChecked] = useState(false);
+
+  const hasRedirected = useRef(false);
+  const [showContent, setShowContent] = useState(false);
 
   const { isLoading, user } = useUserContext();
 
   useEffect(() => {
-    if (!navigationState?.key || isLoading || hasMounted.current) {
+    if (!navigationState?.key || isLoading || hasRedirected?.current) {
       return;
     }
 
-    hasMounted.current = true;
+    const isOnAuthPage = pathname.startsWith("/auth");
 
-    if (!isLoading) {
-      const isOnAuthPage = pathname.startsWith("/auth");
-
+    setTimeout(() => {
       if (!user && !isOnAuthPage) {
+        hasRedirected.current = true;
         router.replace("/auth");
       } else if (user && isOnAuthPage) {
+        hasRedirected.current = true;
         router.replace("/");
+      } else {
+        setShowContent(true);
       }
-    }
-    setRedirectChecked(true);
-  }, [user, isLoading, navigationState?.key]);
+    }, 100);
+  }, [user, isLoading, pathname, navigationState?.key]);
 
-  if (!navigationState?.key || isLoading || !redirectChecked) {
+  if (!navigationState?.key || isLoading) {
     return <SplashScreen />;
   }
 

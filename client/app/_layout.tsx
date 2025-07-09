@@ -1,6 +1,6 @@
 import UserProvider from "@/context/user.context";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { Stack } from "expo-router";
+import { Slot } from "expo-router";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import Toast from "react-native-toast-message";
@@ -13,9 +13,10 @@ export default function RootLayout() {
       <GestureHandlerRootView>
         <SafeAreaProvider>
           <UserProvider>
-            <Stack>
+            <Slot />
+            {/* <Stack>
               <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-            </Stack>
+            </Stack> */}
             <Toast />
           </UserProvider>
         </SafeAreaProvider>
