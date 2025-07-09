@@ -1,7 +1,8 @@
 import { TTransaction } from "@/types/Transaction.tyes";
 import axios from "axios";
 
-const baseUrl = "http://localhost:5000/api/transactions";
+// const baseUrl = "http://localhost:5000/api/transactions";
+const baseUrl = "https://expensetrackerapp-fawn.vercel.app/api/transactions";
 
 // ! for getting monthly transactions
 export const getMonthlyTransaction = async () => {
