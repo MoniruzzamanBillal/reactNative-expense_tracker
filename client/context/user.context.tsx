@@ -7,6 +7,8 @@ import {
   useState,
 } from "react";
 
+import AsyncStorage from "@react-native-async-storage/async-storage";
+
 type IUserProviderValues = {
   user: IUser | null;
   setUser: (user: IUser | null) => void;
@@ -23,37 +25,41 @@ const UserContext = createContext<IUserProviderValues | undefined>(undefined);
 const UserProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<IUser | null>(null);
   const [token, setToken] = useState<string | null>(null);
-  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
 
   useEffect(() => {
-    const storedUser = localStorage.getItem("user");
-    const storedToken = localStorage.getItem("token");
+    const loadUserData = async () => {
+      const storedUser = await AsyncStorage.getItem("user");
+      const storedToken = await AsyncStorage.getItem("token");
 
-    if (storedUser && storedToken) {
-      setUser(JSON.parse(storedUser));
-      setToken(storedToken);
-    }
+      if (storedUser && storedToken) {
+        setUser(JSON.parse(storedUser));
+        setToken(storedToken);
+      }
 
-    setIsLoading(false);
+      setIsLoading(false);
+    };
+
+    loadUserData();
   }, []);
 
   // Store user in localStorage when set
-  const handleSetUser = (user: IUser | null) => {
+  const handleSetUser = async (user: IUser | null) => {
     setUser(user);
     if (user) {
-      localStorage.setItem("user", JSON.stringify(user));
+      await AsyncStorage.setItem("user", JSON.stringify(user));
     } else {
-      localStorage.removeItem("user");
+      await AsyncStorage.removeItem("user");
     }
   };
 
   // Store token in localStorage when set
-  const handleSetToken = (token: string | null) => {
+  const handleSetToken = async (token: string | null) => {
     setToken(token);
     if (token) {
-      localStorage.setItem("token", token);
+      await AsyncStorage.setItem("token", token);
     } else {
-      localStorage.removeItem("token");
+      await AsyncStorage.removeItem("token");
     }
   };
 

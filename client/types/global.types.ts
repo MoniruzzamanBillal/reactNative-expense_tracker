@@ -14,3 +14,8 @@ export type TUserToken = {
   iat?: number;
   exp?: number;
 };
+
+export type TLoginPayload = {
+  email: string;
+  password: string;
+};

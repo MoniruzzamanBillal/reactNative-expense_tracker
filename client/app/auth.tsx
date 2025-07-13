@@ -1,4 +1,7 @@
+import { useUserContext } from "@/context/user.context";
+import { userUserLogin } from "@/hooks/Login.hooks";
 import { COLORS } from "@/utils/colors";
+import { useRouter } from "expo-router";
 import { useState } from "react";
 import { Image, StyleSheet, View } from "react-native";
 import { Button, Text, TextInput } from "react-native-paper";
@@ -7,6 +10,14 @@ import Toast from "react-native-toast-message";
 export default function AuthScreen() {
   const [email, setEmail] = useState<string | null>(null);
   const [password, setPassword] = useState<string | null>(null);
+
+  const router = useRouter();
+
+  const { handleSetUser, handleSetToken, user } = useUserContext();
+
+  const { mutateAsync: loginUser } = userUserLogin();
+
+  console.log(user);
 
   // ! for login
   const handleLogin = async () => {
@@ -22,7 +33,31 @@ export default function AuthScreen() {
 
     const payload = { email, password };
 
-    console.log(payload);
+    const result = await loginUser(payload);
+
+    if (result?.success) {
+      const successMessage = result?.message;
+
+      const userData = result?.data;
+      const token = result?.token;
+
+      const userPayload = {
+        _id: userData?._id,
+        name: userData?.name,
+        email: userData?.email,
+      };
+
+      handleSetToken(token);
+      handleSetUser(userPayload);
+
+      Toast.show({
+        type: "success",
+        text1: successMessage,
+        position: "top",
+      });
+
+      router.replace("/");
+    }
   };
 
   return (
