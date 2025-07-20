@@ -110,8 +110,9 @@ const authStyles = StyleSheet.create({
   mainContainer: {
     flex: 1,
     flexDirection: "column",
-    justifyContent: "center",
-    alignItems: "center",
+    alignSelf: "center",
+    // justifyContent: "center",
+    // alignItems: "center",
   },
 
   wrapperContainer: {

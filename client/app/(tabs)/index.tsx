@@ -6,12 +6,10 @@ import { Text } from "react-native-paper";
 
 const screenHeight = Dimensions.get("window").height;
 
-console.log(screenHeight);
-
 export default function HomeScreen() {
   const { data: monthlyTransaction, isLoading } = useGetMonthlyTransaction();
 
-  console.log(isLoading);
+  // console.log(isLoading);
   // console.log(monthlyTransaction);
 
   // console.log(monthlyTransaction?.transactions?.length);
@@ -31,7 +29,7 @@ export default function HomeScreen() {
       )}
 
       {/* Title for transactions */}
-      <Text style={{ marginTop: 10, fontSize: 21, fontWeight: "800" }}>
+      <Text style={{ marginTop: 22, fontSize: 22, fontWeight: "800" }}>
         Recent Transactions :
       </Text>
 
