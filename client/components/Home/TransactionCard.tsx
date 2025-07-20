@@ -80,10 +80,10 @@ export default function TransactionCard({
             style={{
               flex: 1,
               flexDirection: "row",
-
+              // backgroundColor: "red",
               alignItems: "center",
-              width: "80%",
-              columnGap: 14,
+              width: "75%",
+              columnGap: 6,
             }}
           >
             {/* icon section  */}
@@ -91,13 +91,13 @@ export default function TransactionCard({
               {transactionData?.type === typeOptions?.income ? (
                 <MaterialCommunityIcons
                   name="cash-multiple"
-                  size={35}
+                  size={28}
                   color="green"
                 />
               ) : (
                 <MaterialCommunityIcons
                   name="cash-minus"
-                  size={38}
+                  size={28}
                   color="red"
                 />
               )}
@@ -106,12 +106,11 @@ export default function TransactionCard({
             {/* title , description  */}
             <View>
               <Text
-                style={{ fontSize: 18, fontWeight: "600", marginBottom: 3 }}
+                style={{ fontSize: 16, fontWeight: "600", marginBottom: 3 }}
               >
                 {transactionData?.description}
               </Text>
-              <Text style={{ fontSize: 15, fontWeight: "500" }}>
-                {" "}
+              <Text style={{ fontSize: 13, fontWeight: "700" }}>
                 {transactionData?.title}{" "}
               </Text>
             </View>
@@ -122,7 +121,7 @@ export default function TransactionCard({
           <View
             style={{
               alignItems: "flex-end",
-              width: "20%",
+              width: "25%",
             }}
           >
             {/* money section  */}
@@ -130,11 +129,13 @@ export default function TransactionCard({
               style={{
                 flexDirection: "row",
                 alignContent: "center",
+                justifyContent: "center",
+                columnGap: 1,
               }}
             >
               <Text
                 style={{
-                  fontSize: 14,
+                  fontSize: 16,
                   fontWeight: "bold",
                   color:
                     transactionData.type === typeOptions.income
@@ -146,7 +147,7 @@ export default function TransactionCard({
               </Text>
               <Text
                 style={{
-                  fontSize: 18,
+                  fontSize: 17,
                   fontWeight: "600",
                   color:
                     transactionData.type === typeOptions.income
@@ -185,14 +186,13 @@ const cardStyles = StyleSheet.create({
     marginVertical: 10,
     flexDirection: "column",
     backgroundColor: COLORS.background,
-    width: "45%",
-    padding: 14,
-    borderRadius: 8,
+    padding: 6,
+    borderRadius: 6,
     shadowColor: "#000",
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.1,
     shadowRadius: 6,
-    elevation: 5,
+    elevation: 2,
   },
 
   leftAction: {

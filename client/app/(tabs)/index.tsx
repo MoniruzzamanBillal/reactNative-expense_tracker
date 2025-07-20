@@ -1,23 +1,34 @@
 import { TotalBalanceCard, TransactionCard } from "@/components/Home";
 import { useGetMonthlyTransaction } from "@/hooks/transaction.hooks";
 import { TTransaction } from "@/types/Transaction.tyes";
-import { ScrollView, StyleSheet, View } from "react-native";
+import { Dimensions, ScrollView, StyleSheet, View } from "react-native";
 import { Text } from "react-native-paper";
+
+const screenHeight = Dimensions.get("window").height;
+
+console.log(screenHeight);
 
 export default function HomeScreen() {
   const { data: monthlyTransaction, isLoading } = useGetMonthlyTransaction();
 
+  console.log(isLoading);
   // console.log(monthlyTransaction);
 
-  console.log(monthlyTransaction?.transactions?.length);
+  // console.log(monthlyTransaction?.transactions?.length);
+
+  if (isLoading) {
+    return <Text>Loading !!!</Text>;
+  }
 
   return (
     <View style={homePageStyles.mainContainer}>
       {/* Total balance card */}
-      <TotalBalanceCard
-        income={monthlyTransaction?.income}
-        expense={monthlyTransaction?.expense}
-      />
+      {monthlyTransaction && (
+        <TotalBalanceCard
+          income={monthlyTransaction?.income}
+          expense={monthlyTransaction?.expense}
+        />
+      )}
 
       {/* Title for transactions */}
       <Text style={{ marginTop: 40, fontSize: 22, fontWeight: "600" }}>
@@ -25,7 +36,8 @@ export default function HomeScreen() {
       </Text>
 
       {/* Scrollable Transactions */}
-      <View style={{ marginTop: 20, flex: 1 }}>
+
+      <View style={homePageStyles.scrollableList}>
         <ScrollView
           showsVerticalScrollIndicator={false}
           contentContainerStyle={{ paddingBottom: 20 }}
@@ -54,8 +66,12 @@ export default function HomeScreen() {
 const homePageStyles = StyleSheet.create({
   mainContainer: {
     width: "90%",
-    margin: "auto",
-    paddingVertical: 20,
+    alignSelf: "center",
     flex: 1,
+  },
+  scrollableList: {
+    marginTop: 20,
+    flex: 1,
+    maxHeight: screenHeight * 0.5,
   },
 });
