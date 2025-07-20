@@ -183,7 +183,7 @@ export default function TransactionCard({
 
 const cardStyles = StyleSheet.create({
   container: {
-    marginVertical: 10,
+    marginVertical: 8,
     flexDirection: "column",
     backgroundColor: COLORS.background,
     padding: 6,

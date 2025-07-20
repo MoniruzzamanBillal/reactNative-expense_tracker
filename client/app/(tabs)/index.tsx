@@ -31,8 +31,8 @@ export default function HomeScreen() {
       )}
 
       {/* Title for transactions */}
-      <Text style={{ marginTop: 40, fontSize: 22, fontWeight: "600" }}>
-        Recent Transactions
+      <Text style={{ marginTop: 10, fontSize: 21, fontWeight: "800" }}>
+        Recent Transactions :
       </Text>
 
       {/* Scrollable Transactions */}
@@ -70,7 +70,7 @@ const homePageStyles = StyleSheet.create({
     flex: 1,
   },
   scrollableList: {
-    marginTop: 20,
+    marginTop: 5,
     flex: 1,
     maxHeight: screenHeight * 0.5,
   },

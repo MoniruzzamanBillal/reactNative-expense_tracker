@@ -25,7 +25,6 @@ export default function TotalBalanceCard({
         </Text>
         <View
           style={{
-            flex: 1,
             flexDirection: "row",
             alignContent: "center",
             columnGap: 2,
@@ -43,7 +42,6 @@ export default function TotalBalanceCard({
       {/* income expense section  */}
       <View
         style={{
-          flex: 1,
           flexDirection: "row",
           justifyContent: "space-between",
           columnGap: 35,
@@ -64,19 +62,18 @@ export default function TotalBalanceCard({
           </Text>
           <View
             style={{
-              flex: 1,
               flexDirection: "row",
               alignContent: "center",
               columnGap: 3,
             }}
           >
             <Text
-              style={{ fontSize: 16, fontWeight: "bold", color: COLORS.income }}
+              style={{ fontSize: 20, fontWeight: "bold", color: COLORS.income }}
             >
               +৳
             </Text>
             <Text
-              style={{ fontSize: 20, fontWeight: "500", color: COLORS.income }}
+              style={{ fontSize: 20, fontWeight: "600", color: COLORS.income }}
             >
               {income}
             </Text>
@@ -107,7 +104,6 @@ export default function TotalBalanceCard({
           </Text>
           <View
             style={{
-              flex: 1,
               flexDirection: "row",
               alignContent: "center",
               columnGap: 3,
@@ -115,7 +111,7 @@ export default function TotalBalanceCard({
           >
             <Text
               style={{
-                fontSize: 16,
+                fontSize: 20,
                 fontWeight: "bold",
                 color: COLORS.expense,
               }}
@@ -123,7 +119,7 @@ export default function TotalBalanceCard({
               +৳
             </Text>
             <Text
-              style={{ fontSize: 20, fontWeight: "500", color: COLORS.expense }}
+              style={{ fontSize: 20, fontWeight: "600", color: COLORS.expense }}
             >
               {expense}
             </Text>
