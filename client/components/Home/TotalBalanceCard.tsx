@@ -12,7 +12,7 @@ export default function TotalBalanceCard({
   return (
     <View style={cardStyles.container}>
       {/* header , total balance section  */}
-      <View style={{ marginBottom: 25 }}>
+      <View style={{ marginBottom: 25, alignSelf: "center" }}>
         <Text
           style={{
             fontSize: 20,
@@ -137,7 +137,7 @@ export default function TotalBalanceCard({
 const cardStyles = StyleSheet.create({
   container: {
     marginTop: 20,
-    width: "90%",
+    width: "75%",
     alignSelf: "center",
     backgroundColor: COLORS.background,
     padding: 16,
