@@ -1,4 +1,5 @@
 import { Router } from "express";
+import authCheck from "../../middleware/authCheck";
 import validateRequest from "../../middleware/validateRequest";
 import { transactionControllers } from "./transaction.controller";
 import { transactionValidationSchemas } from "./transaction.validation";
@@ -8,6 +9,7 @@ const router = Router();
 // ! Get monthly transactions
 router.get(
   "/monthly-transaction",
+  authCheck,
   transactionControllers.getMonthlyTransactions
 );
 

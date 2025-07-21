@@ -1,6 +1,6 @@
 import argon2 from "argon2";
 import { model, Schema } from "mongoose";
-import { TUser } from "./user.interface";
+import { TUser, UserRole } from "./user.interface";
 
 const userSchema = new Schema<TUser>(
   {
@@ -23,6 +23,10 @@ const userSchema = new Schema<TUser>(
     isDeleted: {
       type: Boolean,
       default: false,
+    },
+    userRole: {
+      type: String,
+      default: UserRole.user,
     },
   },
   {

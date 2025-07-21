@@ -32,6 +32,7 @@ const updateTransaction = catchAsync(async (req, res) => {
 
 // ! Get monthly transactions (default: current month)
 const getMonthlyTransactions = catchAsync(async (req, res) => {
+  console.log(req?.user);
   const month = req.query?.month
     ? parseInt(req.query?.month as string)
     : undefined;
