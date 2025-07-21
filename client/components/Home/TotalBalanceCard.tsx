@@ -136,7 +136,7 @@ export default function TotalBalanceCard({
 
 const cardStyles = StyleSheet.create({
   container: {
-    marginTop: 20,
+    marginTop: 24,
     width: "75%",
     alignSelf: "center",
     backgroundColor: COLORS.background,

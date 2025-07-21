@@ -109,13 +109,12 @@ export default function AuthScreen() {
 const authStyles = StyleSheet.create({
   mainContainer: {
     flex: 1,
-    flexDirection: "column",
-    alignSelf: "center",
-    // justifyContent: "center",
-    // alignItems: "center",
+    justifyContent: "center",
   },
 
   wrapperContainer: {
+    width: "90%",
+    alignSelf: "center",
     backgroundColor: "#f3f4f6",
     shadowColor: "#000",
     shadowOffset: { width: 0, height: 2 },
