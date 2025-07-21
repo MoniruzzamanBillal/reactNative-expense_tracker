@@ -1,5 +1,3 @@
-import { useUserContext } from "@/context/user.context";
-import { userUserLogin } from "@/hooks/Login.hooks";
 import { COLORS } from "@/utils/colors";
 import { useRouter } from "expo-router";
 import { useState } from "react";
@@ -15,55 +13,27 @@ import {
 import { Button, Text, TextInput } from "react-native-paper";
 import Toast from "react-native-toast-message";
 
-export default function AuthScreen() {
+export default function RegisterScreen() {
+  const router = useRouter();
+
+  const [name, setName] = useState<string | null>(null);
   const [email, setEmail] = useState<string | null>(null);
   const [password, setPassword] = useState<string | null>(null);
 
-  const router = useRouter();
-
-  const { handleSetUser, handleSetToken, user } = useUserContext();
-
-  const { mutateAsync: loginUser } = userUserLogin();
-
-  // ! for login
-  const handleLogin = async () => {
-    if (!email?.trim() || !password?.trim()) {
+  //   ! for registration
+  const handleRegistration = async () => {
+    if (!email?.trim() || !password?.trim() || !name?.trim()) {
       Toast.show({
         type: "error",
         text1: "Missing Fields",
-        text2: "Please enter both email and password",
         position: "top",
       });
       return;
     }
 
-    const payload = { email, password };
+    const payload = { name, email, password };
 
-    const result = await loginUser(payload);
-
-    if (result?.success) {
-      const successMessage = result?.message;
-
-      const userData = result?.data;
-      const token = result?.token;
-
-      const userPayload = {
-        _id: userData?._id,
-        name: userData?.name,
-        email: userData?.email,
-      };
-
-      handleSetToken(token);
-      handleSetUser(userPayload);
-
-      Toast.show({
-        type: "success",
-        text1: successMessage,
-        position: "top",
-      });
-
-      router.replace("/");
-    }
+    console.log(payload);
   };
 
   return (
@@ -76,12 +46,12 @@ export default function AuthScreen() {
         contentContainerStyle={{ flex: 1, justifyContent: "center" }}
         showsVerticalScrollIndicator={false}
       >
-        <View style={authStyles.mainContainer}>
-          <View style={authStyles.wrapperContainer}>
+        <View style={registerStyles.mainContainer}>
+          <View style={registerStyles.wrapperContainer}>
             {/* image  */}
             <Image
-              source={require("@/assets/images/revenue-i4.png")}
-              style={authStyles.imageStyle}
+              source={require("@/assets/images/revenue-i1.png")}
+              style={registerStyles.imageStyle}
             />
 
             <Text
@@ -93,11 +63,18 @@ export default function AuthScreen() {
                 paddingVertical: 10,
               }}
             >
-              Welcome Back
+              Create Account
             </Text>
 
             {/* login form  */}
-            <View style={authStyles.loginForm}>
+            <View style={registerStyles.registerForm}>
+              <TextInput
+                placeholder="Enter Name"
+                autoCorrect={false}
+                onChangeText={setName}
+                value={name || ""}
+              />
+
               <TextInput
                 placeholder="Enter Email"
                 keyboardType="email-address"
@@ -112,18 +89,18 @@ export default function AuthScreen() {
                 onChangeText={setPassword}
                 value={password || ""}
               />
-              <Button mode="contained" onPress={handleLogin}>
-                Login
+              <Button mode="contained" onPress={handleRegistration}>
+                Register
               </Button>
 
               <View style={{ flexDirection: "row", marginTop: 10 }}>
-                <Text>Don't Have any account ? </Text>
+                <Text>Already have any account ? </Text>
 
-                <Pressable onPress={() => router.replace("/register")}>
+                <Pressable onPress={() => router.replace("/auth")}>
                   <Text
                     style={{ color: "blue", textDecorationLine: "underline" }}
                   >
-                    Sign Up{" "}
+                    Log in
                   </Text>
                 </Pressable>
               </View>
@@ -135,7 +112,8 @@ export default function AuthScreen() {
   );
 }
 
-const authStyles = StyleSheet.create({
+//
+const registerStyles = StyleSheet.create({
   mainContainer: {
     flex: 1,
     justifyContent: "center",
@@ -163,7 +141,7 @@ const authStyles = StyleSheet.create({
     marginVertical: 5,
   },
 
-  loginForm: {
+  registerForm: {
     marginTop: 20,
     flexDirection: "column",
     rowGap: 12,
