@@ -1,3 +1,4 @@
+import { useUserRegistration } from "@/hooks/Login.hooks";
 import { COLORS } from "@/utils/colors";
 import { useRouter } from "expo-router";
 import { useState } from "react";
@@ -20,6 +21,8 @@ export default function RegisterScreen() {
   const [email, setEmail] = useState<string | null>(null);
   const [password, setPassword] = useState<string | null>(null);
 
+  const { mutateAsync: registerUser } = useUserRegistration();
+
   //   ! for registration
   const handleRegistration = async () => {
     if (!email?.trim() || !password?.trim() || !name?.trim()) {
@@ -34,6 +37,22 @@ export default function RegisterScreen() {
     const payload = { name, email, password };
 
     console.log(payload);
+
+    const result = await registerUser(payload);
+
+    console.log(result);
+
+    if (result?.success) {
+      const successMessage = result?.message;
+
+      Toast.show({
+        type: "success",
+        text1: successMessage,
+        position: "top",
+      });
+
+      router.replace("/auth");
+    }
   };
 
   return (
