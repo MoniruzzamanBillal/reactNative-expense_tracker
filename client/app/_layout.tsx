@@ -10,8 +10,8 @@ const queryClient = new QueryClient();
 export default function RootLayout() {
   return (
     <QueryClientProvider client={queryClient}>
-      <GestureHandlerRootView>
-        <SafeAreaProvider>
+      <GestureHandlerRootView style={{ flex: 1 }}>
+        <SafeAreaProvider style={{ flex: 1 }}>
           <UserProvider>
             <Slot />
             <Toast />

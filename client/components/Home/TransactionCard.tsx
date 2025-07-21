@@ -78,11 +78,9 @@ export default function TransactionCard({
           {/* left title section  */}
           <View
             style={{
-              flex: 1,
               flexDirection: "row",
-              // backgroundColor: "red",
               alignItems: "center",
-              width: "75%",
+              width: "74%",
               columnGap: 6,
             }}
           >
@@ -91,13 +89,13 @@ export default function TransactionCard({
               {transactionData?.type === typeOptions?.income ? (
                 <MaterialCommunityIcons
                   name="cash-multiple"
-                  size={28}
+                  size={30}
                   color="green"
                 />
               ) : (
                 <MaterialCommunityIcons
                   name="cash-minus"
-                  size={28}
+                  size={30}
                   color="red"
                 />
               )}
@@ -106,7 +104,7 @@ export default function TransactionCard({
             {/* title , description  */}
             <View>
               <Text
-                style={{ fontSize: 16, fontWeight: "600", marginBottom: 3 }}
+                style={{ fontSize: 15, fontWeight: "600", marginBottom: 3 }}
               >
                 {transactionData?.description}
               </Text>
@@ -121,7 +119,7 @@ export default function TransactionCard({
           <View
             style={{
               alignItems: "flex-end",
-              width: "25%",
+              width: "24%",
             }}
           >
             {/* money section  */}

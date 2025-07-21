@@ -1,4 +1,8 @@
-import { TotalBalanceCard, TransactionCard } from "@/components/Home";
+import {
+  HomeSkeleton,
+  TotalBalanceCard,
+  TransactionCard,
+} from "@/components/Home";
 import { useGetMonthlyTransaction } from "@/hooks/transaction.hooks";
 import { TTransaction } from "@/types/Transaction.tyes";
 import { Dimensions, ScrollView, StyleSheet, View } from "react-native";
@@ -9,13 +13,10 @@ const screenHeight = Dimensions.get("window").height;
 export default function HomeScreen() {
   const { data: monthlyTransaction, isLoading } = useGetMonthlyTransaction();
 
-  // console.log(isLoading);
   // console.log(monthlyTransaction);
 
-  // console.log(monthlyTransaction?.transactions?.length);
-
   if (isLoading) {
-    return <Text>Loading !!!</Text>;
+    return <HomeSkeleton />;
   }
 
   return (

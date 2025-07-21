@@ -30,9 +30,8 @@ export default function TotalBalanceCard({
             columnGap: 2,
           }}
         >
-          <Text style={[cardStyles.title, { fontSize: 23 }]}>৳</Text>
+          <Text style={[cardStyles.title, { fontSize: 30 }]}>৳</Text>
           <Text style={[cardStyles.title, { fontSize: 30 }]}>
-            {" "}
             {income - expense}
           </Text>
         </View>

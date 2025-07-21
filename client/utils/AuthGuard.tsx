@@ -9,9 +9,6 @@ function AuthGuard({ children }: { children: ReactNode }) {
 
   const { isLoading, user } = useUserContext();
 
-  console.log(isLoading);
-  console.log(user);
-
   useEffect(() => {
     if (isLoading) {
       return;

@@ -3,7 +3,14 @@ import { userUserLogin } from "@/hooks/Login.hooks";
 import { COLORS } from "@/utils/colors";
 import { useRouter } from "expo-router";
 import { useState } from "react";
-import { Image, StyleSheet, View } from "react-native";
+import {
+  Image,
+  KeyboardAvoidingView,
+  Platform,
+  ScrollView,
+  StyleSheet,
+  View,
+} from "react-native";
 import { Button, Text, TextInput } from "react-native-paper";
 import Toast from "react-native-toast-message";
 
@@ -59,48 +66,59 @@ export default function AuthScreen() {
   };
 
   return (
-    <View style={authStyles.mainContainer}>
-      <View style={authStyles.wrapperContainer}>
-        {/* image  */}
-        <Image
-          source={require("@/assets/images/revenue-i4.png")}
-          style={authStyles.imageStyle}
-        />
+    <KeyboardAvoidingView
+      behavior={Platform.OS === "ios" ? "padding" : "height"}
+      // keyboardVerticalOffset={100}
+      style={{ flex: 1 }}
+    >
+      <ScrollView
+        contentContainerStyle={{ flex: 1, justifyContent: "center" }}
+        showsVerticalScrollIndicator={false}
+      >
+        <View style={authStyles.mainContainer}>
+          <View style={authStyles.wrapperContainer}>
+            {/* image  */}
+            <Image
+              source={require("@/assets/images/revenue-i4.png")}
+              style={authStyles.imageStyle}
+            />
 
-        <Text
-          style={{
-            fontWeight: "600",
-            fontSize: 30,
-            color: COLORS.text,
-            textAlign: "center",
-            paddingVertical: 10,
-          }}
-        >
-          Welcome Back
-        </Text>
+            <Text
+              style={{
+                fontWeight: "600",
+                fontSize: 30,
+                color: COLORS.text,
+                textAlign: "center",
+                paddingVertical: 10,
+              }}
+            >
+              Welcome Back
+            </Text>
 
-        {/* login form  */}
-        <View style={authStyles.loginForm}>
-          <TextInput
-            placeholder="Enter Email"
-            keyboardType="email-address"
-            autoCapitalize="none"
-            autoCorrect={false}
-            onChangeText={setEmail}
-            value={email || ""}
-          />
-          <TextInput
-            placeholder="Enter Password"
-            secureTextEntry={true}
-            onChangeText={setPassword}
-            value={password || ""}
-          />
-          <Button mode="contained" onPress={handleLogin}>
-            Login{" "}
-          </Button>
+            {/* login form  */}
+            <View style={authStyles.loginForm}>
+              <TextInput
+                placeholder="Enter Email"
+                keyboardType="email-address"
+                autoCapitalize="none"
+                autoCorrect={false}
+                onChangeText={setEmail}
+                value={email || ""}
+              />
+              <TextInput
+                placeholder="Enter Password"
+                secureTextEntry={true}
+                onChangeText={setPassword}
+                value={password || ""}
+              />
+              <Button mode="contained" onPress={handleLogin}>
+                Login{" "}
+              </Button>
+            </View>
+          </View>
         </View>
-      </View>
-    </View>
+      </ScrollView>
+    </KeyboardAvoidingView>
   );
 }
 
