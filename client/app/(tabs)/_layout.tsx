@@ -1,9 +1,11 @@
+import { useUserContext } from "@/context/user.context";
 import AuthGuard from "@/utils/AuthGuard";
 import { COLORS } from "@/utils/colors";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { Tabs } from "expo-router";
 
 export default function TabsLayout() {
+  const { logoutFunction } = useUserContext();
   return (
     <AuthGuard>
       <Tabs
@@ -22,6 +24,15 @@ export default function TabsLayout() {
             title: "Home",
             tabBarIcon: ({ color, size }) => (
               <MaterialCommunityIcons name="home" size={size} color={color} />
+            ),
+            headerRight: () => (
+              <MaterialCommunityIcons
+                name="logout"
+                style={{ marginRight: 20 }}
+                size={24}
+                color={COLORS.primary}
+                onPress={() => logoutFunction()}
+              />
             ),
           }}
         />

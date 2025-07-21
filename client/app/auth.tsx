@@ -17,8 +17,6 @@ export default function AuthScreen() {
 
   const { mutateAsync: loginUser } = userUserLogin();
 
-  console.log(user);
-
   // ! for login
   const handleLogin = async () => {
     if (!email?.trim() || !password?.trim()) {

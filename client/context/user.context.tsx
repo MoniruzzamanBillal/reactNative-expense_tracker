@@ -18,6 +18,7 @@ type IUserProviderValues = {
   setIsLoading: (isLoading: boolean) => void;
   handleSetUser: (user: IUser | null) => void;
   handleSetToken: (token: string | null) => void;
+  logoutFunction: () => void;
 };
 
 const UserContext = createContext<IUserProviderValues | undefined>(undefined);
@@ -63,6 +64,18 @@ const UserProvider = ({ children }: { children: ReactNode }) => {
     }
   };
 
+  // ! for logout a user
+  const logoutFunction = async () => {
+    try {
+      await AsyncStorage.removeItem("user");
+      await AsyncStorage.removeItem("token");
+      setUser(null);
+      setToken(null);
+    } catch (error) {
+      console.log("something went wrong while logging out !!!");
+    }
+  };
+
   return (
     <UserContext.Provider
       value={{
@@ -74,6 +87,7 @@ const UserProvider = ({ children }: { children: ReactNode }) => {
         handleSetUser,
         handleSetToken,
         setIsLoading,
+        logoutFunction,
       }}
     >
       {children}
