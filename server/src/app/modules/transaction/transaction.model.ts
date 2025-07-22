@@ -4,6 +4,12 @@ import { TTransaction } from "./transaction.interface";
 
 const transactionSchema = new Schema<TTransaction>(
   {
+    user: {
+      type: Schema.Types.ObjectId,
+      ref: "User",
+      required: [true, "User is required !!!"],
+    },
+
     type: {
       type: String,
       enum: Object.values(transactionConstants),

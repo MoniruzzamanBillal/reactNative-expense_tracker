@@ -5,7 +5,10 @@ import { transactionServices } from "./transaction.service";
 
 // ! for adding new transaction
 const addNewTransaction = catchAsync(async (req, res) => {
-  const result = await transactionServices.addNewTransaction(req.body);
+  const result = await transactionServices.addNewTransaction(
+    req.body,
+    req?.user?.userId
+  );
 
   sendResponse(res, {
     status: httpStatus.CREATED,
@@ -32,7 +35,6 @@ const updateTransaction = catchAsync(async (req, res) => {
 
 // ! Get monthly transactions (default: current month)
 const getMonthlyTransactions = catchAsync(async (req, res) => {
-  console.log(req?.user);
   const month = req.query?.month
     ? parseInt(req.query?.month as string)
     : undefined;
@@ -40,7 +42,11 @@ const getMonthlyTransactions = catchAsync(async (req, res) => {
     ? parseInt(req.query?.year as string)
     : undefined;
 
-  const result = await transactionServices.getMonthlyTransactions(month, year);
+  const result = await transactionServices.getMonthlyTransactions(
+    req?.user?.userId,
+    month,
+    year
+  );
   sendResponse(res, {
     status: httpStatus.OK,
     success: true,

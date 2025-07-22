@@ -15,6 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.userModel = void 0;
 const argon2_1 = __importDefault(require("argon2"));
 const mongoose_1 = require("mongoose");
+const user_interface_1 = require("./user.interface");
 const userSchema = new mongoose_1.Schema({
     name: {
         type: String,
@@ -35,6 +36,10 @@ const userSchema = new mongoose_1.Schema({
     isDeleted: {
         type: Boolean,
         default: false,
+    },
+    userRole: {
+        type: String,
+        default: user_interface_1.UserRole.user,
     },
 }, {
     timestamps: true,

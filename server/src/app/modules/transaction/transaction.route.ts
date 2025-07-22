@@ -16,6 +16,7 @@ router.get(
 // ! for adding new transaction
 router.post(
   "/new-transaction",
+  authCheck,
   validateRequest(transactionValidationSchemas.createTransactionSchema),
   transactionControllers.addNewTransaction
 );
@@ -23,6 +24,7 @@ router.post(
 // ! for updating transaction
 router.patch(
   "/update-transaction/:transactionId",
+  authCheck,
   validateRequest(transactionValidationSchemas.updateTransactionSchema),
   transactionControllers.updateTransaction
 );
@@ -30,6 +32,7 @@ router.patch(
 // ! for deletig transaction data
 router.patch(
   "/delete-transaction/:transactionId",
+  authCheck,
   transactionControllers.deleteTransactionData
 );
 

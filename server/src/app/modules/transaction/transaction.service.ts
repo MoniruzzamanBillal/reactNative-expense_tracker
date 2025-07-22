@@ -1,17 +1,34 @@
 import httpStatus from "http-status";
 import AppError from "../../Error/AppError";
+import { userModel } from "../user/user.model";
 import { TTransaction } from "./transaction.interface";
 import { transactionModel } from "./transaction.model";
 
 // ! for adding new transaction
-const addNewTransaction = async (payload: TTransaction) => {
-  const result = await transactionModel.create(payload);
+const addNewTransaction = async (payload: TTransaction, userId: string) => {
+  const userData = await userModel.findById(userId);
+
+  if (!userData) {
+    throw new AppError(httpStatus.BAD_REQUEST, "User does not exist !!!");
+  }
+
+  const result = await transactionModel.create({ ...payload, user: userId });
 
   return result;
 };
 
 // ! for getting monthly data
-const getMonthlyTransactions = async (month?: number, year?: number) => {
+const getMonthlyTransactions = async (
+  userId: string,
+  month?: number,
+  year?: number
+) => {
+  const userData = await userModel.findById(userId);
+
+  if (!userData) {
+    throw new AppError(httpStatus.BAD_REQUEST, "User does not exist !!!");
+  }
+
   const today = new Date();
   year = year ?? today.getFullYear();
   month = month ?? today.getMonth() + 1;
@@ -21,6 +38,7 @@ const getMonthlyTransactions = async (month?: number, year?: number) => {
 
   const transactions = await transactionModel
     .find({
+      user: userId,
       createdAt: { $gte: start, $lte: end },
     })
     .sort({ createdAt: -1 });

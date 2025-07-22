@@ -15,14 +15,23 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.transactionServices = void 0;
 const http_status_1 = __importDefault(require("http-status"));
 const AppError_1 = __importDefault(require("../../Error/AppError"));
+const user_model_1 = require("../user/user.model");
 const transaction_model_1 = require("./transaction.model");
 // ! for adding new transaction
-const addNewTransaction = (payload) => __awaiter(void 0, void 0, void 0, function* () {
-    const result = yield transaction_model_1.transactionModel.create(payload);
+const addNewTransaction = (payload, userId) => __awaiter(void 0, void 0, void 0, function* () {
+    const userData = yield user_model_1.userModel.findById(userId);
+    if (!userData) {
+        throw new AppError_1.default(http_status_1.default.BAD_REQUEST, "User does not exist !!!");
+    }
+    const result = yield transaction_model_1.transactionModel.create(Object.assign(Object.assign({}, payload), { user: userId }));
     return result;
 });
 // ! for getting monthly data
-const getMonthlyTransactions = (month, year) => __awaiter(void 0, void 0, void 0, function* () {
+const getMonthlyTransactions = (userId, month, year) => __awaiter(void 0, void 0, void 0, function* () {
+    const userData = yield user_model_1.userModel.findById(userId);
+    if (!userData) {
+        throw new AppError_1.default(http_status_1.default.BAD_REQUEST, "User does not exist !!!");
+    }
     const today = new Date();
     year = year !== null && year !== void 0 ? year : today.getFullYear();
     month = month !== null && month !== void 0 ? month : today.getMonth() + 1;
@@ -30,6 +39,7 @@ const getMonthlyTransactions = (month, year) => __awaiter(void 0, void 0, void 0
     const end = new Date(year, month, 0, 23, 59, 59, 999);
     const transactions = yield transaction_model_1.transactionModel
         .find({
+        user: userId,
         createdAt: { $gte: start, $lte: end },
     })
         .sort({ createdAt: -1 });

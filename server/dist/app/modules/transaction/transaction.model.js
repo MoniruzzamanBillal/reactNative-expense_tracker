@@ -13,6 +13,11 @@ exports.transactionModel = void 0;
 const mongoose_1 = require("mongoose");
 const transaction_constant_1 = require("./transaction.constant");
 const transactionSchema = new mongoose_1.Schema({
+    user: {
+        type: mongoose_1.Schema.Types.ObjectId,
+        ref: "User",
+        required: [true, "User is required !!!"],
+    },
     type: {
         type: String,
         enum: Object.values(transaction_constant_1.transactionConstants),
