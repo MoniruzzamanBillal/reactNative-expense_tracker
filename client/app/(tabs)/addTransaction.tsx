@@ -274,11 +274,12 @@ export default function AddTransactionScreen() {
             </View>
 
             <Button
+              disabled={isPending}
               mode="contained"
               onPress={handleAddTransaction}
               style={{ marginTop: 20, backgroundColor: COLORS.primary }}
             >
-              Save Transaction
+              {isPending ? "Saving Transaction..." : " Save Transaction"}
             </Button>
           </View>
         </View>

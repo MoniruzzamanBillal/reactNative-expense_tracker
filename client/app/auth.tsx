@@ -23,7 +23,7 @@ export default function AuthScreen() {
 
   const { handleSetUser, handleSetToken, user } = useUserContext();
 
-  const { mutateAsync: loginUser } = userUserLogin();
+  const { mutateAsync: loginUser, isPending } = userUserLogin();
 
   // ! for login
   const handleLogin = async () => {
@@ -112,8 +112,12 @@ export default function AuthScreen() {
                 onChangeText={setPassword}
                 value={password || ""}
               />
-              <Button mode="contained" onPress={handleLogin}>
-                Login
+              <Button
+                mode="contained"
+                onPress={handleLogin}
+                disabled={isPending}
+              >
+                {isPending ? "Loggin in..." : "Login"}
               </Button>
 
               <View style={{ flexDirection: "row", marginTop: 10 }}>

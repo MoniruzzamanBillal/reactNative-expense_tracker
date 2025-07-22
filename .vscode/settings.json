@@ -5,5 +5,5 @@
     "source.organizeImports": "explicit",
     "source.sortMembers": "explicit"
   },
-  "eslint.enable": false
+  "eslint.enable": true
 }
