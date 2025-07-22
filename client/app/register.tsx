@@ -21,7 +21,7 @@ export default function RegisterScreen() {
   const [email, setEmail] = useState<string | null>(null);
   const [password, setPassword] = useState<string | null>(null);
 
-  const { mutateAsync: registerUser } = useUserRegistration();
+  const { mutateAsync: registerUser, isPending } = useUserRegistration();
 
   //   ! for registration
   const handleRegistration = async () => {
@@ -36,11 +36,7 @@ export default function RegisterScreen() {
 
     const payload = { name, email, password };
 
-    console.log(payload);
-
     const result = await registerUser(payload);
-
-    console.log(result);
 
     if (result?.success) {
       const successMessage = result?.message;
@@ -108,8 +104,12 @@ export default function RegisterScreen() {
                 onChangeText={setPassword}
                 value={password || ""}
               />
-              <Button mode="contained" onPress={handleRegistration}>
-                Register
+              <Button
+                mode="contained"
+                onPress={handleRegistration}
+                disabled={isPending}
+              >
+                {isPending ? "Registering..." : "Register"}
               </Button>
 
               <View style={{ flexDirection: "row", marginTop: 10 }}>
