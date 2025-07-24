@@ -28,6 +28,8 @@ export default function TransactionCard({
 
     const result = await deleteTransactionData(transactionData?._id!);
 
+    console.log(result);
+
     if (result?.success) {
       const successMessage = result?.message;
 
