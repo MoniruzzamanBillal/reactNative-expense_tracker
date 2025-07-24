@@ -210,12 +210,6 @@ export default function AddTransactionScreen() {
                   padding: 0,
                   fontSize: 22,
                 }}
-                theme={{
-                  colors: {
-                    primary: "transparent",
-                    background: "transparent",
-                  },
-                }}
               />
             </View>
 
@@ -231,17 +225,13 @@ export default function AddTransactionScreen() {
                 placeholder="Transaction Title "
                 value={title || ""}
                 onChangeText={setTitle}
+                underlineColorAndroid="transparent"
                 style={{
                   borderWidth: 0,
                   backgroundColor: "transparent",
                   padding: 0,
                   fontSize: 20,
-                }}
-                theme={{
-                  colors: {
-                    primary: "transparent",
-                    background: "transparent",
-                  },
+                  color: COLORS.text,
                 }}
               />
             </View>
@@ -263,12 +253,6 @@ export default function AddTransactionScreen() {
                   backgroundColor: "transparent",
                   padding: 0,
                   fontSize: 20,
-                }}
-                theme={{
-                  colors: {
-                    primary: "transparent",
-                    background: "transparent",
-                  },
                 }}
               />
             </View>
