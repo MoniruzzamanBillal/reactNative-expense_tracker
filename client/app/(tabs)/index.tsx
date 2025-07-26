@@ -5,15 +5,34 @@ import {
 } from "@/components/Home";
 import { useGetDailyTransaction } from "@/hooks/transaction.hooks";
 import { TTransaction } from "@/types/Transaction.tyes";
-import { Dimensions, ScrollView, StyleSheet, View } from "react-native";
+import { useState } from "react";
+import {
+  Dimensions,
+  RefreshControl,
+  ScrollView,
+  StyleSheet,
+  View,
+} from "react-native";
 import { Text } from "react-native-paper";
 
 const screenHeight = Dimensions.get("window").height;
 
 export default function HomeScreen() {
-  const { data: monthlyTransaction, isLoading } = useGetDailyTransaction();
+  const [refreshing, setRefreshing] = useState(false);
+
+  const {
+    data: monthlyTransaction,
+    isLoading,
+    refetch,
+  } = useGetDailyTransaction();
 
   // console.log(monthlyTransaction);
+
+  const handleRefresh = async () => {
+    setRefreshing(true);
+    refetch();
+    setRefreshing(false);
+  };
 
   if (isLoading) {
     return <HomeSkeleton />;
@@ -40,6 +59,9 @@ export default function HomeScreen() {
         <ScrollView
           showsVerticalScrollIndicator={false}
           contentContainerStyle={{ paddingBottom: 20 }}
+          refreshControl={
+            <RefreshControl refreshing={refreshing} onRefresh={handleRefresh} />
+          }
         >
           {!monthlyTransaction?.transactions?.length && (
             <Text style={{ fontWeight: "600", fontSize: 20, color: "red" }}>
