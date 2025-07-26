@@ -55,6 +55,19 @@ const getMonthlyTransactions = catchAsync(async (req, res) => {
   });
 });
 
+// ! for getting the daily transaction
+const getDailyTransactions = catchAsync(async (req, res) => {
+  const result = await transactionServices.getDailyTransactions(
+    req?.user?.userId
+  );
+  sendResponse(res, {
+    status: httpStatus.OK,
+    success: true,
+    message: `Daily Transactions retrived !!!`,
+    data: result,
+  });
+});
+
 // ! for deletig transaction data
 const deleteTransactionData = catchAsync(async (req, res) => {
   const result = await transactionServices.deleteTransactionData(
@@ -75,4 +88,5 @@ export const transactionControllers = {
   updateTransaction,
   getMonthlyTransactions,
   deleteTransactionData,
+  getDailyTransactions,
 };
