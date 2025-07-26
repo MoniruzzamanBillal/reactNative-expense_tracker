@@ -3,7 +3,7 @@ import { useMutation } from "@tanstack/react-query";
 import { loginUser, registerUser } from "./Login.function";
 
 // ! for login
-export const userUserLogin = () => {
+export const UseUserLogin = () => {
   return useMutation({
     mutationKey: ["user-login"],
     mutationFn: async (payload: TLoginPayload) => await loginUser(payload),

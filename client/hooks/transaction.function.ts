@@ -18,7 +18,6 @@ export const getMonthlyTransaction = async () => {
       type: "error",
       text1: error?.response?.data?.message,
     });
-    throw new Error(error);
   }
 };
 
@@ -34,7 +33,6 @@ export const getDailyTransaction = async () => {
       type: "error",
       text1: error?.response?.data?.message,
     });
-    throw new Error(error);
   }
 };
 
@@ -53,7 +51,6 @@ export const addNewTransaction = async (payload: TTransaction) => {
       type: "error",
       text1: error?.response?.data?.message,
     });
-    throw new Error(error);
   }
 };
 

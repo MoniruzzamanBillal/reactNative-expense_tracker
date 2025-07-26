@@ -1,5 +1,5 @@
 import { useUserContext } from "@/context/user.context";
-import { userUserLogin } from "@/hooks/Login.hooks";
+import { UseUserLogin } from "@/hooks/Login.hooks";
 import { COLORS } from "@/utils/colors";
 import { useRouter } from "expo-router";
 import { useState } from "react";
@@ -21,9 +21,9 @@ export default function AuthScreen() {
 
   const router = useRouter();
 
-  const { handleSetUser, handleSetToken, user } = useUserContext();
+  const { handleSetUser, handleSetToken } = useUserContext();
 
-  const { mutateAsync: loginUser, isPending } = userUserLogin();
+  const { mutateAsync: loginUser, isPending } = UseUserLogin();
 
   // ! for login
   const handleLogin = async () => {
@@ -40,6 +40,8 @@ export default function AuthScreen() {
     const payload = { email, password };
 
     const result = await loginUser(payload);
+
+    console.log(result);
 
     if (result?.success) {
       const successMessage = result?.message;
