@@ -41,7 +41,11 @@ export default function TabsLayout() {
           options={{
             title: "Monthly Transaction",
             tabBarIcon: ({ color, size }) => (
-              <MaterialCommunityIcons name="home" size={size} color={color} />
+              <MaterialCommunityIcons
+                name="calendar"
+                size={size}
+                color={color}
+              />
             ),
             headerRight: () => (
               <MaterialCommunityIcons
@@ -61,6 +65,30 @@ export default function TabsLayout() {
             title: "Add Transaction",
             tabBarIcon: ({ color, size }) => (
               <MaterialCommunityIcons name="plus" size={size} color={color} />
+            ),
+          }}
+        />
+
+        <Tabs.Screen
+          name="history"
+          options={{
+            title: "History",
+            tabBarIcon: ({ color, size }) => (
+              <MaterialCommunityIcons
+                name="chart-line"
+                // name="calendar-month"
+                size={size}
+                color={color}
+              />
+            ),
+            headerRight: () => (
+              <MaterialCommunityIcons
+                name="logout"
+                style={{ marginRight: 20 }}
+                size={24}
+                color={COLORS.primary}
+                onPress={() => logoutFunction()}
+              />
             ),
           }}
         />

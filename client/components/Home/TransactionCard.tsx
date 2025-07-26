@@ -182,7 +182,7 @@ const cardStyles = StyleSheet.create({
     marginVertical: 8,
     flexDirection: "column",
     backgroundColor: COLORS.background,
-    padding: 6,
+    padding: 8,
     borderRadius: 6,
     shadowColor: "#000",
     shadowOffset: { width: 0, height: 4 },

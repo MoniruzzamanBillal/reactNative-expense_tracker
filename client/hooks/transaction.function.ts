@@ -36,6 +36,8 @@ export const getDailyTransaction = async () => {
   }
 };
 
+// ! for getting yearly transaction data
+
 // !for adding new transaction
 export const addNewTransaction = async (payload: TTransaction) => {
   try {

@@ -67,10 +67,21 @@ const getDailyTransactions = (0, catchAsync_1.default)((req, res) => __awaiter(v
         data: result,
     });
 }));
+// ! for getting the yearly transaction summary
+const getYearlySummary = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    var _j;
+    const result = yield transaction_service_1.transactionServices.getYearlySummary((_j = req === null || req === void 0 ? void 0 : req.user) === null || _j === void 0 ? void 0 : _j.userId);
+    (0, sendResponse_1.default)(res, {
+        status: http_status_1.default.OK,
+        success: true,
+        message: `yearly Transactions retrived !!!`,
+        data: result,
+    });
+}));
 // ! for deletig transaction data
 const deleteTransactionData = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    var _j;
-    const result = yield transaction_service_1.transactionServices.deleteTransactionData((_j = req.params) === null || _j === void 0 ? void 0 : _j.transactionId);
+    var _k;
+    const result = yield transaction_service_1.transactionServices.deleteTransactionData((_k = req.params) === null || _k === void 0 ? void 0 : _k.transactionId);
     (0, sendResponse_1.default)(res, {
         status: http_status_1.default.OK,
         success: true,
@@ -85,4 +96,5 @@ exports.transactionControllers = {
     getMonthlyTransactions,
     deleteTransactionData,
     getDailyTransactions,
+    getYearlySummary,
 };

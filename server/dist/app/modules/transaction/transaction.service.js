@@ -16,6 +16,7 @@ exports.transactionServices = void 0;
 const http_status_1 = __importDefault(require("http-status"));
 const AppError_1 = __importDefault(require("../../Error/AppError"));
 const user_model_1 = require("../user/user.model");
+const transaction_constant_1 = require("./transaction.constant");
 const transaction_model_1 = require("./transaction.model");
 // ! for adding new transaction
 const addNewTransaction = (payload, userId) => __awaiter(void 0, void 0, void 0, function* () {
@@ -75,6 +76,40 @@ const getDailyTransactions = (userId) => __awaiter(void 0, void 0, void 0, funct
     return { income, expense, transactions };
     //
 });
+// ! for getting the yearly transaction summary
+const getYearlySummary = (userId) => __awaiter(void 0, void 0, void 0, function* () {
+    var _a;
+    const userData = yield user_model_1.userModel.findById(userId);
+    if (!userData) {
+        throw new AppError_1.default(http_status_1.default.BAD_REQUEST, "User does not exist !!!");
+    }
+    const currentYear = new Date().getFullYear();
+    const start = new Date(currentYear, 0, 1);
+    const end = new Date(currentYear + 1, 0, 1);
+    const transactions = yield transaction_model_1.transactionModel.find({
+        user: userId,
+        createdAt: { $gte: start, $lte: end },
+    });
+    const monthlySummary = {};
+    for (let i = 0; i < 12; i++) {
+        monthlySummary[i] = { income: 0, expense: 0 };
+    }
+    for (const transaction of transactions) {
+        const month = new Date(transaction === null || transaction === void 0 ? void 0 : transaction.createdAt).getMonth();
+        if (transaction.type === transaction_constant_1.transactionConstants.income) {
+            monthlySummary[month].income += transaction.amount;
+        }
+        else if (transaction.type === transaction_constant_1.transactionConstants.expense) {
+            monthlySummary[month].expense += transaction.amount;
+        }
+    }
+    const result = (_a = Object.entries(monthlySummary)) === null || _a === void 0 ? void 0 : _a.map(([month, data]) => ({
+        month: Number(month),
+        income: data === null || data === void 0 ? void 0 : data.income,
+        expense: data === null || data === void 0 ? void 0 : data.expense,
+    }));
+    return result;
+});
 // ! for updating transaction
 const updateTransaction = (transactionId, payload) => __awaiter(void 0, void 0, void 0, function* () {
     const transactionData = yield transaction_model_1.transactionModel.findById(transactionId);
@@ -105,4 +140,5 @@ exports.transactionServices = {
     getMonthlyTransactions,
     deleteTransactionData,
     getDailyTransactions,
+    getYearlySummary,
 };
