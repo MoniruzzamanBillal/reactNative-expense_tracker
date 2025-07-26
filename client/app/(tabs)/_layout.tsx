@@ -47,15 +47,6 @@ export default function TabsLayout() {
                 color={color}
               />
             ),
-            headerRight: () => (
-              <MaterialCommunityIcons
-                name="logout"
-                style={{ marginRight: 20 }}
-                size={24}
-                color={COLORS.primary}
-                onPress={() => logoutFunction()}
-              />
-            ),
           }}
         />
 
@@ -79,15 +70,6 @@ export default function TabsLayout() {
                 // name="calendar-month"
                 size={size}
                 color={color}
-              />
-            ),
-            headerRight: () => (
-              <MaterialCommunityIcons
-                name="logout"
-                style={{ marginRight: 20 }}
-                size={24}
-                color={COLORS.primary}
-                onPress={() => logoutFunction()}
               />
             ),
           }}

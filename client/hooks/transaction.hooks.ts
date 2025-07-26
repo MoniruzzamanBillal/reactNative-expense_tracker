@@ -5,6 +5,7 @@ import {
   deleteTransactionData,
   getDailyTransaction,
   getMonthlyTransaction,
+  getYearlyTransaction,
 } from "./transaction.function";
 
 // ! for getting monthly transaction
@@ -23,6 +24,14 @@ export const useGetDailyTransaction = () => {
   });
 };
 
+// ! for getting yearly transaction
+export const useGetYearlyTransaction = () => {
+  return useQuery({
+    queryKey: ["yearly-transaction"],
+    queryFn: async () => await getYearlyTransaction(),
+  });
+};
+
 // ! for adding new transaction
 export const useAddTransaction = () => {
   const queryClient = useQueryClient();
@@ -37,6 +46,9 @@ export const useAddTransaction = () => {
       });
       queryClient.invalidateQueries({
         queryKey: ["monthly-transaction"],
+      });
+      queryClient.invalidateQueries({
+        queryKey: ["yearly-transaction"],
       });
     },
   });
@@ -56,6 +68,9 @@ export const useDeleteTransaction = () => {
       });
       queryClient.invalidateQueries({
         queryKey: ["monthly-transaction"],
+      });
+      queryClient.invalidateQueries({
+        queryKey: ["yearly-transaction"],
       });
     },
   });

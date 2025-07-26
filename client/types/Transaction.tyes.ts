@@ -7,3 +7,9 @@ export type TTransaction = {
   createdAt?: string;
   updatedAt?: string;
 };
+
+export type TTransactionHistory = {
+  expense: number;
+  income: number;
+  month: number;
+};

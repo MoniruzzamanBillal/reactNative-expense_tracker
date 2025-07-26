@@ -1,13 +1,40 @@
+import { TTransactionHistory } from "@/types/Transaction.tyes";
 import { COLORS } from "@/utils/colors";
 import { StyleSheet, View } from "react-native";
 import { Text } from "react-native-paper";
 
-export default function HistoryCard() {
+const monthNames = [
+  "January",
+  "February",
+  "March",
+  "April",
+  "May",
+  "June",
+  "July",
+  "August",
+  "September",
+  "October",
+  "November",
+  "December",
+];
+
+export default function HistoryCard({
+  historyData,
+}: {
+  historyData: TTransactionHistory;
+}) {
+  console.log(historyData);
   return (
     <View style={historyCardStyle.container}>
-      <Text style={{ fontWeight: 700, fontSize: 20, marginBottom: 5 }}>
-        {" "}
-        January{" "}
+      <Text
+        style={{
+          fontWeight: 700,
+          fontSize: 20,
+          marginBottom: 4,
+          color: COLORS.primary,
+        }}
+      >
+        {monthNames[historyData?.month]}
       </Text>
 
       {/* money section  */}
@@ -24,6 +51,7 @@ export default function HistoryCard() {
             flexDirection: "row",
             alignContent: "center",
             justifyContent: "center",
+            columnGap: 1,
           }}
         >
           <Text
@@ -31,10 +59,6 @@ export default function HistoryCard() {
               fontSize: 15,
               fontWeight: "700",
               color: COLORS.income,
-              //   color:
-              //     transactionData.type === typeOptions.income
-              //       ? COLORS.income
-              //       : COLORS.expense,
             }}
           >
             Income :
@@ -44,10 +68,6 @@ export default function HistoryCard() {
               fontSize: 15,
               fontWeight: "600",
               color: COLORS.income,
-              //   color:
-              //     transactionData.type === typeOptions.income
-              //       ? COLORS.income
-              //       : COLORS.expense,
             }}
           >
             ৳
@@ -57,13 +77,9 @@ export default function HistoryCard() {
               fontSize: 15,
               fontWeight: "600",
               color: COLORS.income,
-              //   color:
-              //     transactionData.type === typeOptions.income
-              //       ? COLORS.income
-              //       : COLORS.expense,
             }}
           >
-            200
+            {historyData?.income}
           </Text>
         </View>
 
@@ -80,11 +96,7 @@ export default function HistoryCard() {
             style={{
               fontSize: 15,
               fontWeight: "700",
-              color: COLORS.income,
-              //   color:
-              //     transactionData.type === typeOptions.income
-              //       ? COLORS.income
-              //       : COLORS.expense,
+              color: COLORS.expense,
             }}
           >
             Expense :
@@ -93,11 +105,7 @@ export default function HistoryCard() {
             style={{
               fontSize: 15,
               fontWeight: "600",
-              color: COLORS.income,
-              //   color:
-              //     transactionData.type === typeOptions.income
-              //       ? COLORS.income
-              //       : COLORS.expense,
+              color: COLORS.expense,
             }}
           >
             ৳
@@ -106,14 +114,10 @@ export default function HistoryCard() {
             style={{
               fontSize: 15,
               fontWeight: "600",
-              color: COLORS.income,
-              //   color:
-              //     transactionData.type === typeOptions.income
-              //       ? COLORS.income
-              //       : COLORS.expense,
+              color: COLORS.expense,
             }}
           >
-            200
+            {historyData?.expense}
           </Text>
         </View>
 
@@ -123,17 +127,13 @@ export default function HistoryCard() {
             flexDirection: "row",
             alignContent: "center",
             justifyContent: "center",
+            columnGap: 1,
           }}
         >
           <Text
             style={{
               fontSize: 15,
               fontWeight: "700",
-
-              //   color:
-              //     transactionData.type === typeOptions.income
-              //       ? COLORS.income
-              //       : COLORS.expense,
             }}
           >
             Balance :
@@ -142,11 +142,6 @@ export default function HistoryCard() {
             style={{
               fontSize: 15,
               fontWeight: "600",
-              color: COLORS.income,
-              //   color:
-              //     transactionData.type === typeOptions.income
-              //       ? COLORS.income
-              //       : COLORS.expense,
             }}
           >
             ৳
@@ -155,14 +150,9 @@ export default function HistoryCard() {
             style={{
               fontSize: 15,
               fontWeight: "600",
-
-              //   color:
-              //     transactionData.type === typeOptions.income
-              //       ? COLORS.income
-              //       : COLORS.expense,
             }}
           >
-            200
+            {historyData?.income - historyData?.expense}
           </Text>
         </View>
 

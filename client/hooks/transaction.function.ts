@@ -37,6 +37,19 @@ export const getDailyTransaction = async () => {
 };
 
 // ! for getting yearly transaction data
+export const getYearlyTransaction = async () => {
+  try {
+    const result = await axiosInstance.get(`/transactions/yearly-transaction`);
+
+    return result?.data?.data;
+  } catch (error: any) {
+    console.log(error);
+    Toast.show({
+      type: "error",
+      text1: error?.response?.data?.message,
+    });
+  }
+};
 
 // !for adding new transaction
 export const addNewTransaction = async (payload: TTransaction) => {
