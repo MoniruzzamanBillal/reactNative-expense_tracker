@@ -23,7 +23,7 @@ export default function HistoryCard({
 }: {
   historyData: TTransactionHistory;
 }) {
-  console.log(historyData);
+  //   console.log(historyData);
   return (
     <View style={historyCardStyle.container}>
       <Text
