@@ -24,11 +24,7 @@ export default function TransactionCard({
 
   // ! for deleting transaction data
   const handleDeleteTransaction = async (transactionData: TTransaction) => {
-    console.log("delete transaction !!!");
-
     const result = await deleteTransactionData(transactionData?._id!);
-
-    console.log(result);
 
     if (result?.success) {
       const successMessage = result?.message;
@@ -36,7 +32,7 @@ export default function TransactionCard({
       Toast.show({
         type: "success",
         text1: successMessage,
-        position: "bottom",
+        position: "top",
       });
     }
   };

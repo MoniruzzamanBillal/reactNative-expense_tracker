@@ -37,6 +37,25 @@ export default function TabsLayout() {
           }}
         />
         <Tabs.Screen
+          name="monthlyTransactions"
+          options={{
+            title: "Monthly Transaction",
+            tabBarIcon: ({ color, size }) => (
+              <MaterialCommunityIcons name="home" size={size} color={color} />
+            ),
+            headerRight: () => (
+              <MaterialCommunityIcons
+                name="logout"
+                style={{ marginRight: 20 }}
+                size={24}
+                color={COLORS.primary}
+                onPress={() => logoutFunction()}
+              />
+            ),
+          }}
+        />
+
+        <Tabs.Screen
           name="addTransaction"
           options={{
             title: "Add Transaction",

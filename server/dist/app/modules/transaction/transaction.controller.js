@@ -56,10 +56,21 @@ const getMonthlyTransactions = (0, catchAsync_1.default)((req, res) => __awaiter
         data: result,
     });
 }));
+// ! for getting the daily transaction
+const getDailyTransactions = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    var _h;
+    const result = yield transaction_service_1.transactionServices.getDailyTransactions((_h = req === null || req === void 0 ? void 0 : req.user) === null || _h === void 0 ? void 0 : _h.userId);
+    (0, sendResponse_1.default)(res, {
+        status: http_status_1.default.OK,
+        success: true,
+        message: `Daily Transactions retrived !!!`,
+        data: result,
+    });
+}));
 // ! for deletig transaction data
 const deleteTransactionData = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    var _h;
-    const result = yield transaction_service_1.transactionServices.deleteTransactionData((_h = req.params) === null || _h === void 0 ? void 0 : _h.transactionId);
+    var _j;
+    const result = yield transaction_service_1.transactionServices.deleteTransactionData((_j = req.params) === null || _j === void 0 ? void 0 : _j.transactionId);
     (0, sendResponse_1.default)(res, {
         status: http_status_1.default.OK,
         success: true,
@@ -73,4 +84,5 @@ exports.transactionControllers = {
     updateTransaction,
     getMonthlyTransactions,
     deleteTransactionData,
+    getDailyTransactions,
 };

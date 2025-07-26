@@ -92,7 +92,7 @@ export default function AddTransactionScreen() {
       Toast.show({
         type: "success",
         text1: successMessage,
-        position: "bottom",
+        position: "top",
       });
 
       setTimeout(() => {

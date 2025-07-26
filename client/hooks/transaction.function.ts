@@ -14,6 +14,26 @@ export const getMonthlyTransaction = async () => {
     return result?.data?.data;
   } catch (error: any) {
     console.log(error);
+    Toast.show({
+      type: "error",
+      text1: error?.response?.data?.message,
+    });
+    throw new Error(error);
+  }
+};
+
+// ! for getting daily transaction
+export const getDailyTransaction = async () => {
+  try {
+    const result = await axiosInstance.get(`/transactions/daily-transaction`);
+
+    return result?.data?.data;
+  } catch (error: any) {
+    console.log(error);
+    Toast.show({
+      type: "error",
+      text1: error?.response?.data?.message,
+    });
     throw new Error(error);
   }
 };
@@ -29,6 +49,10 @@ export const addNewTransaction = async (payload: TTransaction) => {
     return result?.data;
   } catch (error: any) {
     console.log(error);
+    Toast.show({
+      type: "error",
+      text1: error?.response?.data?.message,
+    });
     throw new Error(error);
   }
 };

@@ -3,14 +3,23 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import {
   addNewTransaction,
   deleteTransactionData,
+  getDailyTransaction,
   getMonthlyTransaction,
 } from "./transaction.function";
 
-// ! for getting all transaction
+// ! for getting monthly transaction
 export const useGetMonthlyTransaction = () => {
   return useQuery({
     queryKey: ["monthly-transaction"],
     queryFn: async () => await getMonthlyTransaction(),
+  });
+};
+
+// ! for getting daily transaction
+export const useGetDailyTransaction = () => {
+  return useQuery({
+    queryKey: ["daily-transaction"],
+    queryFn: async () => await getDailyTransaction(),
   });
 };
 
@@ -23,7 +32,12 @@ export const useAddTransaction = () => {
     mutationFn: async (payload: TTransaction) =>
       await addNewTransaction(payload),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["monthly-transaction"] });
+      queryClient.invalidateQueries({
+        queryKey: ["daily-transaction"],
+      });
+      queryClient.invalidateQueries({
+        queryKey: ["monthly-transaction"],
+      });
     },
   });
 };
@@ -37,7 +51,12 @@ export const useDeleteTransaction = () => {
     mutationFn: async (transactionId: string) =>
       await deleteTransactionData(transactionId),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["monthly-transaction"] });
+      queryClient.invalidateQueries({
+        queryKey: ["daily-transaction"],
+      });
+      queryClient.invalidateQueries({
+        queryKey: ["monthly-transaction"],
+      });
     },
   });
 };

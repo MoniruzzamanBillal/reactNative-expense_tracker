@@ -3,15 +3,15 @@ import {
   TotalBalanceCard,
   TransactionCard,
 } from "@/components/Home";
-import { useGetDailyTransaction } from "@/hooks/transaction.hooks";
+import { useGetMonthlyTransaction } from "@/hooks/transaction.hooks";
 import { TTransaction } from "@/types/Transaction.tyes";
 import { Dimensions, ScrollView, StyleSheet, View } from "react-native";
 import { Text } from "react-native-paper";
 
 const screenHeight = Dimensions.get("window").height;
 
-export default function HomeScreen() {
-  const { data: monthlyTransaction, isLoading } = useGetDailyTransaction();
+export default function MonthlyTransactionScreen() {
+  const { data: monthlyTransaction, isLoading } = useGetMonthlyTransaction();
 
   // console.log(monthlyTransaction);
 
@@ -20,7 +20,7 @@ export default function HomeScreen() {
   }
 
   return (
-    <View style={homePageStyles.mainContainer}>
+    <View style={PageStyles.mainContainer}>
       {/* Total balance card */}
       {monthlyTransaction && (
         <TotalBalanceCard
@@ -31,12 +31,12 @@ export default function HomeScreen() {
 
       {/* Title for transactions */}
       <Text style={{ marginTop: 22, fontSize: 22, fontWeight: "800" }}>
-        Transactions :
+        Recent Transactions :
       </Text>
 
       {/* Scrollable Transactions */}
 
-      <View style={homePageStyles.scrollableList}>
+      <View style={PageStyles.scrollableList}>
         <ScrollView
           showsVerticalScrollIndicator={false}
           contentContainerStyle={{ paddingBottom: 20 }}
@@ -62,7 +62,7 @@ export default function HomeScreen() {
   );
 }
 
-const homePageStyles = StyleSheet.create({
+const PageStyles = StyleSheet.create({
   mainContainer: {
     width: "90%",
     alignSelf: "center",
