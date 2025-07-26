@@ -123,7 +123,7 @@ export default function AuthScreen() {
               </Button>
 
               <View style={{ flexDirection: "row", marginTop: 10 }}>
-                <Text>Don't Have any account ? </Text>
+                <Text> {"Don't Have any account ?"} </Text>
 
                 <Pressable onPress={() => router.replace("/register")}>
                   <Text

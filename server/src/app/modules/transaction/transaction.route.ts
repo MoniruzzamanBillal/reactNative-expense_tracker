@@ -20,6 +20,13 @@ router.get(
   transactionControllers.getDailyTransactions
 );
 
+// ! for getting the yearly transaction
+router.get(
+  "/yearly-transaction",
+  authCheck,
+  transactionControllers.getYearlySummary
+);
+
 // ! for adding new transaction
 router.post(
   "/new-transaction",

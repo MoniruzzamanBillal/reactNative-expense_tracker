@@ -1,6 +1,7 @@
 import httpStatus from "http-status";
 import AppError from "../../Error/AppError";
 import { userModel } from "../user/user.model";
+import { transactionConstants } from "./transaction.constant";
 import { TTransaction } from "./transaction.interface";
 import { transactionModel } from "./transaction.model";
 
@@ -104,6 +105,50 @@ const getDailyTransactions = async (userId: string) => {
   //
 };
 
+// ! for getting the yearly transaction summary
+const getYearlySummary = async (userId: string) => {
+  const userData = await userModel.findById(userId);
+
+  if (!userData) {
+    throw new AppError(httpStatus.BAD_REQUEST, "User does not exist !!!");
+  }
+
+  const currentYear = new Date().getFullYear();
+
+  const start = new Date(currentYear, 0, 1);
+  const end = new Date(currentYear + 1, 0, 1);
+
+  const transactions = await transactionModel.find({
+    user: userId,
+    createdAt: { $gte: start, $lte: end },
+  });
+
+  const monthlySummary: Record<number, { income: number; expense: number }> =
+    {};
+
+  for (let i = 0; i < 12; i++) {
+    monthlySummary[i] = { income: 0, expense: 0 };
+  }
+
+  for (const transaction of transactions) {
+    const month = new Date(transaction?.createdAt as Date).getMonth();
+
+    if (transaction.type === transactionConstants.income) {
+      monthlySummary[month].income += transaction.amount;
+    } else if (transaction.type === transactionConstants.expense) {
+      monthlySummary[month].expense += transaction.amount;
+    }
+  }
+
+  const result = Object.entries(monthlySummary)?.map(([month, data]) => ({
+    month: Number(month),
+    income: data?.income,
+    expense: data?.expense,
+  }));
+
+  return result;
+};
+
 // ! for updating transaction
 const updateTransaction = async (
   transactionId: string,
@@ -148,4 +193,5 @@ export const transactionServices = {
   getMonthlyTransactions,
   deleteTransactionData,
   getDailyTransactions,
+  getYearlySummary,
 };

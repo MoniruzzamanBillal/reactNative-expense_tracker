@@ -8,4 +8,7 @@ export interface TTransaction {
   description: string;
   amount: number;
   isDeleted: boolean;
+
+  createdAt?: Date;
+  updatedAt?: Date;
 }
