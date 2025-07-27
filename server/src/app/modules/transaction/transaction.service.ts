@@ -31,8 +31,8 @@ const getMonthlyTransactions = async (
   }
 
   const today = new Date();
-  year = year ?? today.getFullYear();
-  month = month ?? today.getMonth() + 1;
+  year = year ?? today.getUTCFullYear();
+  month = month ?? today.getUTCMonth() + 1;
 
   const start = new Date(year, month - 1, 1);
   const end = new Date(year, month, 0, 23, 59, 59, 999);
