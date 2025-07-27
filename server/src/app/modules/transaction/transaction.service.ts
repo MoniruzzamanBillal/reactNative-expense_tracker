@@ -66,9 +66,9 @@ const getDailyTransactions = async (userId: string) => {
   const today = new Date();
 
   const start = new Date(
-    today.getFullYear(),
-    today.getMonth(),
-    today.getDate(),
+    today.getUTCFullYear(),
+    today.getUTCMonth(),
+    today.getUTCDate(),
     0,
     0,
     0,
@@ -76,9 +76,9 @@ const getDailyTransactions = async (userId: string) => {
   );
 
   const end = new Date(
-    today.getFullYear(),
-    today.getMonth(),
-    today.getDate(),
+    today.getUTCFullYear(),
+    today.getUTCMonth(),
+    today.getUTCDate(),
     23,
     59,
     59,

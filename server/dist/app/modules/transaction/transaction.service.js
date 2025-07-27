@@ -59,8 +59,8 @@ const getDailyTransactions = (userId) => __awaiter(void 0, void 0, void 0, funct
         throw new AppError_1.default(http_status_1.default.BAD_REQUEST, "User does not exist !!!");
     }
     const today = new Date();
-    const start = new Date(today.getFullYear(), today.getMonth(), today.getDate(), 0, 0, 0, 0);
-    const end = new Date(today.getFullYear(), today.getMonth(), today.getDate(), 23, 59, 59, 999);
+    const start = new Date(today.getUTCFullYear(), today.getUTCMonth(), today.getUTCDate(), 0, 0, 0, 0);
+    const end = new Date(today.getUTCFullYear(), today.getUTCMonth(), today.getUTCDate(), 23, 59, 59, 999);
     const transactions = yield transaction_model_1.transactionModel
         .find({
         user: userId,
