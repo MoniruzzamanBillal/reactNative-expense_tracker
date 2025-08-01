@@ -34,8 +34,8 @@ const getMonthlyTransactions = (userId, month, year) => __awaiter(void 0, void 0
         throw new AppError_1.default(http_status_1.default.BAD_REQUEST, "User does not exist !!!");
     }
     const today = new Date();
-    year = year !== null && year !== void 0 ? year : today.getFullYear();
-    month = month !== null && month !== void 0 ? month : today.getMonth() + 1;
+    year = year !== null && year !== void 0 ? year : today.getUTCFullYear();
+    month = month !== null && month !== void 0 ? month : today.getUTCMonth() + 1;
     const start = new Date(year, month - 1, 1);
     const end = new Date(year, month, 0, 23, 59, 59, 999);
     const transactions = yield transaction_model_1.transactionModel
