@@ -78,22 +78,28 @@ const getMonthlyTransactionsUpdated = async (userId: string) => {
     .sort({ createdAt: -1 });
 
   const dailyDate: {
-    [day: number]: { income: number; expense: number; transactions: [] };
+    [day: string]: {
+      income: number;
+      expense: number;
+      transactions: TTransaction[];
+    };
   } = {};
 
   transactions?.forEach((tran) => {
     const day = tran?.createdAt?.getUTCDate() as number;
 
-    if (!dailyDate[day]) {
-      dailyDate[day] = { income: 0, expense: 0, transactions: [] };
+    const dateString = `${year}-${month.toString().padStart(2, "0")}-${day.toString().padStart(2, "0")}`;
+
+    if (!dailyDate[dateString]) {
+      dailyDate[dateString] = { income: 0, expense: 0, transactions: [] };
     }
 
-    dailyDate[day].transactions.push(tran);
+    dailyDate[dateString].transactions.push(tran);
 
     if (tran?.type === transactionConstants.income) {
-      dailyDate[day].income += tran?.amount;
+      dailyDate[dateString].income += tran?.amount;
     } else if (tran?.type === transactionConstants?.expense) {
-      dailyDate[day].expense += tran?.amount;
+      dailyDate[dateString].expense += tran?.amount;
     }
   });
 
