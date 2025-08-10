@@ -13,6 +13,13 @@ router.get(
   transactionControllers.getMonthlyTransactions
 );
 
+// ! Get monthly transactions
+router.get(
+  "/monthly-transaction-updated",
+  authCheck,
+  transactionControllers.getMonthlyTransactionsUpdated
+);
+
 // ! for getting the daily transaction
 router.get(
   "/daily-transaction",

@@ -55,6 +55,51 @@ const getMonthlyTransactions = async (
   return { income, expense, transactions };
 };
 
+// ! for getting monthly data
+const getMonthlyTransactionsUpdated = async (userId: string) => {
+  const userData = await userModel.findById(userId);
+
+  if (!userData) {
+    throw new AppError(httpStatus.BAD_REQUEST, "User does not exist !!!");
+  }
+
+  const today = new Date();
+  const year = today.getUTCFullYear();
+  const month = today.getUTCMonth() + 1;
+
+  const start = new Date(year, month - 1, 1);
+  const end = new Date(year, month, 0, 23, 59, 59, 999);
+
+  const transactions = await transactionModel
+    .find({
+      user: userId,
+      createdAt: { $gte: start, $lte: end },
+    })
+    .sort({ createdAt: -1 });
+
+  const dailyDate: {
+    [day: number]: { income: number; expense: number; transactions: [] };
+  } = {};
+
+  transactions?.forEach((tran) => {
+    const day = tran?.createdAt?.getUTCDate() as number;
+
+    if (!dailyDate[day]) {
+      dailyDate[day] = { income: 0, expense: 0, transactions: [] };
+    }
+
+    dailyDate[day].transactions.push(tran);
+
+    if (tran?.type === transactionConstants.income) {
+      dailyDate[day].income += tran?.amount;
+    } else if (tran?.type === transactionConstants?.expense) {
+      dailyDate[day].expense += tran?.amount;
+    }
+  });
+
+  return dailyDate;
+};
+
 // ! for getting the daily transaction
 const getDailyTransactions = async (userId: string) => {
   const userData = await userModel.findById(userId);
@@ -194,4 +239,5 @@ export const transactionServices = {
   deleteTransactionData,
   getDailyTransactions,
   getYearlySummary,
+  getMonthlyTransactionsUpdated,
 };
