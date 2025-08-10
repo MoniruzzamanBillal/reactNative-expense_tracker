@@ -54,6 +54,7 @@ const getMonthlyTransactions = (userId, month, year) => __awaiter(void 0, void 0
 });
 // ! for getting monthly data
 const getMonthlyTransactionsUpdated = (userId) => __awaiter(void 0, void 0, void 0, function* () {
+    var _a;
     const userData = yield user_model_1.userModel.findById(userId);
     if (!userData) {
         throw new AppError_1.default(http_status_1.default.BAD_REQUEST, "User does not exist !!!");
@@ -85,7 +86,14 @@ const getMonthlyTransactionsUpdated = (userId) => __awaiter(void 0, void 0, void
             dailyDate[dateString].expense += tran === null || tran === void 0 ? void 0 : tran.amount;
         }
     });
-    return dailyDate;
+    const updatedData = (_a = Object.entries(dailyDate)) === null || _a === void 0 ? void 0 : _a.map(([date, value]) => ({
+        date,
+        income: value === null || value === void 0 ? void 0 : value.income,
+        expense: value === null || value === void 0 ? void 0 : value.expense,
+        transactions: value === null || value === void 0 ? void 0 : value.transactions,
+    }));
+    // console.log(updatedData);
+    return updatedData;
 });
 // ! for getting the daily transaction
 const getDailyTransactions = (userId) => __awaiter(void 0, void 0, void 0, function* () {
@@ -113,7 +121,7 @@ const getDailyTransactions = (userId) => __awaiter(void 0, void 0, void 0, funct
 });
 // ! for getting the yearly transaction summary
 const getYearlySummary = (userId) => __awaiter(void 0, void 0, void 0, function* () {
-    var _a;
+    var _b;
     const userData = yield user_model_1.userModel.findById(userId);
     if (!userData) {
         throw new AppError_1.default(http_status_1.default.BAD_REQUEST, "User does not exist !!!");
@@ -138,7 +146,7 @@ const getYearlySummary = (userId) => __awaiter(void 0, void 0, void 0, function*
             monthlySummary[month].expense += transaction.amount;
         }
     }
-    const result = (_a = Object.entries(monthlySummary)) === null || _a === void 0 ? void 0 : _a.map(([month, data]) => ({
+    const result = (_b = Object.entries(monthlySummary)) === null || _b === void 0 ? void 0 : _b.map(([month, data]) => ({
         month: Number(month),
         income: data === null || data === void 0 ? void 0 : data.income,
         expense: data === null || data === void 0 ? void 0 : data.expense,

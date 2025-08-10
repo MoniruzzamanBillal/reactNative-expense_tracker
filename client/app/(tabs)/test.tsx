@@ -1,29 +1,26 @@
+import { TransactionAccordion } from "@/components/Home";
+import { useGetDailyTransactionUpdated } from "@/hooks/transaction.hooks";
 import { useState } from "react";
-import { Pressable, StyleSheet, View } from "react-native";
-import { Text } from "react-native-paper";
+import { StyleSheet, View } from "react-native";
 
 export default function TestScreen() {
   const [open, setOpen] = useState(false);
 
+  const { data: transactionsData, isLoading } = useGetDailyTransactionUpdated();
+
+  console.log(transactionsData);
+
   return (
     <View style={styles.container}>
-      <Pressable onPress={() => setOpen(!open)} style={styles.header}>
-        <Text style={styles.headerText}>Product Information</Text>
-      </Pressable>
-
-      {open && (
-        <View style={styles.content}>
-          <Text>Our flagship product combines cutting-edge technology...</Text>
-          <Text>Key features include advanced processing capabilities...</Text>
-        </View>
-      )}
+      <TransactionAccordion dailyData={transactionsData} />
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  container: { marginBottom: 10, borderWidth: 1, borderColor: "#ccc" },
-  header: { padding: 10, backgroundColor: "#f5f5f5" },
-  headerText: { fontWeight: "bold" },
-  content: { padding: 10, backgroundColor: "#fff" },
+  container: {
+    width: "90%",
+    alignSelf: "center",
+    paddingTop: 10,
+  },
 });

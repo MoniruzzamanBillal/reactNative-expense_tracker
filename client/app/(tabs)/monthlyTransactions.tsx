@@ -1,9 +1,13 @@
 import {
   HomeSkeleton,
   TotalBalanceCard,
+  TransactionAccordion,
   TransactionCard,
 } from "@/components/Home";
-import { useGetMonthlyTransaction } from "@/hooks/transaction.hooks";
+import {
+  useGetDailyTransactionUpdated,
+  useGetMonthlyTransaction,
+} from "@/hooks/transaction.hooks";
 import { TTransaction } from "@/types/Transaction.tyes";
 import { useState } from "react";
 import {
@@ -25,6 +29,8 @@ export default function MonthlyTransactionScreen() {
     isLoading,
     refetch,
   } = useGetMonthlyTransaction();
+
+  const { data: transactionsData } = useGetDailyTransactionUpdated();
 
   // console.log(monthlyTransaction);
 
@@ -67,6 +73,10 @@ export default function MonthlyTransactionScreen() {
             <Text style={{ fontWeight: "600", fontSize: 20, color: "red" }}>
               No transactions yet !!!
             </Text>
+          )}
+
+          {transactionsData && (
+            <TransactionAccordion dailyData={transactionsData} />
           )}
 
           {monthlyTransaction?.transactions &&

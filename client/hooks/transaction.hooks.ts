@@ -5,6 +5,7 @@ import {
   deleteTransactionData,
   getDailyTransaction,
   getMonthlyTransaction,
+  getMonthlyTransactionUpdated,
   getYearlyTransaction,
 } from "./transaction.function";
 
@@ -21,6 +22,14 @@ export const useGetDailyTransaction = () => {
   return useQuery({
     queryKey: ["daily-transaction"],
     queryFn: async () => await getDailyTransaction(),
+  });
+};
+
+// ! for getting daily transaction(updated - date , income , expense , transaction)
+export const useGetDailyTransactionUpdated = () => {
+  return useQuery({
+    queryKey: ["daily-transaction-update"],
+    queryFn: async () => await getMonthlyTransactionUpdated(),
   });
 };
 

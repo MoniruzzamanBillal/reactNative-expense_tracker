@@ -21,6 +21,23 @@ export const getMonthlyTransaction = async () => {
   }
 };
 
+// ! for getting monthly transactions(updated - date , income , expense , transaction)
+export const getMonthlyTransactionUpdated = async () => {
+  try {
+    const result = await axiosInstance.get(
+      `/transactions/monthly-transaction-updated`
+    );
+
+    return result?.data?.data;
+  } catch (error: any) {
+    console.log(error);
+    Toast.show({
+      type: "error",
+      text1: error?.response?.data?.message,
+    });
+  }
+};
+
 // ! for getting daily transaction
 export const getDailyTransaction = async () => {
   try {
