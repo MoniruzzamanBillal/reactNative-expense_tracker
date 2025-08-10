@@ -52,6 +52,41 @@ const getMonthlyTransactions = (userId, month, year) => __awaiter(void 0, void 0
         .reduce((acc, curr) => acc + curr.amount, 0);
     return { income, expense, transactions };
 });
+// ! for getting monthly data
+const getMonthlyTransactionsUpdated = (userId) => __awaiter(void 0, void 0, void 0, function* () {
+    const userData = yield user_model_1.userModel.findById(userId);
+    if (!userData) {
+        throw new AppError_1.default(http_status_1.default.BAD_REQUEST, "User does not exist !!!");
+    }
+    const today = new Date();
+    const year = today.getUTCFullYear();
+    const month = today.getUTCMonth() + 1;
+    const start = new Date(year, month - 1, 1);
+    const end = new Date(year, month, 0, 23, 59, 59, 999);
+    const transactions = yield transaction_model_1.transactionModel
+        .find({
+        user: userId,
+        createdAt: { $gte: start, $lte: end },
+    })
+        .sort({ createdAt: -1 });
+    const dailyDate = {};
+    transactions === null || transactions === void 0 ? void 0 : transactions.forEach((tran) => {
+        var _a;
+        const day = (_a = tran === null || tran === void 0 ? void 0 : tran.createdAt) === null || _a === void 0 ? void 0 : _a.getUTCDate();
+        const dateString = `${year}-${month.toString().padStart(2, "0")}-${day.toString().padStart(2, "0")}`;
+        if (!dailyDate[dateString]) {
+            dailyDate[dateString] = { income: 0, expense: 0, transactions: [] };
+        }
+        dailyDate[dateString].transactions.push(tran);
+        if ((tran === null || tran === void 0 ? void 0 : tran.type) === transaction_constant_1.transactionConstants.income) {
+            dailyDate[dateString].income += tran === null || tran === void 0 ? void 0 : tran.amount;
+        }
+        else if ((tran === null || tran === void 0 ? void 0 : tran.type) === (transaction_constant_1.transactionConstants === null || transaction_constant_1.transactionConstants === void 0 ? void 0 : transaction_constant_1.transactionConstants.expense)) {
+            dailyDate[dateString].expense += tran === null || tran === void 0 ? void 0 : tran.amount;
+        }
+    });
+    return dailyDate;
+});
 // ! for getting the daily transaction
 const getDailyTransactions = (userId) => __awaiter(void 0, void 0, void 0, function* () {
     const userData = yield user_model_1.userModel.findById(userId);
@@ -141,4 +176,5 @@ exports.transactionServices = {
     deleteTransactionData,
     getDailyTransactions,
     getYearlySummary,
+    getMonthlyTransactionsUpdated,
 };

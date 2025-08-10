@@ -12,6 +12,8 @@ const transaction_validation_1 = require("./transaction.validation");
 const router = (0, express_1.Router)();
 // ! Get monthly transactions
 router.get("/monthly-transaction", authCheck_1.default, transaction_controller_1.transactionControllers.getMonthlyTransactions);
+// ! Get monthly transactions
+router.get("/monthly-transaction-updated", authCheck_1.default, transaction_controller_1.transactionControllers.getMonthlyTransactionsUpdated);
 // ! for getting the daily transaction
 router.get("/daily-transaction", authCheck_1.default, transaction_controller_1.transactionControllers.getDailyTransactions);
 // ! for getting the yearly transaction

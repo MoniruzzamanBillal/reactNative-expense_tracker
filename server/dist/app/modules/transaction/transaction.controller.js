@@ -56,10 +56,21 @@ const getMonthlyTransactions = (0, catchAsync_1.default)((req, res) => __awaiter
         data: result,
     });
 }));
+// ! Get monthly transactions (default: current month)
+const getMonthlyTransactionsUpdated = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    var _h;
+    const result = yield transaction_service_1.transactionServices.getMonthlyTransactionsUpdated((_h = req === null || req === void 0 ? void 0 : req.user) === null || _h === void 0 ? void 0 : _h.userId);
+    (0, sendResponse_1.default)(res, {
+        status: http_status_1.default.OK,
+        success: true,
+        message: `Transactions retrived successfully !!!`,
+        data: result,
+    });
+}));
 // ! for getting the daily transaction
 const getDailyTransactions = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    var _h;
-    const result = yield transaction_service_1.transactionServices.getDailyTransactions((_h = req === null || req === void 0 ? void 0 : req.user) === null || _h === void 0 ? void 0 : _h.userId);
+    var _j;
+    const result = yield transaction_service_1.transactionServices.getDailyTransactions((_j = req === null || req === void 0 ? void 0 : req.user) === null || _j === void 0 ? void 0 : _j.userId);
     (0, sendResponse_1.default)(res, {
         status: http_status_1.default.OK,
         success: true,
@@ -69,8 +80,8 @@ const getDailyTransactions = (0, catchAsync_1.default)((req, res) => __awaiter(v
 }));
 // ! for getting the yearly transaction summary
 const getYearlySummary = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    var _j;
-    const result = yield transaction_service_1.transactionServices.getYearlySummary((_j = req === null || req === void 0 ? void 0 : req.user) === null || _j === void 0 ? void 0 : _j.userId);
+    var _k;
+    const result = yield transaction_service_1.transactionServices.getYearlySummary((_k = req === null || req === void 0 ? void 0 : req.user) === null || _k === void 0 ? void 0 : _k.userId);
     (0, sendResponse_1.default)(res, {
         status: http_status_1.default.OK,
         success: true,
@@ -80,8 +91,8 @@ const getYearlySummary = (0, catchAsync_1.default)((req, res) => __awaiter(void 
 }));
 // ! for deletig transaction data
 const deleteTransactionData = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    var _k;
-    const result = yield transaction_service_1.transactionServices.deleteTransactionData((_k = req.params) === null || _k === void 0 ? void 0 : _k.transactionId);
+    var _l;
+    const result = yield transaction_service_1.transactionServices.deleteTransactionData((_l = req.params) === null || _l === void 0 ? void 0 : _l.transactionId);
     (0, sendResponse_1.default)(res, {
         status: http_status_1.default.OK,
         success: true,
@@ -97,4 +108,5 @@ exports.transactionControllers = {
     deleteTransactionData,
     getDailyTransactions,
     getYearlySummary,
+    getMonthlyTransactionsUpdated,
 };

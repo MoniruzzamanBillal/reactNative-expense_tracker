@@ -103,7 +103,16 @@ const getMonthlyTransactionsUpdated = async (userId: string) => {
     }
   });
 
-  return dailyDate;
+  const updatedData = Object.entries(dailyDate)?.map(([date, value]) => ({
+    date,
+    income: value?.income,
+    expense: value?.expense,
+    transactions: value?.transactions,
+  }));
+
+  // console.log(updatedData);
+
+  return updatedData;
 };
 
 // ! for getting the daily transaction
