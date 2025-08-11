@@ -3,10 +3,7 @@ import {
   TotalBalanceCard,
   TransactionAccordion,
 } from "@/components/Home";
-import {
-  useGetDailyTransactionUpdated,
-  useGetMonthlyTransaction,
-} from "@/hooks/transaction.hooks";
+import { useGetDailyTransactionUpdated } from "@/hooks/transaction.hooks";
 import { useState } from "react";
 import {
   Dimensions,
@@ -26,12 +23,10 @@ export default function MonthlyTransactionScreen() {
     data: monthlyTransaction,
     isLoading,
     refetch,
-  } = useGetMonthlyTransaction();
+  } = useGetDailyTransactionUpdated();
 
-  const { data: transactionsData } = useGetDailyTransactionUpdated();
-
-  console.log(transactionsData);
-  console.log(monthlyTransaction);
+  // console.log(transactionsData);
+  // console.log(monthlyTransaction?.transactionData);
 
   const handleRefresh = async () => {
     setRefreshing(true);
@@ -68,14 +63,16 @@ export default function MonthlyTransactionScreen() {
             <RefreshControl refreshing={refreshing} onRefresh={handleRefresh} />
           }
         >
-          {!monthlyTransaction?.transactions?.length && (
+          {!monthlyTransaction?.transactionData?.length && (
             <Text style={{ fontWeight: "600", fontSize: 20, color: "red" }}>
               No transactions yet !!!
             </Text>
           )}
 
-          {transactionsData && (
-            <TransactionAccordion dailyData={transactionsData} />
+          {monthlyTransaction?.transactionData && (
+            <TransactionAccordion
+              dailyData={monthlyTransaction?.transactionData}
+            />
           )}
         </ScrollView>
       </View>

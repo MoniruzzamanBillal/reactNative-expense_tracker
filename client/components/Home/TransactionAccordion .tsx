@@ -1,13 +1,27 @@
+import { TTransaction } from "@/types/Transaction.tyes";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { format } from "date-fns";
 import { useState } from "react";
 import { FlatList, StyleSheet, TouchableOpacity, View } from "react-native";
 import Collapsible from "react-native-collapsible";
 import { Text } from "react-native-paper";
 import TransactionCard from "./TransactionCard";
 
-import { format } from "date-fns";
+type TDailyData = {
+  date: string;
+  expense: number;
+  income: number;
+  transactions: TTransaction[];
+};
 
-export default function TransactionAccordion({ dailyData }) {
+type TProps = {
+  dailyData: TDailyData[];
+};
+
+export default function TransactionAccordion({ dailyData }: TProps) {
   const [activeDate, setActiveDate] = useState<string | null>(null);
+
+  console.log(dailyData);
 
   const toggleAccordion = (date: string) => {
     setActiveDate(activeDate === date ? null : date);
@@ -16,41 +30,57 @@ export default function TransactionAccordion({ dailyData }) {
   return (
     <View>
       {dailyData &&
-        dailyData?.map((day) => (
-          <View key={day.date} style={styles.accordionItem}>
-            {/* Accordion Header */}
-            <TouchableOpacity
-              onPress={() => toggleAccordion(day.date)}
-              style={styles.header}
-            >
-              <Text style={styles.date}>
-                {format(new Date(day.date as string), "d MMMM, yyyy")}
-              </Text>
-              <View style={styles.amounts}>
-                <Text style={styles.income}>+৳{day.income}</Text>
-                <Text style={styles.expense}>-৳{day.expense}</Text>
-              </View>
-            </TouchableOpacity>
+        dailyData?.map((day: TDailyData) => {
+          const isActive = activeDate === day?.date;
 
-            {/* Collapsible Content */}
-            <Collapsible collapsed={activeDate !== day.date}>
-              <FlatList
-                data={day.transactions}
-                keyExtractor={(item) => item._id}
-                renderItem={({ item }) => (
-                  <TransactionCard transactionData={item} />
-                )}
-              />
-            </Collapsible>
-          </View>
-        ))}
+          return (
+            <View key={day?.date} style={styles.accordionItem}>
+              {/* Accordion Header */}
+
+              <TouchableOpacity
+                onPress={() => toggleAccordion(day?.date)}
+                style={styles.header}
+              >
+                <View style={{ flexDirection: "row", alignItems: "center" }}>
+                  <Text style={styles.date}>
+                    {format(new Date(day?.date as string), "d MMMM, yyyy")}
+                  </Text>
+                </View>
+
+                <View style={{ flexDirection: "row", alignItems: "center" }}>
+                  <View style={styles.amounts}>
+                    <Text style={styles.income}>+৳{day?.income}</Text>
+                    <Text style={styles.expense}>-৳{day?.expense}</Text>
+                  </View>
+                  <MaterialCommunityIcons
+                    name={isActive ? "chevron-up" : "chevron-down"}
+                    size={24}
+                    color="#333"
+                    style={{ marginLeft: 8 }}
+                  />
+                </View>
+              </TouchableOpacity>
+
+              {/* Collapsible Content */}
+              <Collapsible collapsed={activeDate !== day?.date}>
+                <FlatList
+                  data={day.transactions}
+                  keyExtractor={(item, index) => item?._id ?? index.toString()}
+                  renderItem={({ item }) => (
+                    <TransactionCard transactionData={item} />
+                  )}
+                />
+              </Collapsible>
+            </View>
+          );
+        })}
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   accordionItem: {
-    marginBottom: 10,
+    marginBottom: 12,
     backgroundColor: "#fff",
     borderRadius: 8,
     overflow: "hidden",
@@ -61,7 +91,7 @@ const styles = StyleSheet.create({
   },
   header: {
     padding: 12,
-    backgroundColor: "#f5f5f5",
+    backgroundColor: "#fff",
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",

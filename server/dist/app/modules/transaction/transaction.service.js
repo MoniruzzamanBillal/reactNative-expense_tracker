@@ -70,6 +70,12 @@ const getMonthlyTransactionsUpdated = (userId) => __awaiter(void 0, void 0, void
         createdAt: { $gte: start, $lte: end },
     })
         .sort({ createdAt: -1 });
+    const income = transactions
+        .filter((t) => t.type === "income")
+        .reduce((acc, curr) => acc + curr.amount, 0);
+    const expense = transactions
+        .filter((t) => t.type === "expense")
+        .reduce((acc, curr) => acc + curr.amount, 0);
     const dailyDate = {};
     transactions === null || transactions === void 0 ? void 0 : transactions.forEach((tran) => {
         var _a;
@@ -93,7 +99,7 @@ const getMonthlyTransactionsUpdated = (userId) => __awaiter(void 0, void 0, void
         transactions: value === null || value === void 0 ? void 0 : value.transactions,
     }));
     // console.log(updatedData);
-    return updatedData;
+    return { income, expense, transactionData: updatedData };
 });
 // ! for getting the daily transaction
 const getDailyTransactions = (userId) => __awaiter(void 0, void 0, void 0, function* () {

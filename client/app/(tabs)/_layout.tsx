@@ -74,20 +74,6 @@ export default function TabsLayout() {
             ),
           }}
         />
-        <Tabs.Screen
-          name="test"
-          options={{
-            title: "Test Page",
-            tabBarIcon: ({ color, size }) => (
-              <MaterialCommunityIcons
-                name="chart-line"
-                // name="calendar-month"
-                size={size}
-                color={color}
-              />
-            ),
-          }}
-        />
       </Tabs>
     </AuthGuard>
   );
