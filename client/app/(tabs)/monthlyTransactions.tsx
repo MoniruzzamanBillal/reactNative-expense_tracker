@@ -2,13 +2,11 @@ import {
   HomeSkeleton,
   TotalBalanceCard,
   TransactionAccordion,
-  TransactionCard,
 } from "@/components/Home";
 import {
   useGetDailyTransactionUpdated,
   useGetMonthlyTransaction,
 } from "@/hooks/transaction.hooks";
-import { TTransaction } from "@/types/Transaction.tyes";
 import { useState } from "react";
 import {
   Dimensions,
@@ -32,7 +30,8 @@ export default function MonthlyTransactionScreen() {
 
   const { data: transactionsData } = useGetDailyTransactionUpdated();
 
-  // console.log(monthlyTransaction);
+  console.log(transactionsData);
+  console.log(monthlyTransaction);
 
   const handleRefresh = async () => {
     setRefreshing(true);
@@ -78,16 +77,6 @@ export default function MonthlyTransactionScreen() {
           {transactionsData && (
             <TransactionAccordion dailyData={transactionsData} />
           )}
-
-          {monthlyTransaction?.transactions &&
-            monthlyTransaction?.transactions?.map(
-              (transaction: TTransaction) => (
-                <TransactionCard
-                  key={transaction?._id}
-                  transactionData={transaction}
-                />
-              )
-            )}
         </ScrollView>
       </View>
     </View>

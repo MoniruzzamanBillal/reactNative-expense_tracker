@@ -77,6 +77,14 @@ const getMonthlyTransactionsUpdated = async (userId: string) => {
     })
     .sort({ createdAt: -1 });
 
+  const income = transactions
+    .filter((t) => t.type === "income")
+    .reduce((acc, curr) => acc + curr.amount, 0);
+
+  const expense = transactions
+    .filter((t) => t.type === "expense")
+    .reduce((acc, curr) => acc + curr.amount, 0);
+
   const dailyDate: {
     [day: string]: {
       income: number;
@@ -112,7 +120,7 @@ const getMonthlyTransactionsUpdated = async (userId: string) => {
 
   // console.log(updatedData);
 
-  return updatedData;
+  return { income, expense, transactionData: updatedData };
 };
 
 // ! for getting the daily transaction
