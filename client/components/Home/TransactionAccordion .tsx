@@ -21,7 +21,7 @@ type TProps = {
 export default function TransactionAccordion({ dailyData }: TProps) {
   const [activeDate, setActiveDate] = useState<string | null>(null);
 
-  console.log(dailyData);
+  // console.log(dailyData);
 
   const toggleAccordion = (date: string) => {
     setActiveDate(activeDate === date ? null : date);
@@ -41,7 +41,12 @@ export default function TransactionAccordion({ dailyData }: TProps) {
                 onPress={() => toggleAccordion(day?.date)}
                 style={styles.header}
               >
-                <View style={{ flexDirection: "row", alignItems: "center" }}>
+                <View
+                  style={{
+                    flexDirection: "row",
+                    alignItems: "center",
+                  }}
+                >
                   <Text style={styles.date}>
                     {format(new Date(day?.date as string), "d MMMM, yyyy")}
                   </Text>
@@ -64,6 +69,7 @@ export default function TransactionAccordion({ dailyData }: TProps) {
               {/* Collapsible Content */}
               <Collapsible collapsed={activeDate !== day?.date}>
                 <FlatList
+                  style={{ paddingHorizontal: 10 }}
                   data={day.transactions}
                   keyExtractor={(item, index) => item?._id ?? index.toString()}
                   renderItem={({ item }) => (

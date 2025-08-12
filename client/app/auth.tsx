@@ -83,6 +83,7 @@ export default function AuthScreen() {
             {/* image  */}
             <Image
               source={require("@/assets/images/revenue-i4.png")}
+              // source={require("https://i.postimg.cc/fL0nJRzn/revenue-i4.png")}
               style={authStyles.imageStyle}
             />
 
