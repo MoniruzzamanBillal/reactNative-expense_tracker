@@ -55,6 +55,74 @@ const getMonthlyTransactions = async (
   return { income, expense, transactions };
 };
 
+// ! for getting monthly data
+const getMonthlyTransactionsUpdated = async (userId: string) => {
+  const userData = await userModel.findById(userId);
+
+  if (!userData) {
+    throw new AppError(httpStatus.BAD_REQUEST, "User does not exist !!!");
+  }
+
+  const today = new Date();
+  const year = today.getUTCFullYear();
+  const month = today.getUTCMonth() + 1;
+
+  const start = new Date(year, month - 1, 1);
+  const end = new Date(year, month, 0, 23, 59, 59, 999);
+
+  const transactions = await transactionModel
+    .find({
+      user: userId,
+      createdAt: { $gte: start, $lte: end },
+    })
+    .sort({ createdAt: -1 });
+
+  const income = transactions
+    .filter((t) => t.type === "income")
+    .reduce((acc, curr) => acc + curr.amount, 0);
+
+  const expense = transactions
+    .filter((t) => t.type === "expense")
+    .reduce((acc, curr) => acc + curr.amount, 0);
+
+  const dailyDate: {
+    [day: string]: {
+      income: number;
+      expense: number;
+      transactions: TTransaction[];
+    };
+  } = {};
+
+  transactions?.forEach((tran) => {
+    const day = tran?.createdAt?.getUTCDate() as number;
+
+    const dateString = `${year}-${month.toString().padStart(2, "0")}-${day.toString().padStart(2, "0")}`;
+
+    if (!dailyDate[dateString]) {
+      dailyDate[dateString] = { income: 0, expense: 0, transactions: [] };
+    }
+
+    dailyDate[dateString].transactions.push(tran);
+
+    if (tran?.type === transactionConstants.income) {
+      dailyDate[dateString].income += tran?.amount;
+    } else if (tran?.type === transactionConstants?.expense) {
+      dailyDate[dateString].expense += tran?.amount;
+    }
+  });
+
+  const updatedData = Object.entries(dailyDate)?.map(([date, value]) => ({
+    date,
+    income: value?.income,
+    expense: value?.expense,
+    transactions: value?.transactions,
+  }));
+
+  // console.log(updatedData);
+
+  return { income, expense, transactionData: updatedData };
+};
+
 // ! for getting the daily transaction
 const getDailyTransactions = async (userId: string) => {
   const userData = await userModel.findById(userId);
@@ -194,4 +262,5 @@ export const transactionServices = {
   deleteTransactionData,
   getDailyTransactions,
   getYearlySummary,
+  getMonthlyTransactionsUpdated,
 };
