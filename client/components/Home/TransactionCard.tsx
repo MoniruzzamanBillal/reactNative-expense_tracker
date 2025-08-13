@@ -165,7 +165,7 @@ export default function TransactionCard({
             >
               {format(
                 new Date(transactionData?.createdAt as string),
-                "d MMMM, yyyy"
+                "dd-MMM-yyy"
               )}
             </Text>
           </View>

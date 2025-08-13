@@ -3,7 +3,9 @@ import {
   TotalBalanceCard,
   TransactionAccordion,
 } from "@/components/Home";
+
 import { useGetMonthlyTransactionUpdated } from "@/hooks/transaction.hooks";
+
 
 import { useState } from "react";
 import {
@@ -26,7 +28,7 @@ export default function MonthlyTransactionScreen() {
     refetch,
   } = useGetMonthlyTransactionUpdated();
 
-  console.log(monthlyTransaction);
+
 
   const handleRefresh = async () => {
     setRefreshing(true);
