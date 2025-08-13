@@ -1,10 +1,10 @@
 import {
   HomeSkeleton,
   TotalBalanceCard,
-  TransactionCard,
+  TransactionAccordion,
 } from "@/components/Home";
-import { useGetMonthlyTransaction } from "@/hooks/transaction.hooks";
-import { TTransaction } from "@/types/Transaction.tyes";
+import { useGetMonthlyTransactionUpdated } from "@/hooks/transaction.hooks";
+
 import { useState } from "react";
 import {
   Dimensions,
@@ -24,9 +24,9 @@ export default function MonthlyTransactionScreen() {
     data: monthlyTransaction,
     isLoading,
     refetch,
-  } = useGetMonthlyTransaction();
+  } = useGetMonthlyTransactionUpdated();
 
-  // console.log(monthlyTransaction);
+  console.log(monthlyTransaction);
 
   const handleRefresh = async () => {
     setRefreshing(true);
@@ -63,21 +63,17 @@ export default function MonthlyTransactionScreen() {
             <RefreshControl refreshing={refreshing} onRefresh={handleRefresh} />
           }
         >
-          {!monthlyTransaction?.transactions?.length && (
+          {!monthlyTransaction?.transactionData?.length && (
             <Text style={{ fontWeight: "600", fontSize: 20, color: "red" }}>
               No transactions yet !!!
             </Text>
           )}
 
-          {monthlyTransaction?.transactions &&
-            monthlyTransaction?.transactions?.map(
-              (transaction: TTransaction) => (
-                <TransactionCard
-                  key={transaction?._id}
-                  transactionData={transaction}
-                />
-              )
-            )}
+          {monthlyTransaction?.transactionData && (
+            <TransactionAccordion
+              dailyData={monthlyTransaction?.transactionData}
+            />
+          )}
         </ScrollView>
       </View>
     </View>
@@ -91,7 +87,7 @@ const PageStyles = StyleSheet.create({
     flex: 1,
   },
   scrollableList: {
-    marginTop: 5,
+    marginTop: 12,
     flex: 1,
     maxHeight: screenHeight * 0.5,
   },

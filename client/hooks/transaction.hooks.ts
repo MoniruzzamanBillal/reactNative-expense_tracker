@@ -5,6 +5,7 @@ import {
   deleteTransactionData,
   getDailyTransaction,
   getMonthlyTransaction,
+  getMonthlyTransactionUpdated,
   getYearlyTransaction,
 } from "./transaction.function";
 
@@ -13,6 +14,14 @@ export const useGetMonthlyTransaction = () => {
   return useQuery({
     queryKey: ["monthly-transaction"],
     queryFn: async () => await getMonthlyTransaction(),
+  });
+};
+
+// ! for getting daily transaction(updated - date , income , expense , transaction)
+export const useGetMonthlyTransactionUpdated = () => {
+  return useQuery({
+    queryKey: ["monthly-transaction-update"],
+    queryFn: async () => await getMonthlyTransactionUpdated(),
   });
 };
 
@@ -50,6 +59,9 @@ export const useAddTransaction = () => {
       queryClient.invalidateQueries({
         queryKey: ["yearly-transaction"],
       });
+      queryClient.invalidateQueries({
+        queryKey: ["monthly-transaction-update"],
+      });
     },
   });
 };
@@ -71,6 +83,9 @@ export const useDeleteTransaction = () => {
       });
       queryClient.invalidateQueries({
         queryKey: ["yearly-transaction"],
+      });
+      queryClient.invalidateQueries({
+        queryKey: ["monthly-transaction-update"],
       });
     },
   });

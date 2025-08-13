@@ -34,8 +34,8 @@ const getMonthlyTransactions = (userId, month, year) => __awaiter(void 0, void 0
         throw new AppError_1.default(http_status_1.default.BAD_REQUEST, "User does not exist !!!");
     }
     const today = new Date();
-    year = year !== null && year !== void 0 ? year : today.getFullYear();
-    month = month !== null && month !== void 0 ? month : today.getMonth() + 1;
+    year = year !== null && year !== void 0 ? year : today.getUTCFullYear();
+    month = month !== null && month !== void 0 ? month : today.getUTCMonth() + 1;
     const start = new Date(year, month - 1, 1);
     const end = new Date(year, month, 0, 23, 59, 59, 999);
     const transactions = yield transaction_model_1.transactionModel
@@ -51,6 +51,55 @@ const getMonthlyTransactions = (userId, month, year) => __awaiter(void 0, void 0
         .filter((t) => t.type === "expense")
         .reduce((acc, curr) => acc + curr.amount, 0);
     return { income, expense, transactions };
+});
+// ! for getting monthly data
+const getMonthlyTransactionsUpdated = (userId) => __awaiter(void 0, void 0, void 0, function* () {
+    var _a;
+    const userData = yield user_model_1.userModel.findById(userId);
+    if (!userData) {
+        throw new AppError_1.default(http_status_1.default.BAD_REQUEST, "User does not exist !!!");
+    }
+    const today = new Date();
+    const year = today.getUTCFullYear();
+    const month = today.getUTCMonth() + 1;
+    const start = new Date(year, month - 1, 1);
+    const end = new Date(year, month, 0, 23, 59, 59, 999);
+    const transactions = yield transaction_model_1.transactionModel
+        .find({
+        user: userId,
+        createdAt: { $gte: start, $lte: end },
+    })
+        .sort({ createdAt: -1 });
+    const income = transactions
+        .filter((t) => t.type === "income")
+        .reduce((acc, curr) => acc + curr.amount, 0);
+    const expense = transactions
+        .filter((t) => t.type === "expense")
+        .reduce((acc, curr) => acc + curr.amount, 0);
+    const dailyDate = {};
+    transactions === null || transactions === void 0 ? void 0 : transactions.forEach((tran) => {
+        var _a;
+        const day = (_a = tran === null || tran === void 0 ? void 0 : tran.createdAt) === null || _a === void 0 ? void 0 : _a.getUTCDate();
+        const dateString = `${year}-${month.toString().padStart(2, "0")}-${day.toString().padStart(2, "0")}`;
+        if (!dailyDate[dateString]) {
+            dailyDate[dateString] = { income: 0, expense: 0, transactions: [] };
+        }
+        dailyDate[dateString].transactions.push(tran);
+        if ((tran === null || tran === void 0 ? void 0 : tran.type) === transaction_constant_1.transactionConstants.income) {
+            dailyDate[dateString].income += tran === null || tran === void 0 ? void 0 : tran.amount;
+        }
+        else if ((tran === null || tran === void 0 ? void 0 : tran.type) === (transaction_constant_1.transactionConstants === null || transaction_constant_1.transactionConstants === void 0 ? void 0 : transaction_constant_1.transactionConstants.expense)) {
+            dailyDate[dateString].expense += tran === null || tran === void 0 ? void 0 : tran.amount;
+        }
+    });
+    const updatedData = (_a = Object.entries(dailyDate)) === null || _a === void 0 ? void 0 : _a.map(([date, value]) => ({
+        date,
+        income: value === null || value === void 0 ? void 0 : value.income,
+        expense: value === null || value === void 0 ? void 0 : value.expense,
+        transactions: value === null || value === void 0 ? void 0 : value.transactions,
+    }));
+    // console.log(updatedData);
+    return { income, expense, transactionData: updatedData };
 });
 // ! for getting the daily transaction
 const getDailyTransactions = (userId) => __awaiter(void 0, void 0, void 0, function* () {
@@ -78,7 +127,7 @@ const getDailyTransactions = (userId) => __awaiter(void 0, void 0, void 0, funct
 });
 // ! for getting the yearly transaction summary
 const getYearlySummary = (userId) => __awaiter(void 0, void 0, void 0, function* () {
-    var _a;
+    var _b;
     const userData = yield user_model_1.userModel.findById(userId);
     if (!userData) {
         throw new AppError_1.default(http_status_1.default.BAD_REQUEST, "User does not exist !!!");
@@ -103,7 +152,7 @@ const getYearlySummary = (userId) => __awaiter(void 0, void 0, void 0, function*
             monthlySummary[month].expense += transaction.amount;
         }
     }
-    const result = (_a = Object.entries(monthlySummary)) === null || _a === void 0 ? void 0 : _a.map(([month, data]) => ({
+    const result = (_b = Object.entries(monthlySummary)) === null || _b === void 0 ? void 0 : _b.map(([month, data]) => ({
         month: Number(month),
         income: data === null || data === void 0 ? void 0 : data.income,
         expense: data === null || data === void 0 ? void 0 : data.expense,
@@ -141,4 +190,5 @@ exports.transactionServices = {
     deleteTransactionData,
     getDailyTransactions,
     getYearlySummary,
+    getMonthlyTransactionsUpdated,
 };
