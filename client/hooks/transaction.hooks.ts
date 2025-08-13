@@ -17,6 +17,14 @@ export const useGetMonthlyTransaction = () => {
   });
 };
 
+// ! for getting daily transaction(updated - date , income , expense , transaction)
+export const useGetMonthlyTransactionUpdated = () => {
+  return useQuery({
+    queryKey: ["monthly-transaction-update"],
+    queryFn: async () => await getMonthlyTransactionUpdated(),
+  });
+};
+
 // ! for getting daily transaction
 export const useGetDailyTransaction = () => {
   return useQuery({
@@ -59,6 +67,9 @@ export const useAddTransaction = () => {
       queryClient.invalidateQueries({
         queryKey: ["yearly-transaction"],
       });
+      queryClient.invalidateQueries({
+        queryKey: ["monthly-transaction-update"],
+      });
     },
   });
 };
@@ -80,6 +91,9 @@ export const useDeleteTransaction = () => {
       });
       queryClient.invalidateQueries({
         queryKey: ["yearly-transaction"],
+      });
+      queryClient.invalidateQueries({
+        queryKey: ["monthly-transaction-update"],
       });
     },
   });
