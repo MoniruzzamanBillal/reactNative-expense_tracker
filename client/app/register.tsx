@@ -2,8 +2,9 @@ import { useUserRegistration } from "@/hooks/Login.hooks";
 import { COLORS } from "@/utils/colors";
 import { useRouter } from "expo-router";
 import { useState } from "react";
+
+import { Image } from "expo-image";
 import {
-  Image,
   KeyboardAvoidingView,
   Platform,
   Pressable,

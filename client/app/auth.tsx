@@ -1,10 +1,10 @@
 import { useUserContext } from "@/context/user.context";
 import { UseUserLogin } from "@/hooks/Login.hooks";
 import { COLORS } from "@/utils/colors";
+import { Image } from "expo-image";
 import { useRouter } from "expo-router";
 import { useState } from "react";
 import {
-  Image,
   KeyboardAvoidingView,
   Platform,
   Pressable,
@@ -41,7 +41,7 @@ export default function AuthScreen() {
 
     const result = await loginUser(payload);
 
-    console.log(result);
+    // console.log(result);
 
     if (result?.success) {
       const successMessage = result?.message;
