@@ -59,6 +59,9 @@ export const useAddTransaction = () => {
       queryClient.invalidateQueries({
         queryKey: ["yearly-transaction"],
       });
+      queryClient.invalidateQueries({
+        queryKey: ["daily-transaction-update"],
+      });
     },
   });
 };
@@ -80,6 +83,9 @@ export const useDeleteTransaction = () => {
       });
       queryClient.invalidateQueries({
         queryKey: ["yearly-transaction"],
+      });
+      queryClient.invalidateQueries({
+        queryKey: ["daily-transaction-update"],
       });
     },
   });
