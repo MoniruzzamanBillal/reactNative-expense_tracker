@@ -33,6 +33,14 @@ export const useGetDailyTransaction = () => {
   });
 };
 
+// ! for getting daily transaction(updated - date , income , expense , transaction)
+export const useGetDailyTransactionUpdated = () => {
+  return useQuery({
+    queryKey: ["daily-transaction-update"],
+    queryFn: async () => await getMonthlyTransactionUpdated(),
+  });
+};
+
 // ! for getting yearly transaction
 export const useGetYearlyTransaction = () => {
   return useQuery({
