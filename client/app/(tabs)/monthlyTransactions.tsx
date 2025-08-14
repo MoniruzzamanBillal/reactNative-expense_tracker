@@ -1,3 +1,5 @@
+// "postinstall": "npm install || true"
+
 import {
   HomeSkeleton,
   TotalBalanceCard,
@@ -5,7 +7,6 @@ import {
 } from "@/components/Home";
 
 import { useGetMonthlyTransactionUpdated } from "@/hooks/transaction.hooks";
-
 
 import { useState } from "react";
 import {
@@ -27,8 +28,6 @@ export default function MonthlyTransactionScreen() {
     isLoading,
     refetch,
   } = useGetMonthlyTransactionUpdated();
-
-
 
   const handleRefresh = async () => {
     setRefreshing(true);
