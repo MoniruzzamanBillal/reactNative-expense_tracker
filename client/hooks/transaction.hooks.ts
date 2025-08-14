@@ -20,7 +20,7 @@ export const useGetMonthlyTransaction = () => {
 // ! for getting daily transaction(updated - date , income , expense , transaction)
 export const useGetMonthlyTransactionUpdated = () => {
   return useQuery({
-    queryKey: ["monthly-transaction-update"],
+    queryKey: ["monthly-update"],
     queryFn: async () => await getMonthlyTransactionUpdated(),
   });
 };
@@ -62,13 +62,13 @@ export const useAddTransaction = () => {
         queryKey: ["daily-transaction"],
       });
       queryClient.invalidateQueries({
+        queryKey: ["monthly-update"],
+      });
+      queryClient.invalidateQueries({
         queryKey: ["monthly-transaction"],
       });
       queryClient.invalidateQueries({
         queryKey: ["yearly-transaction"],
-      });
-      queryClient.invalidateQueries({
-        queryKey: ["daily-transaction-update"],
       });
     },
   });
@@ -87,13 +87,13 @@ export const useDeleteTransaction = () => {
         queryKey: ["daily-transaction"],
       });
       queryClient.invalidateQueries({
+        queryKey: ["monthly-update"],
+      });
+      queryClient.invalidateQueries({
         queryKey: ["monthly-transaction"],
       });
       queryClient.invalidateQueries({
         queryKey: ["yearly-transaction"],
-      });
-      queryClient.invalidateQueries({
-        queryKey: ["daily-transaction-update"],
       });
     },
   });
