@@ -183,6 +183,8 @@ const cardStyles = StyleSheet.create({
     flexDirection: "column",
     backgroundColor: COLORS.background,
     padding: 8,
+    borderWidth: 1,
+    borderColor: "#ccc",
     borderRadius: 6,
     shadowColor: "#000",
     shadowOffset: { width: 0, height: 4 },
