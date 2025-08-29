@@ -1,4 +1,5 @@
 import { TTransaction } from "@/types/Transaction.tyes";
+import { COLORS } from "@/utils/colors";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { format } from "date-fns";
 import { useState } from "react";
@@ -50,6 +51,19 @@ export default function TransactionAccordion({ dailyData }: TProps) {
                   <Text style={styles.date}>
                     {format(new Date(day?.date as string), "d MMMM, yyyy")}
                   </Text>
+                  <Text
+                    style={{
+                      fontSize: 10,
+                      fontWeight: 700,
+                      color: COLORS.text,
+                    }}
+                  >
+                    {" , "}
+                    {format(
+                      new Date(day?.transactions[0]?.createdAt as string),
+                      "EEEE"
+                    )}
+                  </Text>
                 </View>
 
                 <View style={{ flexDirection: "row", alignItems: "center" }}>
@@ -70,7 +84,7 @@ export default function TransactionAccordion({ dailyData }: TProps) {
               <Collapsible collapsed={activeDate !== day?.date}>
                 <FlatList
                   style={{ paddingHorizontal: 10 }}
-                  data={day.transactions}
+                  data={day?.transactions}
                   keyExtractor={(item, index) => item?._id ?? index.toString()}
                   renderItem={({ item }) => (
                     <TransactionCard transactionData={item} />

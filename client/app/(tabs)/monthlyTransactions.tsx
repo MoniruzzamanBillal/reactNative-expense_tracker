@@ -6,7 +6,6 @@ import {
 
 import { useGetMonthlyTransactionUpdated } from "@/hooks/transaction.hooks";
 
-
 import { useState } from "react";
 import {
   Dimensions,
@@ -28,7 +27,7 @@ export default function MonthlyTransactionScreen() {
     refetch,
   } = useGetMonthlyTransactionUpdated();
 
-
+  // console.log(monthlyTransaction?.transactionData);
 
   const handleRefresh = async () => {
     setRefreshing(true);
