@@ -16,10 +16,31 @@ import {
 } from "react-native";
 import { Text } from "react-native-paper";
 
+import { COLORS } from "@/utils/colors";
+import { Picker } from "@react-native-picker/picker";
+
 const screenHeight = Dimensions.get("window").height;
+
+const monthsData = [
+  { label: "January", value: 1 },
+  { label: "February", value: 2 },
+  { label: "March", value: 3 },
+  { label: "April", value: 4 },
+  { label: "May", value: 5 },
+  { label: "June", value: 6 },
+  { label: "July", value: 7 },
+  { label: "August", value: 8 },
+  { label: "September", value: 9 },
+  { label: "October", value: 10 },
+  { label: "November", value: 11 },
+  { label: "December", value: 12 },
+];
 
 export default function MonthlyTransactionScreen() {
   const [refreshing, setRefreshing] = useState(false);
+
+  const currentMonth = new Date().getMonth() + 1;
+  const [selectedMonth, setSelectedMonth] = useState(currentMonth);
 
   const {
     data: monthlyTransaction,
@@ -53,6 +74,37 @@ export default function MonthlyTransactionScreen() {
       <Text style={{ marginTop: 22, fontSize: 22, fontWeight: "800" }}>
         Recent Transactions :
       </Text>
+
+      {/* month select input  */}
+
+      <View
+        style={{
+          marginTop: 10,
+          flexDirection: "row",
+          alignItems: "center",
+        }}
+      >
+        <Text style={{ fontSize: 18 }}>Current Month : </Text>
+
+        <Picker
+          style={{
+            fontSize: 18,
+            padding: 4,
+            borderColor: COLORS?.border,
+            borderRadius: 4,
+          }}
+          selectedValue={selectedMonth}
+          onValueChange={(value) => setSelectedMonth(value)}
+        >
+          {monthsData.map((month) => (
+            <Picker.Item
+              key={month.value}
+              label={month.label}
+              value={month.value}
+            />
+          ))}
+        </Picker>
+      </View>
 
       {/* Scrollable Transactions */}
 
