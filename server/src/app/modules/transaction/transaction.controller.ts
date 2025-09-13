@@ -58,7 +58,8 @@ const getMonthlyTransactions = catchAsync(async (req, res) => {
 // ! Get monthly transactions (default: current month)
 const getMonthlyTransactionsUpdated = catchAsync(async (req, res) => {
   const result = await transactionServices.getMonthlyTransactionsUpdated(
-    req?.user?.userId
+    req?.user?.userId,
+    req?.body
   );
   sendResponse(res, {
     status: httpStatus.OK,

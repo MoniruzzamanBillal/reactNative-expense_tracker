@@ -55,8 +55,15 @@ const getMonthlyTransactions = async (
   return { income, expense, transactions };
 };
 
+type TMonthlyPayload = {
+  targetMonth?: number;
+};
+
 // ! for getting monthly data
-const getMonthlyTransactionsUpdated = async (userId: string) => {
+const getMonthlyTransactionsUpdated = async (
+  userId: string,
+  payload: TMonthlyPayload
+) => {
   const userData = await userModel.findById(userId);
 
   if (!userData) {
@@ -64,8 +71,8 @@ const getMonthlyTransactionsUpdated = async (userId: string) => {
   }
 
   const today = new Date();
-  const year = today.getUTCFullYear();
-  const month = today.getUTCMonth() + 1;
+  const year = today.getUTCFullYear(); // eg : 2025
+  const month = payload?.targetMonth ?? today.getUTCMonth() + 1; // eg : 2 --> feb
 
   const start = new Date(year, month - 1, 1);
   const end = new Date(year, month, 0, 23, 59, 59, 999);
@@ -78,12 +85,12 @@ const getMonthlyTransactionsUpdated = async (userId: string) => {
     .sort({ createdAt: -1 });
 
   const income = transactions
-    .filter((t) => t.type === "income")
-    .reduce((acc, curr) => acc + curr.amount, 0);
+    .filter((t) => t?.type === transactionConstants?.income)
+    .reduce((acc, curr) => acc + curr?.amount, 0);
 
   const expense = transactions
-    .filter((t) => t.type === "expense")
-    .reduce((acc, curr) => acc + curr.amount, 0);
+    .filter((t) => t?.type === transactionConstants?.expense)
+    .reduce((acc, curr) => acc + curr?.amount, 0);
 
   const dailyDate: {
     [day: string]: {
