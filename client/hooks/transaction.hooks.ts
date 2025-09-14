@@ -18,10 +18,12 @@ export const useGetMonthlyTransaction = () => {
 };
 
 // ! for getting daily transaction(updated - date , income , expense , transaction)
-export const useGetMonthlyTransactionUpdated = () => {
+export const useGetMonthlyTransactionUpdated = (
+  params: Record<string, unknown>
+) => {
   return useQuery({
-    queryKey: ["monthly-update"],
-    queryFn: async () => await getMonthlyTransactionUpdated(),
+    queryKey: ["monthly-update", params],
+    queryFn: async () => await getMonthlyTransactionUpdated(params),
   });
 };
 
@@ -30,14 +32,6 @@ export const useGetDailyTransaction = () => {
   return useQuery({
     queryKey: ["daily-transaction"],
     queryFn: async () => await getDailyTransaction(),
-  });
-};
-
-// ! for getting daily transaction(updated - date , income , expense , transaction)
-export const useGetDailyTransactionUpdated = () => {
-  return useQuery({
-    queryKey: ["daily-transaction-update"],
-    queryFn: async () => await getMonthlyTransactionUpdated(),
   });
 };
 

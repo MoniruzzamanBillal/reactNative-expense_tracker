@@ -1,8 +1,8 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
 
-const serverUrl = "https://expensetrackerapp-fawn.vercel.app/api";
-// const serverUrl = "http://localhost:5000/api";
+// const serverUrl = "https://expensetrackerapp-fawn.vercel.app/api";
+const serverUrl = "http://localhost:5000/api";
 
 const axiosInstance = axios.create({
   baseURL: serverUrl,

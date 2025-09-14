@@ -22,10 +22,13 @@ export const getMonthlyTransaction = async () => {
 };
 
 // ! for getting monthly transactions(updated - date , income , expense , transaction)
-export const getMonthlyTransactionUpdated = async () => {
+export const getMonthlyTransactionUpdated = async (
+  params: Record<string, unknown>
+) => {
   try {
     const result = await axiosInstance.get(
-      `/transactions/monthly-transaction-updated`
+      `/transactions/monthly-transaction-updated`,
+      { params }
     );
 
     return result?.data?.data;

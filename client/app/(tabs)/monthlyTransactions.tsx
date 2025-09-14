@@ -46,9 +46,12 @@ export default function MonthlyTransactionScreen() {
     data: monthlyTransaction,
     isLoading,
     refetch,
-  } = useGetMonthlyTransactionUpdated();
+  } = useGetMonthlyTransactionUpdated({ targetMonth: selectedMonth });
 
   // console.log(monthlyTransaction?.transactionData);
+  // console.log(monthlyTransaction);
+
+  console.log(selectedMonth);
 
   const handleRefresh = async () => {
     setRefreshing(true);

@@ -70,6 +70,7 @@ const getMonthlyTransactionsUpdated = async (
     throw new AppError(httpStatus.BAD_REQUEST, "User does not exist !!!");
   }
 
+  console.log("query in monthly transaction = ");
   console.log(query);
 
   const today = new Date();
