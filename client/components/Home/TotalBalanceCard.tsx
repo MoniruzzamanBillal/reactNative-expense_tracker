@@ -12,7 +12,7 @@ export default function TotalBalanceCard({
   return (
     <View style={cardStyles.container}>
       {/* header , total balance section  */}
-      <View style={{ marginBottom: 25, alignSelf: "center" }}>
+      <View style={{ marginBottom: 20, alignSelf: "center" }}>
         <Text
           style={{
             fontSize: 20,

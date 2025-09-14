@@ -39,8 +39,8 @@ const updateTransaction = (0, catchAsync_1.default)((req, res) => __awaiter(void
         data: result,
     });
 }));
-// ! Get monthly transactions (default: current month)
-const getMonthlyTransactions = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+// ! Get monthly transactions (default: current month) --> legacy controller function , not in use
+const getMonthlyTransactionsLegacy = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     var _c, _d, _e, _f, _g;
     const month = ((_c = req.query) === null || _c === void 0 ? void 0 : _c.month)
         ? parseInt((_d = req.query) === null || _d === void 0 ? void 0 : _d.month)
@@ -48,7 +48,7 @@ const getMonthlyTransactions = (0, catchAsync_1.default)((req, res) => __awaiter
     const year = ((_e = req.query) === null || _e === void 0 ? void 0 : _e.year)
         ? parseInt((_f = req.query) === null || _f === void 0 ? void 0 : _f.year)
         : undefined;
-    const result = yield transaction_service_1.transactionServices.getMonthlyTransactions((_g = req === null || req === void 0 ? void 0 : req.user) === null || _g === void 0 ? void 0 : _g.userId, month, year);
+    const result = yield transaction_service_1.transactionServices.getMonthlyTransactionsLegacy((_g = req === null || req === void 0 ? void 0 : req.user) === null || _g === void 0 ? void 0 : _g.userId, month, year);
     (0, sendResponse_1.default)(res, {
         status: http_status_1.default.OK,
         success: true,
@@ -57,9 +57,9 @@ const getMonthlyTransactions = (0, catchAsync_1.default)((req, res) => __awaiter
     });
 }));
 // ! Get monthly transactions (default: current month)
-const getMonthlyTransactionsUpdated = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+const getMonthlyTransactions = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     var _h;
-    const result = yield transaction_service_1.transactionServices.getMonthlyTransactionsUpdated((_h = req === null || req === void 0 ? void 0 : req.user) === null || _h === void 0 ? void 0 : _h.userId);
+    const result = yield transaction_service_1.transactionServices.getMonthlyTransactions((_h = req === null || req === void 0 ? void 0 : req.user) === null || _h === void 0 ? void 0 : _h.userId, req === null || req === void 0 ? void 0 : req.query);
     (0, sendResponse_1.default)(res, {
         status: http_status_1.default.OK,
         success: true,
@@ -104,9 +104,9 @@ const deleteTransactionData = (0, catchAsync_1.default)((req, res) => __awaiter(
 exports.transactionControllers = {
     addNewTransaction,
     updateTransaction,
-    getMonthlyTransactions,
+    getMonthlyTransactionsLegacy,
     deleteTransactionData,
     getDailyTransactions,
     getYearlySummary,
-    getMonthlyTransactionsUpdated,
+    getMonthlyTransactions,
 };

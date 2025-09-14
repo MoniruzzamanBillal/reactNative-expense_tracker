@@ -49,9 +49,9 @@ export default function MonthlyTransactionScreen() {
   } = useGetMonthlyTransaction({ targetMonth: selectedMonth });
 
   // console.log(monthlyTransaction?.transactionData);
-  console.log(monthlyTransaction);
+  // console.log(monthlyTransaction);
 
-  console.log(selectedMonth);
+  // console.log(selectedMonth);
 
   const handleRefresh = async () => {
     setRefreshing(true);
@@ -87,11 +87,34 @@ export default function MonthlyTransactionScreen() {
           alignItems: "center",
         }}
       >
-        <Text style={{ fontSize: 18 }}>Current Month : </Text>
+        <Text style={{ fontSize: 16, fontWeight: 600 }}>Current Month : </Text>
 
-        <Picker
+        <View
           style={{
-            fontSize: 18,
+            borderWidth: 1,
+            borderColor: COLORS.border,
+            borderRadius: 4,
+            overflow: "hidden",
+            flex: 1,
+          }}
+        >
+          <Picker
+            selectedValue={selectedMonth}
+            onValueChange={(value) => setSelectedMonth(value)}
+          >
+            {monthsData.map((month) => (
+              <Picker.Item
+                key={month?.value}
+                label={month?.label}
+                value={month?.value}
+              />
+            ))}
+          </Picker>
+        </View>
+
+        {/* <Picker
+          style={{
+            fontSize: 16,
             padding: 4,
             borderColor: COLORS?.border,
             borderRadius: 4,
@@ -106,7 +129,7 @@ export default function MonthlyTransactionScreen() {
               value={month.value}
             />
           ))}
-        </Picker>
+        </Picker> */}
       </View>
 
       {/* Scrollable Transactions */}
@@ -145,6 +168,6 @@ const PageStyles = StyleSheet.create({
   scrollableList: {
     marginTop: 12,
     flex: 1,
-    maxHeight: screenHeight * 0.5,
+    maxHeight: screenHeight * 0.6,
   },
 });

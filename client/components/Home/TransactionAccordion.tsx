@@ -53,9 +53,9 @@ export default function TransactionAccordion({ dailyData }: TProps) {
                   </Text>
                   <Text
                     style={{
-                      fontSize: 10,
+                      fontSize: 9,
                       fontWeight: 700,
-                      color: COLORS.text,
+                      color: COLORS.primary,
                     }}
                   >
                     {" , "}
