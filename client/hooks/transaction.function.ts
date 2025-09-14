@@ -2,14 +2,12 @@ import { TTransaction } from "@/types/Transaction.tyes";
 import axiosInstance from "@/utils/axiosInstance";
 import Toast from "react-native-toast-message";
 
-// const baseUrl = "http://localhost:5000/api/transactions";
-// const baseUrl = "https://expensetrackerapp-fawn.vercel.app/api/transactions";
-
-// ! for getting monthly transactions
-export const getMonthlyTransaction = async () => {
+// ! for getting monthly transactions --> legacy function , not in use
+export const getMonthlyTransactionLegacy = async () => {
   try {
-    // const result = await axios.get(`${baseUrl}/monthly-transaction`);
-    const result = await axiosInstance.get(`/transactions/monthly-transaction`);
+    const result = await axiosInstance.get(
+      `/transactions/monthly-transaction-legacy`
+    );
 
     return result?.data?.data;
   } catch (error: any) {
@@ -21,13 +19,13 @@ export const getMonthlyTransaction = async () => {
   }
 };
 
-// ! for getting monthly transactions(updated - date , income , expense , transaction)
-export const getMonthlyTransactionUpdated = async (
+// ! for getting monthly transactions(date , income , expense , transaction)
+export const getMonthlyTransaction = async (
   params: Record<string, unknown>
 ) => {
   try {
     const result = await axiosInstance.get(
-      `/transactions/monthly-transaction-updated`,
+      `/transactions/monthly-transaction`,
       { params }
     );
 

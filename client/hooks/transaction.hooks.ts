@@ -5,25 +5,23 @@ import {
   deleteTransactionData,
   getDailyTransaction,
   getMonthlyTransaction,
-  getMonthlyTransactionUpdated,
+  getMonthlyTransactionLegacy,
   getYearlyTransaction,
 } from "./transaction.function";
 
-// ! for getting monthly transaction
-export const useGetMonthlyTransaction = () => {
+// ! for getting monthly transaction --> legacy hook , not in use
+export const useGetMonthlyTransactionLegacy = () => {
   return useQuery({
-    queryKey: ["monthly-transaction"],
-    queryFn: async () => await getMonthlyTransaction(),
+    queryKey: ["monthly-transaction-legacy"],
+    queryFn: async () => await getMonthlyTransactionLegacy(),
   });
 };
 
-// ! for getting daily transaction(updated - date , income , expense , transaction)
-export const useGetMonthlyTransactionUpdated = (
-  params: Record<string, unknown>
-) => {
+// ! for getting monthly transaction( date , income , expense , transaction)
+export const useGetMonthlyTransaction = (params: Record<string, unknown>) => {
   return useQuery({
-    queryKey: ["monthly-update", params],
-    queryFn: async () => await getMonthlyTransactionUpdated(params),
+    queryKey: ["monthly-transaction", params],
+    queryFn: async () => await getMonthlyTransaction(params),
   });
 };
 
@@ -56,10 +54,10 @@ export const useAddTransaction = () => {
         queryKey: ["daily-transaction"],
       });
       queryClient.invalidateQueries({
-        queryKey: ["monthly-update"],
+        queryKey: ["monthly-transaction"],
       });
       queryClient.invalidateQueries({
-        queryKey: ["monthly-transaction"],
+        queryKey: ["monthly-transaction-legacy"],
       });
       queryClient.invalidateQueries({
         queryKey: ["yearly-transaction"],
@@ -81,10 +79,10 @@ export const useDeleteTransaction = () => {
         queryKey: ["daily-transaction"],
       });
       queryClient.invalidateQueries({
-        queryKey: ["monthly-update"],
+        queryKey: ["monthly-transaction"],
       });
       queryClient.invalidateQueries({
-        queryKey: ["monthly-transaction"],
+        queryKey: ["monthly-transaction-legacy"],
       });
       queryClient.invalidateQueries({
         queryKey: ["yearly-transaction"],

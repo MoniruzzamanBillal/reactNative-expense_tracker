@@ -4,7 +4,7 @@ import {
   TransactionAccordion,
 } from "@/components/Home";
 
-import { useGetMonthlyTransactionUpdated } from "@/hooks/transaction.hooks";
+import { useGetMonthlyTransaction } from "@/hooks/transaction.hooks";
 
 import { useState } from "react";
 import {
@@ -46,10 +46,10 @@ export default function MonthlyTransactionScreen() {
     data: monthlyTransaction,
     isLoading,
     refetch,
-  } = useGetMonthlyTransactionUpdated({ targetMonth: selectedMonth });
+  } = useGetMonthlyTransaction({ targetMonth: selectedMonth });
 
   // console.log(monthlyTransaction?.transactionData);
-  // console.log(monthlyTransaction);
+  console.log(monthlyTransaction);
 
   console.log(selectedMonth);
 
