@@ -18,8 +18,8 @@ const addNewTransaction = async (payload: TTransaction, userId: string) => {
   return result;
 };
 
-// ! for getting monthly data
-const getMonthlyTransactions = async (
+// ! for getting monthly data --> legecy service function , not in use
+const getMonthlyTransactionsLegacy = async (
   userId: string,
   month?: number,
   year?: number
@@ -60,7 +60,7 @@ type TMonthlyPayload = {
 };
 
 // ! for getting monthly data
-const getMonthlyTransactionsUpdated = async (
+const getMonthlyTransactions = async (
   userId: string,
   query: TMonthlyPayload
 ) => {
@@ -268,9 +268,9 @@ const deleteTransactionData = async (transactionId: string) => {
 export const transactionServices = {
   addNewTransaction,
   updateTransaction,
-  getMonthlyTransactions,
+  getMonthlyTransactionsLegacy,
   deleteTransactionData,
   getDailyTransactions,
   getYearlySummary,
-  getMonthlyTransactionsUpdated,
+  getMonthlyTransactions,
 };
