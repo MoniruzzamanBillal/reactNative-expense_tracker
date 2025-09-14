@@ -99,6 +99,7 @@ export default function MonthlyTransactionScreen() {
           }}
         >
           <Picker
+            style={{ color: COLORS.primary }}
             selectedValue={selectedMonth}
             onValueChange={(value) => setSelectedMonth(value)}
           >
