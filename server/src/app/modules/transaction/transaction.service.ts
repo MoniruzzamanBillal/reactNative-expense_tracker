@@ -62,7 +62,7 @@ type TMonthlyPayload = {
 // ! for getting monthly data
 const getMonthlyTransactionsUpdated = async (
   userId: string,
-  payload: TMonthlyPayload
+  query: TMonthlyPayload
 ) => {
   const userData = await userModel.findById(userId);
 
@@ -70,9 +70,11 @@ const getMonthlyTransactionsUpdated = async (
     throw new AppError(httpStatus.BAD_REQUEST, "User does not exist !!!");
   }
 
+  console.log(query);
+
   const today = new Date();
   const year = today.getUTCFullYear(); // eg : 2025
-  const month = payload?.targetMonth ?? today.getUTCMonth() + 1; // eg : 2 --> feb
+  const month = query?.targetMonth ?? today.getUTCMonth() + 1; // eg : 2 --> feb
 
   const start = new Date(year, month - 1, 1);
   const end = new Date(year, month, 0, 23, 59, 59, 999);
