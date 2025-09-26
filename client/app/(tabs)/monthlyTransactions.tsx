@@ -74,7 +74,7 @@ export default function MonthlyTransactionScreen() {
       )}
 
       {/* Title for transactions */}
-      <Text style={{ marginTop: 22, fontSize: 22, fontWeight: "800" }}>
+      <Text style={{ marginTop: 12, fontSize: 22, fontWeight: "800" }}>
         Recent Transactions :
       </Text>
 
@@ -82,7 +82,7 @@ export default function MonthlyTransactionScreen() {
 
       <View
         style={{
-          marginTop: 10,
+          marginTop: 6,
           flexDirection: "row",
           alignItems: "center",
         }}
@@ -112,25 +112,6 @@ export default function MonthlyTransactionScreen() {
             ))}
           </Picker>
         </View>
-
-        {/* <Picker
-          style={{
-            fontSize: 16,
-            padding: 4,
-            borderColor: COLORS?.border,
-            borderRadius: 4,
-          }}
-          selectedValue={selectedMonth}
-          onValueChange={(value) => setSelectedMonth(value)}
-        >
-          {monthsData.map((month) => (
-            <Picker.Item
-              key={month.value}
-              label={month.label}
-              value={month.value}
-            />
-          ))}
-        </Picker> */}
       </View>
 
       {/* Scrollable Transactions */}
@@ -169,6 +150,6 @@ const PageStyles = StyleSheet.create({
   scrollableList: {
     marginTop: 12,
     flex: 1,
-    maxHeight: screenHeight * 0.6,
+    maxHeight: screenHeight * 0.7,
   },
 });

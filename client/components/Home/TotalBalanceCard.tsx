@@ -52,7 +52,7 @@ export default function TotalBalanceCard({
             style={{
               fontSize: 16,
               color: COLORS.income,
-              fontWeight: "500",
+              fontWeight: "600",
               textAlign: "center",
               marginBottom: 4,
             }}
@@ -94,7 +94,7 @@ export default function TotalBalanceCard({
             style={{
               fontSize: 16,
               color: COLORS.expense,
-              fontWeight: "500",
+              fontWeight: "600",
               textAlign: "center",
               marginBottom: 4,
             }}
@@ -135,7 +135,7 @@ export default function TotalBalanceCard({
 
 const cardStyles = StyleSheet.create({
   container: {
-    marginTop: 24,
+    marginTop: 8,
     width: "75%",
     alignSelf: "center",
     backgroundColor: COLORS.background,
