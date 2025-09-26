@@ -146,7 +146,7 @@ export default function TransactionCard({
                   fontSize: 17,
                   fontWeight: "600",
                   color:
-                    transactionData.type === typeOptions.income
+                    transactionData?.type === typeOptions.income
                       ? COLORS.income
                       : COLORS.expense,
                 }}
@@ -158,8 +158,8 @@ export default function TransactionCard({
             {/* date section  */}
             <Text
               style={{
-                fontSize: 13,
-                fontWeight: "600",
+                fontSize: 12,
+                fontWeight: "900",
                 color: COLORS.textLight,
               }}
             >
@@ -182,7 +182,7 @@ const cardStyles = StyleSheet.create({
     marginVertical: 8,
     flexDirection: "column",
     backgroundColor: COLORS.background,
-    padding: 8,
+    padding: 7,
     borderWidth: 1,
     borderColor: "#ccc",
     borderRadius: 6,

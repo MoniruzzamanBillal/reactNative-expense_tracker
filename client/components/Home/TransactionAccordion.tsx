@@ -49,12 +49,12 @@ export default function TransactionAccordion({ dailyData }: TProps) {
                   }}
                 >
                   <Text style={styles.date}>
-                    {format(new Date(day?.date as string), "d MMMM, yyyy")}
+                    {format(new Date(day?.date as string), "d MMM, yyyy")}
                   </Text>
                   <Text
                     style={{
-                      fontSize: 8,
-                      fontWeight: 700,
+                      fontSize: 9,
+                      fontWeight: "900",
                       color: COLORS.primary,
                     }}
                   >

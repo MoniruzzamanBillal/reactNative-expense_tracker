@@ -125,7 +125,7 @@ export default function MonthlyTransactionScreen() {
           }
         >
           {!monthlyTransaction?.transactionData?.length && (
-            <Text style={{ fontWeight: "600", fontSize: 20, color: "red" }}>
+            <Text style={{ fontWeight: "600", fontSize: 24, color: "red" }}>
               No transactions yet !!!
             </Text>
           )}
@@ -148,7 +148,7 @@ const PageStyles = StyleSheet.create({
     flex: 1,
   },
   scrollableList: {
-    marginTop: 12,
+    marginTop: 8,
     flex: 1,
     maxHeight: screenHeight * 0.7,
   },

@@ -91,8 +91,8 @@ const homePageStyles = StyleSheet.create({
     flex: 1,
   },
   scrollableList: {
-    marginTop: 5,
+    marginTop: 4,
     flex: 1,
-    maxHeight: screenHeight * 0.5,
+    maxHeight: screenHeight * 0.7,
   },
 });
