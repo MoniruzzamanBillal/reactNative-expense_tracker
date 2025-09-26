@@ -49,7 +49,7 @@ export default function HomeScreen() {
       )}
 
       {/* Title for transactions */}
-      <Text style={{ marginTop: 22, fontSize: 22, fontWeight: "800" }}>
+      <Text style={{ marginTop: 12, fontSize: 22, fontWeight: "800" }}>
         Transactions :
       </Text>
 
@@ -64,7 +64,7 @@ export default function HomeScreen() {
           }
         >
           {!monthlyTransaction?.transactions?.length && (
-            <Text style={{ fontWeight: "600", fontSize: 20, color: "red" }}>
+            <Text style={{ fontWeight: "600", fontSize: 24, color: "red" }}>
               No transactions yet !!!
             </Text>
           )}

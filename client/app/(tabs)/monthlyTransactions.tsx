@@ -74,7 +74,7 @@ export default function MonthlyTransactionScreen() {
       )}
 
       {/* Title for transactions */}
-      <Text style={{ marginTop: 12, fontSize: 22, fontWeight: "800" }}>
+      <Text style={{ marginTop: 13, fontSize: 22, fontWeight: "800" }}>
         Recent Transactions :
       </Text>
 
