@@ -187,10 +187,10 @@ const cardStyles = StyleSheet.create({
     borderColor: "#ccc",
     borderRadius: 6,
     shadowColor: "#000",
-    shadowOffset: { width: 0, height: 4 },
+    shadowOffset: { width: 0, height: 1 },
     shadowOpacity: 0.1,
-    shadowRadius: 6,
-    elevation: 2,
+    shadowRadius: 1,
+    elevation: 1,
   },
 
   leftAction: {
