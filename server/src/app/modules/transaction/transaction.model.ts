@@ -39,14 +39,6 @@ const transactionSchema = new Schema<TTransaction>(
   { timestamps: true }
 );
 
-transactionSchema.pre("findOne", async function (next) {
-  this.where({ isDeleted: false });
-});
-
-transactionSchema.pre("find", async function (next) {
-  this.where({ isDeleted: false });
-});
-
 //
 export const transactionModel = model<TTransaction>(
   "Transaction",

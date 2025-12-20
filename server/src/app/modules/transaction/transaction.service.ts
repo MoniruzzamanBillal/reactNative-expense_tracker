@@ -6,12 +6,6 @@ import { transactionModel } from "./transaction.model";
 
 // ! for adding new transaction
 const addNewTransaction = async (payload: TTransaction, userId: string) => {
-  // const userData = await userModel.findById(userId);
-
-  // if (!userData) {
-  //   throw new AppError(httpStatus.BAD_REQUEST, "User does not exist !!!");
-  // }
-
   const result = await transactionModel.create({ ...payload, user: userId });
 
   return result;
@@ -23,12 +17,6 @@ const getMonthlyTransactionsLegacy = async (
   month?: number,
   year?: number
 ) => {
-  // const userData = await userModel.findById(userId);
-
-  // if (!userData) {
-  //   throw new AppError(httpStatus.BAD_REQUEST, "User does not exist !!!");
-  // }
-
   const today = new Date();
   year = year ?? today.getUTCFullYear();
   month = month ?? today.getUTCMonth() + 1;
@@ -40,6 +28,7 @@ const getMonthlyTransactionsLegacy = async (
     .find({
       user: userId,
       createdAt: { $gte: start, $lte: end },
+      isDeleted: false,
     })
     .sort({ createdAt: -1 });
 
@@ -63,15 +52,6 @@ const getMonthlyTransactions = async (
   userId: string,
   query: TMonthlyPayload
 ) => {
-  // const userData = await userModel.findById(userId);
-
-  // if (!userData) {
-  //   throw new AppError(httpStatus.BAD_REQUEST, "User does not exist !!!");
-  // }
-
-  // console.log("query in monthly transaction = ");
-  // console.log(query);
-
   const today = new Date();
   const year = today.getUTCFullYear(); // eg : 2025
   const month = query?.targetMonth ?? today.getUTCMonth() + 1; // eg : 2 --> feb
@@ -83,6 +63,7 @@ const getMonthlyTransactions = async (
     .find({
       user: userId,
       createdAt: { $gte: start, $lte: end },
+      isDeleted: false,
     })
     .sort({ createdAt: -1 });
 
@@ -127,19 +108,11 @@ const getMonthlyTransactions = async (
     transactions: value?.transactions,
   }));
 
-  // console.log(updatedData);
-
   return { income, expense, transactionData: updatedData };
 };
 
 // ! for getting the daily transaction
 const getDailyTransactions = async (userId: string) => {
-  // const userData = await userModel.findById(userId);
-
-  // if (!userData) {
-  //   throw new AppError(httpStatus.BAD_REQUEST, "User does not exist !!!");
-  // }
-
   const today = new Date();
 
   const start = new Date(
@@ -166,6 +139,7 @@ const getDailyTransactions = async (userId: string) => {
     .find({
       user: userId,
       createdAt: { $gte: start, $lte: end },
+      isDeleted: false,
     })
     .sort({ createdAt: -1 });
 
@@ -184,12 +158,6 @@ const getDailyTransactions = async (userId: string) => {
 
 // ! for getting the yearly transaction summary
 const getYearlySummary = async (userId: string) => {
-  // const userData = await userModel.findById(userId);
-
-  // if (!userData) {
-  //   throw new AppError(httpStatus.BAD_REQUEST, "User does not exist !!!");
-  // }
-
   const currentYear = new Date().getFullYear();
 
   const start = new Date(currentYear, 0, 1);
@@ -198,6 +166,7 @@ const getYearlySummary = async (userId: string) => {
   const transactions = await transactionModel.find({
     user: userId,
     createdAt: { $gte: start, $lte: end },
+    isDeleted: false,
   });
 
   const monthlySummary: Record<number, { income: number; expense: number }> =
@@ -231,7 +200,10 @@ const updateTransaction = async (
   transactionId: string,
   payload: Partial<TTransaction>
 ) => {
-  const transactionData = await transactionModel.findById(transactionId);
+  const transactionData = await transactionModel.findOne({
+    _id: transactionId,
+    isDeleted: false,
+  });
 
   if (!transactionData) {
     throw new AppError(httpStatus.BAD_REQUEST, "Invalid transaction id !!!");
