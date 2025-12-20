@@ -15,24 +15,15 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.transactionServices = void 0;
 const http_status_1 = __importDefault(require("http-status"));
 const AppError_1 = __importDefault(require("../../Error/AppError"));
-const user_model_1 = require("../user/user.model");
 const transaction_constant_1 = require("./transaction.constant");
 const transaction_model_1 = require("./transaction.model");
 // ! for adding new transaction
 const addNewTransaction = (payload, userId) => __awaiter(void 0, void 0, void 0, function* () {
-    const userData = yield user_model_1.userModel.findById(userId);
-    if (!userData) {
-        throw new AppError_1.default(http_status_1.default.BAD_REQUEST, "User does not exist !!!");
-    }
     const result = yield transaction_model_1.transactionModel.create(Object.assign(Object.assign({}, payload), { user: userId }));
     return result;
 });
 // ! for getting monthly data --> legecy service function , not in use
 const getMonthlyTransactionsLegacy = (userId, month, year) => __awaiter(void 0, void 0, void 0, function* () {
-    const userData = yield user_model_1.userModel.findById(userId);
-    if (!userData) {
-        throw new AppError_1.default(http_status_1.default.BAD_REQUEST, "User does not exist !!!");
-    }
     const today = new Date();
     year = year !== null && year !== void 0 ? year : today.getUTCFullYear();
     month = month !== null && month !== void 0 ? month : today.getUTCMonth() + 1;
@@ -42,6 +33,7 @@ const getMonthlyTransactionsLegacy = (userId, month, year) => __awaiter(void 0, 
         .find({
         user: userId,
         createdAt: { $gte: start, $lte: end },
+        isDeleted: false,
     })
         .sort({ createdAt: -1 });
     const income = transactions
@@ -55,12 +47,6 @@ const getMonthlyTransactionsLegacy = (userId, month, year) => __awaiter(void 0, 
 // ! for getting monthly data
 const getMonthlyTransactions = (userId, query) => __awaiter(void 0, void 0, void 0, function* () {
     var _a, _b;
-    const userData = yield user_model_1.userModel.findById(userId);
-    if (!userData) {
-        throw new AppError_1.default(http_status_1.default.BAD_REQUEST, "User does not exist !!!");
-    }
-    console.log("query in monthly transaction = ");
-    console.log(query);
     const today = new Date();
     const year = today.getUTCFullYear(); // eg : 2025
     const month = (_a = query === null || query === void 0 ? void 0 : query.targetMonth) !== null && _a !== void 0 ? _a : today.getUTCMonth() + 1; // eg : 2 --> feb
@@ -70,6 +56,7 @@ const getMonthlyTransactions = (userId, query) => __awaiter(void 0, void 0, void
         .find({
         user: userId,
         createdAt: { $gte: start, $lte: end },
+        isDeleted: false,
     })
         .sort({ createdAt: -1 });
     const income = transactions
@@ -100,15 +87,10 @@ const getMonthlyTransactions = (userId, query) => __awaiter(void 0, void 0, void
         expense: value === null || value === void 0 ? void 0 : value.expense,
         transactions: value === null || value === void 0 ? void 0 : value.transactions,
     }));
-    // console.log(updatedData);
     return { income, expense, transactionData: updatedData };
 });
 // ! for getting the daily transaction
 const getDailyTransactions = (userId) => __awaiter(void 0, void 0, void 0, function* () {
-    const userData = yield user_model_1.userModel.findById(userId);
-    if (!userData) {
-        throw new AppError_1.default(http_status_1.default.BAD_REQUEST, "User does not exist !!!");
-    }
     const today = new Date();
     const start = new Date(today.getUTCFullYear(), today.getUTCMonth(), today.getUTCDate(), 0, 0, 0, 0);
     const end = new Date(today.getUTCFullYear(), today.getUTCMonth(), today.getUTCDate(), 23, 59, 59, 999);
@@ -116,6 +98,7 @@ const getDailyTransactions = (userId) => __awaiter(void 0, void 0, void 0, funct
         .find({
         user: userId,
         createdAt: { $gte: start, $lte: end },
+        isDeleted: false,
     })
         .sort({ createdAt: -1 });
     const income = transactions
@@ -129,17 +112,14 @@ const getDailyTransactions = (userId) => __awaiter(void 0, void 0, void 0, funct
 });
 // ! for getting the yearly transaction summary
 const getYearlySummary = (userId) => __awaiter(void 0, void 0, void 0, function* () {
-    var _c;
-    const userData = yield user_model_1.userModel.findById(userId);
-    if (!userData) {
-        throw new AppError_1.default(http_status_1.default.BAD_REQUEST, "User does not exist !!!");
-    }
+    var _a;
     const currentYear = new Date().getFullYear();
     const start = new Date(currentYear, 0, 1);
     const end = new Date(currentYear + 1, 0, 1);
     const transactions = yield transaction_model_1.transactionModel.find({
         user: userId,
         createdAt: { $gte: start, $lte: end },
+        isDeleted: false,
     });
     const monthlySummary = {};
     for (let i = 0; i < 12; i++) {
@@ -154,7 +134,7 @@ const getYearlySummary = (userId) => __awaiter(void 0, void 0, void 0, function*
             monthlySummary[month].expense += transaction.amount;
         }
     }
-    const result = (_c = Object.entries(monthlySummary)) === null || _c === void 0 ? void 0 : _c.map(([month, data]) => ({
+    const result = (_a = Object.entries(monthlySummary)) === null || _a === void 0 ? void 0 : _a.map(([month, data]) => ({
         month: Number(month),
         income: data === null || data === void 0 ? void 0 : data.income,
         expense: data === null || data === void 0 ? void 0 : data.expense,
@@ -163,7 +143,10 @@ const getYearlySummary = (userId) => __awaiter(void 0, void 0, void 0, function*
 });
 // ! for updating transaction
 const updateTransaction = (transactionId, payload) => __awaiter(void 0, void 0, void 0, function* () {
-    const transactionData = yield transaction_model_1.transactionModel.findById(transactionId);
+    const transactionData = yield transaction_model_1.transactionModel.findOne({
+        _id: transactionId,
+        isDeleted: false,
+    });
     if (!transactionData) {
         throw new AppError_1.default(http_status_1.default.BAD_REQUEST, "Invalid transaction id !!!");
     }
