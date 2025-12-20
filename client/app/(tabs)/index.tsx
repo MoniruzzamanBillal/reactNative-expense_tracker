@@ -3,8 +3,10 @@ import {
   TotalBalanceCard,
   TransactionCard,
 } from "@/components/Home";
+import { useUserContext } from "@/context/user.context";
 import { useGetDailyTransaction } from "@/hooks/transaction.hooks";
 import { TTransaction } from "@/types/Transaction.tyes";
+import { useRouter } from "expo-router";
 import { useState } from "react";
 import {
   Dimensions,
@@ -14,19 +16,43 @@ import {
   View,
 } from "react-native";
 import { Text } from "react-native-paper";
+import Toast from "react-native-toast-message";
 
 const screenHeight = Dimensions.get("window").height;
 
 export default function HomeScreen() {
+  const { logoutFunction } = useUserContext();
+  const router = useRouter();
   const [refreshing, setRefreshing] = useState(false);
 
   const {
     data: monthlyTransaction,
+    error,
     isLoading,
     refetch,
   } = useGetDailyTransaction();
 
-  // console.log(monthlyTransaction);
+  // console.log("daily transaction page = ");
+  // console.log("loading state = ", isLoading);
+  // console.log(error);
+  // console.log(error?.response?.data?.message);
+  // Invalid or expired token
+  // console.log(error?.response?.data);
+
+  // console.log(error);
+
+  if (
+    !isLoading &&
+    (error as any)?.response?.data?.message.includes("Invalid or expired token")
+  ) {
+    Toast.show({
+      type: "error",
+      text1: "login please ",
+    });
+
+    logoutFunction();
+    router.replace("/auth");
+  }
 
   const handleRefresh = async () => {
     setRefreshing(true);
@@ -49,7 +75,7 @@ export default function HomeScreen() {
       )}
 
       {/* Title for transactions */}
-      <Text style={{ marginTop: 12, fontSize: 22, fontWeight: "800" }}>
+      <Text style={{ marginTop: 8, fontSize: 22, fontWeight: "800" }}>
         Transactions :
       </Text>
 

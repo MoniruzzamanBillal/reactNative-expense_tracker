@@ -20,7 +20,7 @@ export const getMonthlyTransactionLegacy = async () => {
 };
 
 // ! for getting monthly transactions(date , income , expense , transaction)
-export const getMonthlyTransaction = async (
+export const getMonthlyTransaction2 = async (
   params: Record<string, unknown>
 ) => {
   try {
@@ -31,16 +31,29 @@ export const getMonthlyTransaction = async (
 
     return result?.data?.data;
   } catch (error: any) {
-    console.log(error);
+    console.log("monthly error ");
+    console.log(error?.response?.data?.message);
+
+    // "Invalid or expired token"
+
     Toast.show({
       type: "error",
       text1: error?.response?.data?.message,
     });
   }
 };
+export const getMonthlyTransaction = async (
+  params: Record<string, unknown>
+) => {
+  const result = await axiosInstance.get(`/transactions/monthly-transaction`, {
+    params,
+  });
+
+  return result?.data?.data;
+};
 
 // ! for getting daily transaction
-export const getDailyTransaction = async () => {
+export const getDailyTransaction2 = async () => {
   try {
     const result = await axiosInstance.get(`/transactions/daily-transaction`);
 
@@ -54,8 +67,14 @@ export const getDailyTransaction = async () => {
   }
 };
 
+export const getDailyTransaction = async () => {
+  const result = await axiosInstance.get(`/transactions/daily-transaction`);
+
+  return result?.data?.data;
+};
+
 // ! for getting yearly transaction data
-export const getYearlyTransaction = async () => {
+export const getYearlyTransaction2 = async () => {
   try {
     const result = await axiosInstance.get(`/transactions/yearly-transaction`);
 
@@ -67,6 +86,12 @@ export const getYearlyTransaction = async () => {
       text1: error?.response?.data?.message,
     });
   }
+};
+
+export const getYearlyTransaction = async () => {
+  const result = await axiosInstance.get(`/transactions/yearly-transaction`);
+
+  return result?.data?.data;
 };
 
 // !for adding new transaction

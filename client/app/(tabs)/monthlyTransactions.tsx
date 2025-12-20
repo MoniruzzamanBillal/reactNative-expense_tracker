@@ -16,8 +16,11 @@ import {
 } from "react-native";
 import { Text } from "react-native-paper";
 
+import { useUserContext } from "@/context/user.context";
 import { COLORS } from "@/utils/colors";
 import { Picker } from "@react-native-picker/picker";
+import { useRouter } from "expo-router";
+import Toast from "react-native-toast-message";
 
 const screenHeight = Dimensions.get("window").height;
 
@@ -37,6 +40,9 @@ const monthsData = [
 ];
 
 export default function MonthlyTransactionScreen() {
+  const { logoutFunction } = useUserContext();
+  const router = useRouter();
+
   const [refreshing, setRefreshing] = useState(false);
 
   const currentMonth = new Date().getMonth() + 1;
@@ -45,6 +51,7 @@ export default function MonthlyTransactionScreen() {
   const {
     data: monthlyTransaction,
     isLoading,
+    error,
     refetch,
   } = useGetMonthlyTransaction({ targetMonth: selectedMonth });
 
@@ -52,6 +59,21 @@ export default function MonthlyTransactionScreen() {
   // console.log(monthlyTransaction);
 
   // console.log(selectedMonth);
+
+  // console.log(error);
+
+  if (
+    !isLoading &&
+    (error as any)?.response?.data?.message.includes("Invalid or expired token")
+  ) {
+    Toast.show({
+      type: "error",
+      text1: "login please ",
+    });
+
+    logoutFunction();
+    router.replace("/auth");
+  }
 
   const handleRefresh = async () => {
     setRefreshing(true);
@@ -74,7 +96,7 @@ export default function MonthlyTransactionScreen() {
       )}
 
       {/* Title for transactions */}
-      <Text style={{ marginTop: 13, fontSize: 22, fontWeight: "800" }}>
+      <Text style={{ marginTop: 8, fontSize: 22, fontWeight: "800" }}>
         Recent Transactions :
       </Text>
 
@@ -82,7 +104,7 @@ export default function MonthlyTransactionScreen() {
 
       <View
         style={{
-          marginTop: 6,
+          marginTop: 5,
           flexDirection: "row",
           alignItems: "center",
         }}

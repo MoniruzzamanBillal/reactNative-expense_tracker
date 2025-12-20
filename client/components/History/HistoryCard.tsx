@@ -30,7 +30,7 @@ export default function HistoryCard({
         style={{
           fontWeight: 700,
           fontSize: 20,
-          marginBottom: 3,
+          marginBottom: 2,
           color: COLORS.primary,
         }}
       >
@@ -166,15 +166,15 @@ const historyCardStyle = StyleSheet.create({
   container: {
     width: "98%",
     margin: "auto",
-    marginVertical: 10,
+    marginVertical: 6,
     flexDirection: "column",
     backgroundColor: COLORS.background,
     padding: 8,
     borderRadius: 5,
     shadowColor: "#000",
-    shadowOffset: { width: 0, height: 1 },
+    shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
     shadowRadius: 2,
-    elevation: 1,
+    elevation: 2,
   },
 });

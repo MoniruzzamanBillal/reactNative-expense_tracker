@@ -25,3 +25,6 @@ export const registerUser = async (payload: TRegisterPayload) => {
     console.log(error);
   }
 };
+
+// ! for logout and navigate to login
+export const logoutUserExpireToken = async () => {};

@@ -6,6 +6,8 @@ const serverUrl = "https://expensetrackerapp-fawn.vercel.app/api";
 
 const axiosInstance = axios.create({
   baseURL: serverUrl,
+  // new
+  withCredentials: true,
 });
 
 axiosInstance.interceptors.request.use(

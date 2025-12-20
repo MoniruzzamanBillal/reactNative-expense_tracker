@@ -18,7 +18,7 @@ export default function HomeSkeleton() {
         </View>
 
         {/* Transactions title */}
-        <View style={{ marginTop: 50 }}>
+        <View style={{ marginTop: 20 }}>
           <View style={[styles.skeleton, { width: 200, height: 24 }]} />
         </View>
 
