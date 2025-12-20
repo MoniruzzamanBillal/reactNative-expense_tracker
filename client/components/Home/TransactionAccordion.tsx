@@ -49,11 +49,11 @@ export default function TransactionAccordion({ dailyData }: TProps) {
                   }}
                 >
                   <Text style={styles.date}>
-                    {format(new Date(day?.date as string), "d MMM, yyyy")}
+                    {format(new Date(day?.date as string), "d MMM")}
                   </Text>
                   <Text
                     style={{
-                      fontSize: 9,
+                      fontSize: 11,
                       fontWeight: "900",
                       color: COLORS.primary,
                     }}
@@ -100,11 +100,11 @@ export default function TransactionAccordion({ dailyData }: TProps) {
 
 const styles = StyleSheet.create({
   accordionItem: {
-    marginBottom: 12,
+    marginBottom: 10,
     backgroundColor: "#fff",
-    borderRadius: 8,
+    borderRadius: 6,
     overflow: "hidden",
-    elevation: 4,
+    elevation: 1,
     padding: 2,
     borderWidth: 1,
     borderColor: "#ccc",

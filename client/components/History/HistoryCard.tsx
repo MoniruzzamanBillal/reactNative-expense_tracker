@@ -30,7 +30,7 @@ export default function HistoryCard({
         style={{
           fontWeight: 700,
           fontSize: 20,
-          marginBottom: 4,
+          marginBottom: 3,
           color: COLORS.primary,
         }}
       >
@@ -61,7 +61,7 @@ export default function HistoryCard({
               color: COLORS.income,
             }}
           >
-            Income :
+            Inc :
           </Text>
           <Text
             style={{
@@ -99,7 +99,7 @@ export default function HistoryCard({
               color: COLORS.expense,
             }}
           >
-            Expense :
+            Exp :
           </Text>
           <Text
             style={{
@@ -164,15 +164,17 @@ export default function HistoryCard({
 
 const historyCardStyle = StyleSheet.create({
   container: {
+    width: "98%",
+    margin: "auto",
     marginVertical: 10,
     flexDirection: "column",
     backgroundColor: COLORS.background,
-    padding: 10,
-    borderRadius: 6,
+    padding: 8,
+    borderRadius: 5,
     shadowColor: "#000",
-    shadowOffset: { width: 0, height: 4 },
+    shadowOffset: { width: 0, height: 1 },
     shadowOpacity: 0.1,
-    shadowRadius: 6,
-    elevation: 2,
+    shadowRadius: 2,
+    elevation: 1,
   },
 });
