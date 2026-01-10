@@ -98,7 +98,7 @@ video link : https://drive.google.com/file/d/1ldSujwrj7bQlwAGk1OzOKDohC0jwamVI/v
 ## 📱 APK Download
 
 You can try out the app by installing the APK directly on your Android device:
-link : https://drive.google.com/file/d/1pN_yEUsnU2s6yHgbOqGyroich4V5Wpai/view?usp=sharing
+link : https://drive.google.com/file/d/1L5abVzlhywlrAc7thLjQuIaBXfDhTy1o/view?usp=sharing
 
 ---
 
