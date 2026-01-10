@@ -70,6 +70,9 @@ export default function TransactionAccordion({ dailyData }: TProps) {
                   <View style={styles.amounts}>
                     <Text style={styles.income}>+৳{day?.income}</Text>
                     <Text style={styles.expense}>-৳{day?.expense}</Text>
+                    <Text style={styles.balance}>
+                      B:{day?.income - day?.expense || 0}
+                    </Text>
                   </View>
                   <MaterialCommunityIcons
                     name={isActive ? "chevron-up" : "chevron-down"}
@@ -122,14 +125,20 @@ const styles = StyleSheet.create({
   },
   amounts: {
     flexDirection: "row",
-    columnGap: 12,
+    columnGap: 8,
   },
   income: {
     color: "green",
     fontWeight: "bold",
+    fontSize: 12,
   },
   expense: {
     color: "red",
     fontWeight: "bold",
+    fontSize: 12,
+  },
+  balance: {
+    fontWeight: "bold",
+    fontSize: 12,
   },
 });
