@@ -9,7 +9,7 @@ export default function HomeSkeleton() {
         <View style={styles.balanceCard}>
           <View style={[styles.skeleton, { width: 120, height: 20 }]} />
           <View
-            style={[styles.skeleton, { width: 180, height: 35, marginTop: 10 }]}
+            style={[styles.skeleton, { width: 190, height: 35, marginTop: 10 }]}
           />
           <View style={styles.balanceRow}>
             <View style={[styles.skeleton, { width: 80, height: 20 }]} />
@@ -18,17 +18,17 @@ export default function HomeSkeleton() {
         </View>
 
         {/* Transactions title */}
-        <View style={{ marginTop: 20 }}>
-          <View style={[styles.skeleton, { width: 200, height: 24 }]} />
+        <View style={{ marginTop: 8 }}>
+          <View style={[styles.skeleton, { width: 220, height: 24 }]} />
         </View>
 
         {/* Transaction list skeletons */}
         <View style={styles.transactionList}>
-          {Array.from({ length: 4 }).map((_, index) => (
+          {Array.from({ length: 6 }).map((_, index) => (
             <View key={index} style={styles.transactionCard}>
-              <View style={[styles.skeleton, { width: "60%", height: 20 }]} />
+              <View style={[styles.skeleton, { width: "80%", height: 20 }]} />
               <View style={{ marginTop: 6 }}>
-                <View style={[styles.skeleton, { width: "40%", height: 16 }]} />
+                <View style={[styles.skeleton, { width: "50%", height: 16 }]} />
               </View>
             </View>
           ))}
@@ -55,7 +55,7 @@ const styles = StyleSheet.create({
     padding: 16,
     borderRadius: 8,
     overflow: "hidden", // Important for shimmer effect
-    marginBottom: 30,
+    marginBottom: 10,
   },
   balanceRow: {
     flexDirection: "row",
@@ -63,7 +63,7 @@ const styles = StyleSheet.create({
     marginTop: 20,
   },
   transactionList: {
-    marginTop: 10,
+    marginTop: 16,
   },
   transactionCard: {
     backgroundColor: "#f3f3f3",

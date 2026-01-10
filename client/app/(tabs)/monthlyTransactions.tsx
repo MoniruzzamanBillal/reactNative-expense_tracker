@@ -95,12 +95,6 @@ export default function MonthlyTransactionScreen() {
         />
       )}
 
-      {/* Title for transactions */}
-      {/*  */}
-      {/* <Text style={{ marginTop: 8, fontSize: 22, fontWeight: "800" }}>
-        Recent Transactions :
-      </Text> */}
-
       {/* month select input  */}
 
       <View

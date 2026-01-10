@@ -140,5 +140,6 @@ const styles = StyleSheet.create({
   balance: {
     fontWeight: "bold",
     fontSize: 12,
+    color: COLORS.primary,
   },
 });
