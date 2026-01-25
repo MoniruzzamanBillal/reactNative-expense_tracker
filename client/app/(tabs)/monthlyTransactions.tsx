@@ -104,7 +104,7 @@ export default function MonthlyTransactionScreen() {
           alignItems: "center",
         }}
       >
-        <Text style={{ fontSize: 16, fontWeight: 600 }}>Current Month : </Text>
+        <Text style={{ fontSize: 15, fontWeight: 700 }}>Current Month : </Text>
 
         <View
           style={{

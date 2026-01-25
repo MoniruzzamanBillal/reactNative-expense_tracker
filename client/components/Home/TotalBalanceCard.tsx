@@ -12,13 +12,13 @@ export default function TotalBalanceCard({
   return (
     <View style={cardStyles.container}>
       {/* header , total balance section  */}
-      <View style={{ marginBottom: 9, alignSelf: "center" }}>
+      <View style={{ marginBottom: 5, alignSelf: "center" }}>
         <Text
           style={{
-            fontSize: 20,
+            fontSize: 18,
             color: COLORS.text,
             fontWeight: "700",
-            marginBottom: 4,
+            marginBottom: 1,
           }}
         >
           Total Banalce
@@ -30,8 +30,8 @@ export default function TotalBalanceCard({
             columnGap: 2,
           }}
         >
-          <Text style={[cardStyles.title, { fontSize: 30 }]}>৳</Text>
-          <Text style={[cardStyles.title, { fontSize: 30 }]}>
+          <Text style={[cardStyles.title, { fontSize: 22 }]}>৳</Text>
+          <Text style={[cardStyles.title, { fontSize: 22 }]}>
             {income - expense}
           </Text>
         </View>
@@ -43,18 +43,18 @@ export default function TotalBalanceCard({
         style={{
           flexDirection: "row",
           justifyContent: "space-between",
-          columnGap: 35,
+          columnGap: 20,
         }}
       >
         {/* income view  */}
         <View>
           <Text
             style={{
-              fontSize: 16,
+              fontSize: 14,
               color: COLORS.income,
               fontWeight: "600",
               textAlign: "center",
-              marginBottom: 4,
+              marginBottom: 1,
             }}
           >
             Income
@@ -67,12 +67,12 @@ export default function TotalBalanceCard({
             }}
           >
             <Text
-              style={{ fontSize: 20, fontWeight: "bold", color: COLORS.income }}
+              style={{ fontSize: 15, fontWeight: "bold", color: COLORS.income }}
             >
               +৳
             </Text>
             <Text
-              style={{ fontSize: 20, fontWeight: "600", color: COLORS.income }}
+              style={{ fontSize: 15, fontWeight: "600", color: COLORS.income }}
             >
               {income}
             </Text>
@@ -92,11 +92,11 @@ export default function TotalBalanceCard({
         <View>
           <Text
             style={{
-              fontSize: 16,
+              fontSize: 14,
               color: COLORS.expense,
               fontWeight: "600",
               textAlign: "center",
-              marginBottom: 4,
+              marginBottom: 1,
             }}
           >
             Expense
@@ -110,7 +110,7 @@ export default function TotalBalanceCard({
           >
             <Text
               style={{
-                fontSize: 20,
+                fontSize: 15,
                 fontWeight: "bold",
                 color: COLORS.expense,
               }}
@@ -118,7 +118,7 @@ export default function TotalBalanceCard({
               +৳
             </Text>
             <Text
-              style={{ fontSize: 20, fontWeight: "600", color: COLORS.expense }}
+              style={{ fontSize: 15, fontWeight: "600", color: COLORS.expense }}
             >
               {expense}
             </Text>
@@ -135,8 +135,8 @@ export default function TotalBalanceCard({
 
 const cardStyles = StyleSheet.create({
   container: {
-    marginTop: 8,
-    width: "75%",
+    marginTop: 9,
+    width: "70%",
     alignSelf: "center",
     backgroundColor: COLORS.background,
     padding: 12,

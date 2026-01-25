@@ -18,7 +18,7 @@ export default function HomeSkeleton() {
         </View>
 
         {/* Transactions title */}
-        <View style={{ marginTop: 8 }}>
+        <View style={{ marginTop: 10 }}>
           <View style={[styles.skeleton, { width: 220, height: 24 }]} />
         </View>
 
@@ -41,7 +41,7 @@ export default function HomeSkeleton() {
 const styles = StyleSheet.create({
   mainContainer: {
     flex: 1,
-    paddingTop: 20,
+    paddingTop: 22,
     backgroundColor: "white",
   },
   wrapper: {
@@ -55,7 +55,7 @@ const styles = StyleSheet.create({
     padding: 16,
     borderRadius: 8,
     overflow: "hidden", // Important for shimmer effect
-    marginBottom: 10,
+    marginBottom: 12,
   },
   balanceRow: {
     flexDirection: "row",
@@ -63,7 +63,7 @@ const styles = StyleSheet.create({
     marginTop: 20,
   },
   transactionList: {
-    marginTop: 16,
+    marginTop: 18,
   },
   transactionCard: {
     backgroundColor: "#f3f3f3",

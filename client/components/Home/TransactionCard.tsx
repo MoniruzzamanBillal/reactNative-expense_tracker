@@ -87,13 +87,13 @@ export default function TransactionCard({
               {transactionData?.type === typeOptions?.income ? (
                 <MaterialCommunityIcons
                   name="cash-multiple"
-                  size={30}
+                  size={28}
                   color="green"
                 />
               ) : (
                 <MaterialCommunityIcons
                   name="cash-minus"
-                  size={30}
+                  size={28}
                   color="red"
                 />
               )}
@@ -102,11 +102,11 @@ export default function TransactionCard({
             {/* title , description  */}
             <View>
               <Text
-                style={{ fontSize: 15, fontWeight: "600", marginBottom: 3 }}
+                style={{ fontSize: 13, fontWeight: "600", marginBottom: 3 }}
               >
                 {transactionData?.description}
               </Text>
-              <Text style={{ fontSize: 13, fontWeight: "700" }}>
+              <Text style={{ fontSize: 12, fontWeight: "700" }}>
                 {transactionData?.title}{" "}
               </Text>
             </View>
@@ -131,7 +131,7 @@ export default function TransactionCard({
             >
               <Text
                 style={{
-                  fontSize: 16,
+                  fontSize: 14,
                   fontWeight: "bold",
                   color:
                     transactionData.type === typeOptions.income
@@ -143,7 +143,7 @@ export default function TransactionCard({
               </Text>
               <Text
                 style={{
-                  fontSize: 17,
+                  fontSize: 14,
                   fontWeight: "600",
                   color:
                     transactionData?.type === typeOptions.income
@@ -158,14 +158,14 @@ export default function TransactionCard({
             {/* date section  */}
             <Text
               style={{
-                fontSize: 12,
+                fontSize: 10,
                 fontWeight: "900",
                 color: COLORS.textLight,
               }}
             >
               {format(
                 new Date(transactionData?.createdAt as string),
-                "dd-MMM-yyy"
+                "dd-MMM-yyy",
               )}
             </Text>
           </View>
@@ -179,7 +179,7 @@ export default function TransactionCard({
 
 const cardStyles = StyleSheet.create({
   container: {
-    marginVertical: 6,
+    marginVertical: 5,
     flexDirection: "column",
     backgroundColor: COLORS.background,
     padding: 7,
